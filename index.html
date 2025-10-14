@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Tracker Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #ffd166;
+            --success: #06d6a0;
+            --warning: #ef476f;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --gray: #6c757d;
+            --card-bg: #1e1e1e;
+            --text: #e9ecef;
+            --border: #333;
+        }
+        
+        [data-theme="light"] {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #ff9e00;
+            --success: #06d6a0;
+            --warning: #ef476f;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --card-bg: #ffffff;
+            --text: #212529;
+            --border: #dee2e6;
+        }
+        
+        body {
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 1100px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--card-bg);
+            color: var(--text);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-edit {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        .btn-edit:hover {
+            opacity: 0.9;
+        }
+        
+        .playlist-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+        
+        .playlist-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .playlist-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .playlist-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .playlist-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .playlist-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .playlist-details.expanded {
+            max-height: 1000px;
+        }
+        
+        .video-list {
+            margin-top: 15px;
+        }
+        
+        .video-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: var(--dark);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+        
+        .video-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .video-item.locked {
+            opacity: 0.6;
+            background: rgba(255, 255, 255, 0.02);
+            cursor: not-allowed;
+        }
+        
+        .video-checkbox {
+            margin-right: 10px;
+            accent-color: var(--accent);
+        }
+        
+        .video-title {
+            flex-grow: 1;
+        }
+        
+        .video-status {
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .status-completed {
+            background: rgba(6, 214, 160, 0.2);
+            color: #06d6a0;
+        }
+        
+        .status-pending {
+            background: rgba(239, 71, 111, 0.2);
+            color: #ef476f;
+        }
+        
+        .status-locked {
+            background: rgba(108, 117, 125, 0.2);
+            color: var(--gray);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 10px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: var(--dark);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--border);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            color: var(--text);
+        }
+        
+        .tab.active {
+            color: var(--accent);
+            border-bottom: 3px solid var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .streak-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        
+        .streak-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .streak-label {
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+        
+        .fire-icon {
+            color: var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .edit-form {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--dark);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .edit-form.active {
+            display: block;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s;
+        }
+        
+        .expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        .calendar-container {
+            margin-top: 30px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .calendar-day {
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-weight: 600;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .calendar-day.active {
+            background: var(--accent);
+            color: var(--dark);
+        }
+        
+        .calendar-day.studied {
+            background: rgba(6, 214, 160, 0.3);
+        }
+        
+        .calendar-day.studied::after {
+            content: "✓";
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 10px;
+            color: var(--success);
+        }
+        
+        .calendar-day-header {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        
+        .chart-container {
+            margin-top: 20px;
+            height: 300px;
+            position: relative;
+        }
+        
+        .floating-add-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+        }
+        
+        .floating-add-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .add-form-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-form-container.active {
+            display: flex;
+        }
+        
+        .add-form-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .close-add-form {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+        
+        .study-details {
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--dark);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .study-details h4 {
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .study-item {
+            padding: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .study-item:last-child {
+            border-bottom: none;
+        }
+        
+        .open-resource-btn {
+            background: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .open-resource-btn:hover {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Learning Tracker Pro</h1>
+                <p class="tagline">Master your skills with 1-Day-1-Video challenge</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i> Dark Mode
+            </button>
+        </header>
+        
+        <div class="streak-counter">
+            <i class="fas fa-fire fire-icon"></i>
+            <div class="streak-number" id="streakCount">0</div>
+            <div class="streak-label">Day Streak</div>
+        </div>
+        
+        <div class="app-container">
+            <div class="left-panel">
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-chart-pie"></i> Progress Overview</h2>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalPlaylists">0</div>
+                            <div class="stat-label">Playlists</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalVideos">0</div>
+                            <div class="stat-label">Total Videos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="completedVideos">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-calendar-alt"></i> Learning Calendar</h2>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <h3 id="currentMonth">October 2025</h3>
+                        </div>
+                        <div class="calendar-grid" id="calendarDays">
+                            <!-- Calendar will be generated here -->
+                        </div>
+                        <div class="study-details" id="studyDetails">
+                            <h4>Study Details</h4>
+                            <p>Click on a date to see what you studied that day</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <div class="card">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="all">All Playlists</div>
+                        <div class="tab" data-tab="in-progress">In Progress</div>
+                        <div class="tab" data-tab="completed">Completed</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="all-tab">
+                        <div id="playlistsContainer">
+                            <!-- Playlists will be added here dynamically -->
+                        </div>
+                        
+                        <div id="emptyState" class="empty-state">
+                            <i class="fas fa-tv"></i>
+                            <h3>No Playlists Yet</h3>
+                            <p>Add your first playlist to get started with your learning journey!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="in-progress-tab">
+                        <div id="inProgressContainer">
+                            <!-- In progress playlists will be added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="completed-tab">
+                        <div id="completedContainer">
+                            <!-- Completed playlists will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Add Button -->
+    <div class="floating-add-btn" id="floatingAddBtn">
+        <i class="fas fa-plus"></i>
+    </div>
+    
+    <!-- Add Playlist Form Modal -->
+    <div class="add-form-container" id="addFormContainer">
+        <div class="add-form-content">
+            <button class="close-add-form" id="closeAddForm">&times;</button>
+            <h2 class="card-title"><i class="fas fa-plus-circle"></i> Add New Playlist</h2>
+            <form id="playlistForm">
+                <div class="form-group">
+                    <label for="playlistName">Playlist Name</label>
+                    <input type="text" id="playlistName" placeholder="e.g., Machine Learning Fundamentals" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="playlistSource">Source</label>
+                    <select id="playlistSource">
+                        <option value="youtube">YouTube</option>
+                        <option value="udemy">Udemy</option>
+                        <option value="coursera">Coursera</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="playlistUrl">Playlist URL (Optional)</label>
+                    <input type="url" id="playlistUrl" placeholder="https://www.youtube.com/playlist?list=...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="videosData">Video List (One per line)</label>
+                    <textarea id="videosData" rows="6" placeholder="Enter video titles, one per line&#10;e.g.,&#10;Introduction to ML&#10;Linear Regression&#10;Logistic Regression&#10;..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Playlist</button>
+                    <button type="button" class="btn-warning" id="cancelAddForm">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal for daily challenge -->
+    <div class="modal" id="dailyChallengeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Daily Learning Challenge</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="dailyChallengeContent">
+                <!-- Content will be filled dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data structure
+        let playlists = JSON.parse(localStorage.getItem('learningPlaylists')) || [];
+        let streak = parseInt(localStorage.getItem('learningStreak')) || 0;
+        let lastCompletedDate = localStorage.getItem('lastCompletedDate') || '';
+        let expandedPlaylistId = null;
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        let progressChart = null;
+        let studyHistory = JSON.parse(localStorage.getItem('studyHistory')) || {};
+        
+        // DOM Elements
+        const playlistForm = document.getElementById('playlistForm');
+        const playlistsContainer = document.getElementById('playlistsContainer');
+        const inProgressContainer = document.getElementById('inProgressContainer');
+        const completedContainer = document.getElementById('completedContainer');
+        const emptyState = document.getElementById('emptyState');
+        const totalPlaylistsEl = document.getElementById('totalPlaylists');
+        const totalVideosEl = document.getElementById('totalVideos');
+        const completedVideosEl = document.getElementById('completedVideos');
+        const streakCountEl = document.getElementById('streakCount');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const dailyChallengeModal = document.getElementById('dailyChallengeModal');
+        const dailyChallengeContent = document.getElementById('dailyChallengeContent');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const themeToggle = document.getElementById('themeToggle');
+        const floatingAddBtn = document.getElementById('floatingAddBtn');
+        const addFormContainer = document.getElementById('addFormContainer');
+        const closeAddForm = document.getElementById('closeAddForm');
+        const cancelAddForm = document.getElementById('cancelAddForm');
+        const calendarDays = document.getElementById('calendarDays');
+        const currentMonthEl = document.getElementById('currentMonth');
+        const studyDetails = document.getElementById('studyDetails');
+        
+        // Initialize the app
+        function init() {
+            setTheme(currentTheme);
+            updateStats();
+            renderPlaylists();
+            updateStreak();
+            checkDailyChallenge();
+            generateCalendar();
+            renderProgressChart();
+            
+            // Set up event listeners
+            playlistForm.addEventListener('submit', handlePlaylistSubmit);
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+            });
+            
+            closeModalBtn.addEventListener('click', () => {
+                dailyChallengeModal.style.display = 'none';
+            });
+            
+            themeToggle.addEventListener('click', toggleTheme);
+            floatingAddBtn.addEventListener('click', () => {
+                addFormContainer.classList.add('active');
+            });
+            
+            closeAddForm.addEventListener('click', () => {
+                addFormContainer.classList.remove('active');
+            });
+            
+            cancelAddForm.addEventListener('click', () => {
+                addFormContainer.classList.remove('active');
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === dailyChallengeModal) {
+                    dailyChallengeModal.style.display = 'none';
+                }
+                if (e.target === addFormContainer) {
+                    addFormContainer.classList.remove('active');
+                }
+            });
+            
+            // Add sample data if empty
+            if (playlists.length === 0) {
+                addSampleData();
+            }
+        }
+        
+        // Add sample data for demonstration
+        function addSampleData() {
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            // Format dates as YYYY-MM-DD
+            const todayStr = today.toISOString().split('T')[0];
+            const yesterdayStr = yesterday.toISOString().split('T')[0];
+            
+            // Add study history for demonstration
+            studyHistory[todayStr] = [
+                { playlist: "Machine Learning Fundamentals", video: "Introduction to ML", completedAt: new Date().toISOString() },
+                { playlist: "Deep Learning Specialization", video: "Neural Networks Basics", completedAt: new Date().toISOString() }
+            ];
+            
+            studyHistory[yesterdayStr] = [
+                { playlist: "Machine Learning Fundamentals", video: "Python for Data Science", completedAt: yesterday.toISOString() }
+            ];
+            
+            localStorage.setItem('studyHistory', JSON.stringify(studyHistory));
+            
+            const samplePlaylists = [
+                {
+                    id: Date.now(),
+                    name: "Machine Learning Fundamentals",
+                    source: "youtube",
+                    url: "https://www.youtube.com/playlist?list=PL-EXAMPLE1",
+                    videos: [
+                        { id: 1, title: "Introduction to ML", completed: true, locked: false, url: "https://www.youtube.com/watch?v=video1" },
+                        { id: 2, title: "Python for Data Science", completed: true, locked: false, url: "https://www.youtube.com/watch?v=video2" },
+                        { id: 3, title: "Data Preprocessing", completed: false, locked: false, url: "https://www.youtube.com/watch?v=video3" },
+                        { id: 4, title: "Linear Regression", completed: false, locked: true, url: "https://www.youtube.com/watch?v=video4" },
+                        { id: 5, title: "Logistic Regression", completed: false, locked: true, url: "https://www.youtube.com/watch?v=video5" }
+                    ],
+                    createdAt: new Date().toISOString(),
+                    progress: 40
+                },
+                {
+                    id: Date.now() + 1,
+                    name: "Deep Learning Specialization",
+                    source: "coursera",
+                    url: "https://www.coursera.org/specializations/deep-learning",
+                    videos: [
+                        { id: 6, title: "Neural Networks Basics", completed: true, locked: false, url: "https://www.coursera.org/learn/neural-networks-deep-learning" },
+                        { id: 7, title: "Improving Deep Neural Networks", completed: false, locked: false, url: "https://www.coursera.org/learn/deep-neural-network" },
+                        { id: 8, title: "Structuring ML Projects", completed: false, locked: true, url: "https://www.coursera.org/learn/machine-learning-projects" },
+                        { id: 9, title: "Convolutional Neural Networks", completed: false, locked: true, url: "https://www.coursera.org/learn/convolutional-neural-networks" },
+                        { id: 10, title: "Sequence Models", completed: false, locked: true, url: "https://www.coursera.org/learn/nlp-sequence-models" }
+                    ],
+                    createdAt: new Date().toISOString(),
+                    progress: 20
+                }
+            ];
+            
+            playlists = samplePlaylists;
+            savePlaylists();
+            renderPlaylists();
+            updateStats();
+            renderProgressChart();
+        }
+        
+        // Set theme
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'dark') {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+            }
+            
+            // Update chart colors if it exists
+            if (progressChart) {
+                renderProgressChart();
+            }
+        }
+        
+        // Toggle theme
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(currentTheme);
+        }
+        
+        // Handle playlist form submission
+        function handlePlaylistSubmit(e) {
+            e.preventDefault();
+            
+            const playlistName = document.getElementById('playlistName').value;
+            const playlistSource = document.getElementById('playlistSource').value;
+            const playlistUrl = document.getElementById('playlistUrl').value;
+            const videosData = document.getElementById('videosData').value;
+            
+            // Create videos array from textarea
+            const videoTitles = videosData.split('\n')
+                .map(title => title.trim())
+                .filter(title => title.length > 0);
+            
+            const videos = videoTitles.map((title, index) => ({
+                id: Date.now() + index,
+                title: title,
+                completed: false,
+                locked: index > 0, // Lock all videos except the first one
+                url: playlistUrl ? `${playlistUrl}&index=${index+1}` : ''
+            }));
+            
+            // Create new playlist
+            const newPlaylist = {
+                id: Date.now(),
+                name: playlistName,
+                source: playlistSource,
+                url: playlistUrl,
+                videos: videos,
+                createdAt: new Date().toISOString(),
+                progress: 0
+            };
+            
+            // Add to playlists array
+            playlists.push(newPlaylist);
+            
+            // Save to localStorage
+            savePlaylists();
+            
+            // Update UI
+            updateStats();
+            renderPlaylists();
+            renderProgressChart();
+            
+            // Reset form and close modal
+            playlistForm.reset();
+            addFormContainer.classList.remove('active');
+            
+            // Show success message
+            alert('Playlist added successfully!');
+        }
+        
+        // Render all playlists
+        function renderPlaylists() {
+            // Clear containers
+            playlistsContainer.innerHTML = '';
+            inProgressContainer.innerHTML = '';
+            completedContainer.innerHTML = '';
+            
+            if (playlists.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            playlists.forEach(playlist => {
+                const playlistEl = createPlaylistElement(playlist);
+                playlistsContainer.appendChild(playlistEl);
+                
+                // Add to appropriate tab container
+                if (playlist.progress === 100) {
+                    const completedEl = createPlaylistElement(playlist);
+                    completedContainer.appendChild(completedEl);
+                } else {
+                    const inProgressEl = createPlaylistElement(playlist);
+                    inProgressContainer.appendChild(inProgressEl);
+                }
+            });
+        }
+        
+        // Create playlist HTML element
+        function createPlaylistElement(playlist) {
+            const playlistEl = document.createElement('div');
+            playlistEl.className = 'playlist-item';
+            playlistEl.dataset.id = playlist.id;
+            
+            // Calculate progress
+            const totalVideos = playlist.videos.length;
+            const completedVideos = playlist.videos.filter(v => v.completed).length;
+            const progress = totalVideos > 0 ? Math.round((completedVideos / totalVideos) * 100) : 0;
+            
+            // Check if this playlist is expanded
+            const isExpanded = expandedPlaylistId === playlist.id;
+            
+            playlistEl.innerHTML = `
+                <div class="playlist-header">
+                    <div class="playlist-title">
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                        ${playlist.name}
+                        ${playlist.url ? `<a href="${playlist.url}" target="_blank" class="open-resource-btn"><i class="fas fa-external-link-alt"></i> Open</a>` : ''}
+                    </div>
+                    <div class="playlist-actions">
+                        <button class="btn-edit" data-playlist="${playlist.id}">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+                </div>
+                <div class="playlist-stats">
+                    <span><i class="fas fa-play-circle"></i> ${completedVideos}/${totalVideos}</span>
+                    <span><i class="fas fa-${getSourceIcon(playlist.source)}"></i> ${playlist.source}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${progress}%"></div>
+                </div>
+                <div class="playlist-details ${isExpanded ? 'expanded' : ''}">
+                    <div class="video-list">
+                        ${playlist.videos.map(video => `
+                            <div class="video-item ${video.locked ? 'locked' : ''}" data-url="${video.url || ''}">
+                                <input type="checkbox" class="video-checkbox" 
+                                    ${video.completed ? 'checked' : ''} 
+                                    ${video.locked ? 'disabled' : ''}
+                                    data-playlist="${playlist.id}" 
+                                    data-video="${video.id}">
+                                <div class="video-title">${video.title}</div>
+                                <div class="video-status ${getStatusClass(video)}">${getStatusText(video)}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <!-- Edit Form (Initially Hidden) -->
+                    <div class="edit-form" id="edit-form-${playlist.id}">
+                        <h3>Edit Playlist</h3>
+                        <form class="edit-playlist-form" data-playlist="${playlist.id}">
+                            <div class="form-group">
+                                <label>Playlist Name</label>
+                                <input type="text" class="edit-playlist-name" value="${playlist.name}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Source</label>
+                                <select class="edit-playlist-source">
+                                    <option value="youtube" ${playlist.source === 'youtube' ? 'selected' : ''}>YouTube</option>
+                                    <option value="udemy" ${playlist.source === 'udemy' ? 'selected' : ''}>Udemy</option>
+                                    <option value="coursera" ${playlist.source === 'coursera' ? 'selected' : ''}>Coursera</option>
+                                    <option value="other" ${playlist.source === 'other' ? 'selected' : ''}>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Playlist URL</label>
+                                <input type="url" class="edit-playlist-url" value="${playlist.url || ''}">
+                            </div>
+                            <div class="form-group">
+                                <label>Video List (One per line)</label>
+                                <textarea class="edit-videos-data" rows="6">${playlist.videos.map(v => v.title).join('\n')}</textarea>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button type="submit" class="btn-success"><i class="fas fa-save"></i> Save Changes</button>
+                                <button type="button" class="btn-warning cancel-edit"><i class="fas fa-times"></i> Cancel</button>
+                                <button type="button" class="btn-warning delete-playlist" style="margin-left: auto;"><i class="fas fa-trash"></i> Delete Playlist</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            
+            // Attach event listeners
+            attachEventListeners(playlistEl, playlist.id);
+            
+            return playlistEl;
+        }
+        
+        // Attach event listeners to playlist elements
+        function attachEventListeners(playlistEl, playlistId) {
+            // Expand/collapse functionality
+            const header = playlistEl.querySelector('.playlist-header');
+            const details = playlistEl.querySelector('.playlist-details');
+            const expandIcon = playlistEl.querySelector('.expand-icon');
+            
+            header.addEventListener('click', (e) => {
+                // Don't trigger if edit button was clicked
+                if (!e.target.closest('.btn-edit') && !e.target.closest('.open-resource-btn')) {
+                    if (details.classList.contains('expanded')) {
+                        details.classList.remove('expanded');
+                        expandIcon.style.transform = 'rotate(0deg)';
+                        expandedPlaylistId = null;
+                    } else {
+                        // Close any other expanded playlists
+                        document.querySelectorAll('.playlist-details.expanded').forEach(el => {
+                            el.classList.remove('expanded');
+                            const icon = el.parentElement.querySelector('.expand-icon');
+                            if (icon) icon.style.transform = 'rotate(0deg)';
+                        });
+                        
+                        details.classList.add('expanded');
+                        expandIcon.style.transform = 'rotate(180deg)';
+                        expandedPlaylistId = playlistId;
+                    }
+                }
+            });
+            
+            // Edit button functionality
+            const editBtn = playlistEl.querySelector('.btn-edit');
+            const editForm = playlistEl.querySelector('.edit-form');
+            
+            editBtn.addEventListener('click', () => {
+                // Expand details if not already expanded
+                if (!details.classList.contains('expanded')) {
+                    details.classList.add('expanded');
+                    expandIcon.style.transform = 'rotate(180deg)';
+                    expandedPlaylistId = playlistId;
+                }
+                
+                // Show edit form
+                editForm.classList.add('active');
+            });
+            
+            // Cancel edit button
+            const cancelEditBtn = playlistEl.querySelector('.cancel-edit');
+            cancelEditBtn.addEventListener('click', () => {
+                editForm.classList.remove('active');
+            });
+            
+            // Edit form submission
+            const editPlaylistForm = playlistEl.querySelector('.edit-playlist-form');
+            editPlaylistForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleEditPlaylist(playlistId, editPlaylistForm);
+            });
+            
+            // Delete playlist button
+            const deleteBtn = playlistEl.querySelector('.delete-playlist');
+            deleteBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete this playlist?')) {
+                    deletePlaylist(playlistId);
+                }
+            });
+            
+            // Video completion checkboxes
+            const checkboxes = playlistEl.querySelectorAll('.video-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', handleVideoCompletion);
+            });
+            
+            // Video click to open URL
+            const videoItems = playlistEl.querySelectorAll('.video-item');
+            videoItems.forEach(videoItem => {
+                videoItem.addEventListener('click', (e) => {
+                    // Don't trigger if checkbox was clicked
+                    if (!e.target.classList.contains('video-checkbox') && !videoItem.classList.contains('locked')) {
+                        const url = videoItem.dataset.url;
+                        if (url) {
+                            window.open(url, '_blank');
+                        } else {
+                            alert('No URL available for this video');
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Handle editing a playlist
+        function handleEditPlaylist(playlistId, form) {
+            const playlist = playlists.find(p => p.id === playlistId);
+            if (!playlist) return;
+            
+            const newName = form.querySelector('.edit-playlist-name').value;
+            const newSource = form.querySelector('.edit-playlist-source').value;
+            const newUrl = form.querySelector('.edit-playlist-url').value;
+            const newVideosData = form.querySelector('.edit-videos-data').value;
+            
+            // Update playlist details
+            playlist.name = newName;
+            playlist.source = newSource;
+            playlist.url = newUrl;
+            
+            // Update videos if changed
+            const newVideoTitles = newVideosData.split('\n')
+                .map(title => title.trim())
+                .filter(title => title.length > 0);
+            
+            // Only update videos if the list has changed
+            const currentTitles = playlist.videos.map(v => v.title);
+            if (JSON.stringify(newVideoTitles) !== JSON.stringify(currentTitles)) {
+                // Create new videos array
+                const newVideos = newVideoTitles.map((title, index) => {
+                    // Try to find existing video with same title to preserve completion status
+                    const existingVideo = playlist.videos.find(v => v.title === title);
+                    
+                    if (existingVideo) {
+                        return {
+                            ...existingVideo,
+                            locked: index > 0 && !playlist.videos[index-1]?.completed,
+                            url: existingVideo.url || (playlist.url ? `${playlist.url}&index=${index+1}` : '')
+                        };
+                    } else {
+                        return {
+                            id: Date.now() + index,
+                            title: title,
+                            completed: false,
+                            locked: index > 0,
+                            url: playlist.url ? `${playlist.url}&index=${index+1}` : ''
+                        };
+                    }
+                });
+                
+                playlist.videos = newVideos;
+            }
+            
+            // Recalculate progress
+            const completedVideos = playlist.videos.filter(v => v.completed).length;
+            playlist.progress = playlist.videos.length > 0 ? 
+                Math.round((completedVideos / playlist.videos.length) * 100) : 0;
+            
+            // Save and update UI
+            savePlaylists();
+            updateStats();
+            renderPlaylists();
+            renderProgressChart();
+            
+            // Show success message
+            alert('Playlist updated successfully!');
+        }
+        
+        // Delete a playlist
+        function deletePlaylist(playlistId) {
+            playlists = playlists.filter(p => p.id !== playlistId);
+            savePlaylists();
+            updateStats();
+            renderPlaylists();
+            renderProgressChart();
+        }
+        
+        // Handle video completion
+        function handleVideoCompletion(e) {
+            const playlistId = parseInt(e.target.dataset.playlist);
+            const videoId = parseInt(e.target.dataset.video);
+            const checked = e.target.checked;
+            
+            // Find the playlist and video
+            const playlist = playlists.find(p => p.id === playlistId);
+            const video = playlist.videos.find(v => v.id === videoId);
+            
+            if (video) {
+                video.completed = checked;
+                
+                // If this video is completed, unlock the next one
+                if (checked) {
+                    const videoIndex = playlist.videos.findIndex(v => v.id === videoId);
+                    if (videoIndex < playlist.videos.length - 1) {
+                        playlist.videos[videoIndex + 1].locked = false;
+                    }
+                    
+                    // Update streak
+                    updateStreak(true);
+                    
+                    // Add to study history with exact topic details
+                    const today = new Date().toISOString().split('T')[0];
+                    if (!studyHistory[today]) {
+                        studyHistory[today] = [];
+                    }
+                    
+                    // Add study record with exact topic
+                    studyHistory[today].push({
+                        playlist: playlist.name,
+                        video: video.title,
+                        completedAt: new Date().toISOString()
+                    });
+                    
+                    localStorage.setItem('studyHistory', JSON.stringify(studyHistory));
+                    generateCalendar(); // Refresh calendar to show study indicator
+                }
+                
+                // Update playlist progress
+                const completedVideos = playlist.videos.filter(v => v.completed).length;
+                playlist.progress = Math.round((completedVideos / playlist.videos.length) * 100);
+                
+                // Save and update UI
+                savePlaylists();
+                updateStats();
+                renderPlaylists();
+                renderProgressChart();
+                
+                // Check if this completes the daily challenge
+                checkDailyChallenge();
+            }
+        }
+        
+        // Update statistics
+        function updateStats() {
+            const totalPlaylists = playlists.length;
+            const totalVideos = playlists.reduce((sum, playlist) => sum + playlist.videos.length, 0);
+            const completedVideos = playlists.reduce((sum, playlist) => 
+                sum + playlist.videos.filter(v => v.completed).length, 0);
+            
+            totalPlaylistsEl.textContent = totalPlaylists;
+            totalVideosEl.textContent = totalVideos;
+            completedVideosEl.textContent = completedVideos;
+        }
+        
+        // Update streak
+        function updateStreak(completedToday = false) {
+            const today = new Date().toDateString();
+            
+            if (completedToday) {
+                if (lastCompletedDate !== today) {
+                    // If this is the first completion today, increment streak
+                    if (lastCompletedDate === getYesterdayDate()) {
+                        streak++;
+                    } else {
+                        // If last completion wasn't yesterday, reset streak
+                        streak = 1;
+                    }
+                    lastCompletedDate = today;
+                    localStorage.setItem('lastCompletedDate', lastCompletedDate);
+                    localStorage.setItem('learningStreak', streak);
+                }
+            }
+            
+            streakCountEl.textContent = streak;
+        }
+        
+        // Check if user has completed today's challenge
+        function checkDailyChallenge() {
+            const today = new Date().toDateString();
+            let completedToday = false;
+            
+            // Check if any video was completed today
+            playlists.forEach(playlist => {
+                playlist.videos.forEach(video => {
+                    // In a real app, you would store completion dates
+                    // For this demo, we'll assume if it's completed and we're checking, it was today
+                    if (video.completed && lastCompletedDate === today) {
+                        completedToday = true;
+                    }
+                });
+            });
+            
+            // If not completed today, show reminder
+            if (!completedToday && playlists.length > 0) {
+                showDailyChallenge();
+            }
+        }
+        
+        // Show daily challenge modal
+        function showDailyChallenge() {
+            // Find the first incomplete video from the first in-progress playlist
+            const inProgressPlaylists = playlists.filter(p => p.progress < 100);
+            
+            if (inProgressPlaylists.length > 0) {
+                const playlist = inProgressPlaylists[0];
+                const nextVideo = playlist.videos.find(v => !v.locked && !v.completed);
+                
+                if (nextVideo) {
+                    dailyChallengeContent.innerHTML = `
+                        <p>Your challenge for today:</p>
+                        <h3 style="margin: 15px 0; color: var(--accent);">${nextVideo.title}</h3>
+                        <p>from <strong>${playlist.name}</strong></p>
+                        <button class="btn-success" style="margin-top: 20px; width: 100%;" id="startChallengeBtn">
+                            <i class="fas fa-play"></i> Start Learning
+                        </button>
+                    `;
+                    
+                    dailyChallengeModal.style.display = 'flex';
+                    
+                    document.getElementById('startChallengeBtn').addEventListener('click', () => {
+                        dailyChallengeModal.style.display = 'none';
+                        // In a real app, you would open the video
+                        if (nextVideo.url) {
+                            window.open(nextVideo.url, '_blank');
+                        } else {
+                            alert(`Now opening: ${nextVideo.title}`);
+                        }
+                    });
+                }
+            }
+        }
+        
+        // Generate calendar
+        function generateCalendar() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            
+            // Set current month text
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            currentMonthEl.textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            // Clear calendar
+            calendarDays.innerHTML = '';
+            
+            // Add day headers
+            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            dayNames.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day-header';
+                dayEl.textContent = day;
+                calendarDays.appendChild(dayEl);
+            });
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyEl = document.createElement('div');
+                emptyEl.className = 'calendar-day';
+                calendarDays.appendChild(emptyEl);
+            }
+            
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = day;
+                
+                // Create date string for this day
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                dayEl.dataset.date = dateStr;
+                
+                // Mark today
+                if (day === now.getDate() && month === now.getMonth() && year === now.getFullYear()) {
+                    dayEl.classList.add('active');
+                }
+                
+                // Mark studied days
+                if (studyHistory[dateStr] && studyHistory[dateStr].length > 0) {
+                    dayEl.classList.add('studied');
+                }
+                
+                // Add click event to show study details
+                dayEl.addEventListener('click', () => {
+                    showStudyDetails(dateStr);
+                });
+                
+                calendarDays.appendChild(dayEl);
+            }
+        }
+        
+        // Show study details for a specific date
+        function showStudyDetails(dateStr) {
+            const studies = studyHistory[dateStr] || [];
+            
+            if (studies.length === 0) {
+                studyDetails.innerHTML = `
+                    <h4>Study Details - ${formatDate(dateStr)}</h4>
+                    <p>No studies recorded for this day</p>
+                `;
+            } else {
+                studyDetails.innerHTML = `
+                    <h4>Study Details - ${formatDate(dateStr)}</h4>
+                    ${studies.map(study => `
+                        <div class="study-item">
+                            <strong>${study.playlist}</strong><br>
+                            ${study.video}
+                        </div>
+                    `).join('')}
+                `;
+            }
+        }
+        
+        // Format date for display
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        
+        // Render progress chart
+        function renderProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            // Prepare data for chart - calculate completion percentage for each playlist
+            const playlistNames = playlists.map(p => p.name);
+            const playlistProgress = playlists.map(p => {
+                const totalVideos = p.videos.length;
+                const completedVideos = p.videos.filter(v => v.completed).length;
+                return totalVideos > 0 ? Math.round((completedVideos / totalVideos) * 100) : 0;
+            });
+            
+            // If no playlists, show empty state
+            if (playlists.length === 0) {
+                if (progressChart) {
+                    progressChart.destroy();
+                }
+                return;
+            }
+            
+            // Create or update chart
+            if (progressChart) {
+                progressChart.destroy();
+            }
+            
+            const isDark = currentTheme === 'dark';
+            const textColor = isDark ? '#e9ecef' : '#212529';
+            
+            // Beautiful color palette for pie chart
+            const colorPalette = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8',
+                '#F7DC6F', '#BB8FCE', '#85C1E9', '#F8C471', '#82E0AA',
+                '#F1948A', '#85C1E9', '#D7BDE2', '#F9E79F', '#A9DFBF'
+            ];
+            
+            progressChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: playlistNames,
+                    datasets: [{
+                        data: playlistProgress,
+                        backgroundColor: playlists.map((p, i) => colorPalette[i % colorPalette.length]),
+                        borderColor: isDark ? '#333' : '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: textColor,
+                                font: {
+                                    size: 12
+                                },
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value}% complete`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Helper functions
+        function getSourceIcon(source) {
+            const icons = {
+                'youtube': 'youtube',
+                'udemy': 'graduation-cap',
+                'coursera': 'university',
+                'other': 'link'
+            };
+            return icons[source] || 'play-circle';
+        }
+        
+        function getStatusClass(video) {
+            if (video.completed) return 'status-completed';
+            if (video.locked) return 'status-locked';
+            return 'status-pending';
+        }
+        
+        function getStatusText(video) {
+            if (video.completed) return 'Completed';
+            if (video.locked) return 'Locked';
+            return 'Pending';
+        }
+        
+        function getYesterdayDate() {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            return yesterday.toDateString();
+        }
+        
+        function switchTab(tabName) {
+            // Update active tab
+            tabs.forEach(tab => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // Update active tab content
+            tabContents.forEach(content => {
+                if (content.id === `${tabName}-tab`) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        }
+        
+        function savePlaylists() {
+            localStorage.setItem('learningPlaylists', JSON.stringify(playlists));
+        }
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
