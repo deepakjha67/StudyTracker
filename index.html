@@ -2781,7 +2781,7 @@
     height: 10px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    overflow: hidden;
+    
     position: relative;
 }
 
@@ -2796,11 +2796,11 @@
     transition: width 1s ease-in-out;
     position: relative;
     width: 0%; /* Start at 0, will be set by JS */
-    box-shadow: 0 0 10px rgba(67, 97, 238, 0.3);
+    box-shadow: 0 0 10px rgba(207, 172, 31, 0.893);
 }
 
 .achievement-card.earned .progress-bar {
-    background: linear-gradient(90deg, var(--success), #04b48c);
+    background: linear-gradient(90deg, var(--success), #ffffff);
 }
 
 .progress-bar::after {
@@ -5628,6 +5628,8 @@
             });
             
             updateStats();
+            // Update the circular progress graph immediately
+            animateCircularProgress();
         }
         
         // Toggle goal completion
@@ -6802,7 +6804,6 @@ function calculateAchievementProgress(achievement) {
 function renderAchievements() {
     achievementsGrid.innerHTML = '';
     
-    
     const achievements = [
         // Streak achievements
         { id: 'weekly_warrior', name: 'Weekly Warrior', description: 'Maintain a 7-day study streak', icon: 'fa-fire', target: 7, type: 'streak', filterType: 'streak' },
@@ -6827,6 +6828,11 @@ function renderAchievements() {
         { id: '50_hour_master', name: '50-Hour Master', description: 'Complete 50 hours of focused study', icon: 'fa-crown', target: 50, type: 'focus_time', filterType: 'focus' },
         { id: '100_hour_virtuoso', name: '100-Hour Virtuoso', description: 'Master 100 hours of learning', icon: 'fa-star', target: 100, type: 'focus_time', filterType: 'focus' }
     ];
+    
+    // Update achievement counter
+    const earnedCount = calculateEarnedAchievements();
+    document.getElementById('earnedCount').textContent = earnedCount;
+    document.getElementById('totalCount').textContent = achievements.length;
     
     // Check if no achievements are available
     if (achievements.length === 0) {
