@@ -603,10 +603,11 @@
             border-radius: 8px;
             margin-bottom: 10px;
             border-left: 4px solid var(--primary);
+            gap: 10px;
         }
         
         .goal-checkbox {
-            margin-right: 15px;
+            margin-right: 0;
             width: 20px;
             height: 20px;
             border-radius: 4px;
@@ -636,6 +637,20 @@
             flex-grow: 1;
         }
         
+        .goal-delete-btn {
+            background: none;
+            border: none;
+            color: var(--warning);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .goal-delete-btn:hover {
+            background: rgba(239, 71, 111, 0.2);
+        }
+
         /* Enhanced Calendar Container */
 /* Improved Calendar Modal */
 .calendar-modal-content {
@@ -723,20 +738,6 @@
     flex: 1;
     overflow-y: auto;
     padding-right: 8px;
-}
-
-.study-details-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.study-details-content::-webkit-scrollbar-track {
-    background: var(--dark);
-    border-radius: 3px;
-}
-
-.study-details-content::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 3px;
 }
 
 /* Enhanced Calendar Grid */
@@ -967,6 +968,8 @@
     
     .study-details-section {
         min-height: 300px;
+        max-height: none !important;
+        overflow: visible !important;
     }
     
     .calendar-modal-content {
@@ -986,6 +989,20 @@
     .calendar-day-header {
         height: 30px;
         font-size: 0.75rem;
+    }
+    
+    /* Fix for calendar scrollbar issue */
+    .calendar-modal-content {
+        overflow: hidden !important;
+    }
+    
+    .calendar-layout-container {
+        overflow: visible !important;
+    }
+    
+    .study-details-content {
+        max-height: none !important;
+        overflow: visible !important;
     }
 }
 
@@ -1011,383 +1028,383 @@
 }
         
 
-/* Enhanced Study Details Styles */
-.study-item-enhanced {
-    background: var(--dark);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 12px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
+        /* Enhanced Study Details Styles */
+        .study-item-enhanced {
+            background: var(--dark);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-.study-item-enhanced::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--success), var(--primary));
-}
+        .study-item-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--success), var(--primary));
+        }
 
-.study-item-enhanced:hover {
-    transform: translateX(5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-color: var(--primary);
-}
+        .study-item-enhanced:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
 
-.study-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-    gap: 10px;
-}
+        .study-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
 
-.study-playlist {
-    font-weight: 600;
-    color: var(--accent);
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex: 1;
-}
+        .study-playlist {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
 
-.study-badge {
-    background: rgba(6, 214, 160, 0.2);
-    color: var(--success);
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border: 1px solid rgba(6, 214, 160, 0.3);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-}
+        .study-badge {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--success);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(6, 214, 160, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
 
-.study-topic {
-    color: var(--text);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    line-height: 1.4;
-}
+        .study-topic {
+            color: var(--text);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
 
-.study-topic i {
-    color: var(--primary);
-    margin-top: 2px;
-    flex-shrink: 0;
-}
+        .study-topic i {
+            color: var(--primary);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
 
-.study-time {
-    color: var(--gray);
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
+        .study-time {
+            color: var(--gray);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-/* Enhanced Goal Items */
-/* Enhanced Study Details Section */
-.study-details {
-    margin-top: 20px;
-    padding: 25px;
-    background: var(--dark);
-    border-radius: 15px;
-    border: 1px solid var(--border);
-    animation: fadeIn 0.5s ease;
-    max-height: 500px; /* Increased height */
-    min-height: 200px; /* Minimum height */
-    overflow-y: auto;
-    position: relative;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
+        /* Enhanced Goal Items */
+        /* Enhanced Study Details Section */
+        .study-details {
+            margin-top: 20px;
+            padding: 25px;
+            background: var(--dark);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            animation: fadeIn 0.5s ease;
+            max-height: 500px; /* Increased height */
+            min-height: 200px; /* Minimum height */
+            overflow-y: auto;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
 
-.study-details:hover {
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
-    transform: translateY(-3px);
-}
+        .study-details:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+        }
 
-.study-details h4 {
-    margin-bottom: 20px;
-    color: var(--accent);
-    font-size: 1.3rem;
-    border-bottom: 2px solid var(--primary);
-    padding-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        .study-details h4 {
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.study-details h5 {
-    margin: 15px 0 10px 0; /* Adjusted margin */
-    color: var(--accent);
-    font-size: 1rem; /* Adjusted font size */
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+        .study-details h5 {
+            margin: 15px 0 10px 0; /* Adjusted margin */
+            color: var(--accent);
+            font-size: 1rem; /* Adjusted font size */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-/* Enhanced Study Items - More compact */
-.study-item-enhanced {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
+        /* Enhanced Study Items - More compact */
+        .study-item-enhanced {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-.study-item-enhanced::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--success), var(--primary));
-}
+        .study-item-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--success), var(--primary));
+        }
 
-.study-item-enhanced:hover {
-    transform: translateX(5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-color: var(--primary);
-}
+        .study-item-enhanced:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
 
-.study-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 6px;
-    gap: 10px;
-}
+        .study-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+            gap: 10px;
+        }
 
-.study-playlist {
-    font-weight: 600;
-    color: var(--accent);
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex: 1;
-}
+        .study-playlist {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
 
-.study-badge {
-    background: rgba(6, 214, 160, 0.2);
-    color: var(--success);
-    padding: 3px 8px;
-    border-radius: 10px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    border: 1px solid rgba(6, 214, 160, 0.3);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-}
+        .study-badge {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--success);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid rgba(6, 214, 160, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
 
-.study-topic {
-    color: var(--text);
-    margin-bottom: 5px;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    line-height: 1.3;
-    font-size: 0.9rem;
-}
+        .study-topic {
+            color: var(--text);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.3;
+            font-size: 0.9rem;
+        }
 
-.study-topic i {
-    color: var(--primary);
-    margin-top: 2px;
-    flex-shrink: 0;
-    font-size: 0.8rem;
-}
+        .study-topic i {
+            color: var(--primary);
+            margin-top: 2px;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
 
-.study-time {
-    color: var(--gray);
-    font-size: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
+        .study-time {
+            color: var(--gray);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-/* Enhanced Goal Items - More compact */
-.goal-item-enhanced {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 12px;
-    background: var(--card-bg);
-    border-radius: 8px;
-    margin-bottom: 8px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
+        /* Enhanced Goal Items - More compact */
+        .goal-item-enhanced {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
 
-.goal-item-enhanced:hover {
-    transform: translateX(3px);
-    border-color: var(--accent);
-}
+        .goal-item-enhanced:hover {
+            transform: translateX(3px);
+            border-color: var(--accent);
+        }
 
-.goal-status {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-    font-size: 0.8rem;
-}
+        .goal-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+            font-size: 0.8rem;
+        }
 
-.goal-status.completed {
-    background: rgba(6, 214, 160, 0.2);
-    color: var(--success);
-}
+        .goal-status.completed {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--success);
+        }
 
-.goal-status.pending {
-    background: rgba(239, 71, 111, 0.2);
-    color: var(--warning);
-}
+        .goal-status.pending {
+            background: rgba(239, 71, 111, 0.2);
+            color: var(--warning);
+        }
 
-.goal-content {
-    flex: 1;
-}
+        .goal-content {
+            flex: 1;
+        }
 
-.goal-title {
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 2px;
-    font-size: 0.9rem;
-    line-height: 1.3;
-}
+        .goal-title {
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 2px;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
 
-.goal-meta {
-    font-size: 0.75rem;
-    color: var(--gray);
-}
+        .goal-meta {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
 
-/* Goals Progress - More compact */
-.goals-progress {
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border: 1px solid var(--border);
-}
+        /* Goals Progress - More compact */
+        .goals-progress {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
 
-.goals-progress > div {
-    display: flex;
-    justify-content: space-between;
-    font-size: .9rem;
-    margin-bottom: 6px;
-}
+        .goals-progress > div {
+            display: flex;
+            justify-content: space-between;
+            font-size: .9rem;
+            margin-bottom: 6px;
+        }
 
-/* Studies Container - Better scrolling */
-.studies-container {
-    max-height: 250px; /* Increased scrollable area */
-    overflow-y: auto;
-    margin-top: 10px;
-    padding-right: 5px;
-}
+        /* Studies Container - Better scrolling */
+        .studies-container {
+            max-height: 250px; /* Increased scrollable area */
+            overflow-y: auto;
+            margin-top: 10px;
+            padding-right: 5px;
+        }
 
-/* No Studies Message */
-.no-studies-message {
-    text-align: center;
-    padding: 30px 20px; /* Adjusted padding */
-    color: var(--gray);
-}
+        /* No Studies Message */
+        .no-studies-message {
+            text-align: center;
+            padding: 30px 20px; /* Adjusted padding */
+            color: var(--gray);
+        }
 
-.no-studies-message i {
-    font-size: 2.5rem; /* Adjusted size */
-    margin-bottom: 10px;
-    color: var(--border);
-}
+        .no-studies-message i {
+            font-size: 2.5rem; /* Adjusted size */
+            margin-bottom: 10px;
+            color: var(--border);
+        }
 
-.no-studies-message p {
-    margin: 0;
-    font-size: 0.9rem;
-}
+        .no-studies-message p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
 
-/* Custom scrollbar improvements */
-.study-details::-webkit-scrollbar {
-    width: 8px;
-}
+        /* Custom scrollbar improvements */
+        .study-details::-webkit-scrollbar {
+            width: 8px;
+        }
 
-.study-details::-webkit-scrollbar-track {
-    background: var(--border);
-    border-radius: 4px;
-}
+        .study-details::-webkit-scrollbar-track {
+            background: var(--border);
+            border-radius: 4px;
+        }
 
-.study-details::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--primary), var(--accent));
-    border-radius: 4px;
-}
+        .study-details::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            border-radius: 4px;
+        }
 
-.study-details::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--accent), var(--primary));
-}
+        .study-details::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--accent), var(--primary));
+        }
 
-.studies-container::-webkit-scrollbar {
-    width: 6px;
-}
+        .studies-container::-webkit-scrollbar {
+            width: 6px;
+        }
 
-.studies-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
-}
+        .studies-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
 
-.studies-container::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 3px;
-}
+        .studies-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
 
-/* Compact layout for multiple items */
-.compact-layout {
-    display: grid;
-    gap: 8px;
-}
+        /* Compact layout for multiple items */
+        .compact-layout {
+            display: grid;
+            gap: 8px;
+        }
 
-/* Statistics header */
-.stats-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap; /* Added for responsiveness */
-    gap: 10px; /* Added for responsiveness */
-}
+        /* Statistics header */
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap; /* Added for responsiveness */
+            gap: 10px; /* Added for responsiveness */
+        }
 
-.stats-summary {
-    display: flex;
-    gap: 10px; /* Reduced gap */
-    font-size: 0.85rem;
-}
+        .stats-summary {
+            display: flex;
+            gap: 10px; /* Reduced gap */
+            font-size: 0.85rem;
+        }
 
-.stat-badge {
-    background: var(--primary);
-    color: white;
-    padding: 4px 10px; /* Adjusted padding */
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Adjusted gap */
-}
+        .stat-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px; /* Adjusted padding */
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Adjusted gap */
+        }
         
         /* Courses Tab Styles */
         .tabs-container {
@@ -4687,10 +4704,6 @@
                                 Created by Deepak, Achieve-mate turns your learning path into a story of growth — helping you stay focused, measure progress, and transform goals into achievements.
                             </p>
                             <div class="creator-links">
-                                <a href="https://github.com/deepakjha67" target="_blank" class="creator-link">
-                                    <i class="fab fa-github"></i>
-                                    <span>GitHub</span>
-                                </a>
                                 <a href="https://www.linkedin.com/in/deepak-kumar-jha-390694281" target="_blank" class="creator-link">
                                     <i class="fab fa-linkedin"></i>
                                     <span>LinkedIn</span>
@@ -4917,50 +4930,7 @@
                         Help us improve Achieve-mate by sharing your ideas and suggestions
                     </p>
                     
-                    <div class="suggestion-item">
-                        <div class="suggestion-header">
-                            <i class="fas fa-lightbulb suggestion-icon"></i>
-                            <div class="suggestion-title">Feature Request</div>
-                        </div>
-                        <div class="suggestion-description">
-                            Have an idea for a new feature? Let us know what would make your learning experience better.
-                        </div>
-                        <div class="suggestion-actions">
-                            <button class="btn-primary" id="suggestFeatureBtn">
-                                <i class="fas fa-envelope"></i> Suggest Feature
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="suggestion-item">
-                        <div class="suggestion-header">
-                            <i class="fas fa-paint-brush suggestion-icon"></i>
-                            <div class="suggestion-title">Design Improvement</div>
-                        </div>
-                        <div class="suggestion-description">
-                            Noticed something that could look better? Share your design suggestions with us.
-                        </div>
-                        <div class="suggestion-actions">
-                            <button class="btn-primary" id="suggestDesignBtn">
-                                <i class="fas fa-envelope"></i> Suggest Improvement
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="suggestion-item">
-                        <div class="suggestion-header">
-                            <i class="fas fa-mobile-alt suggestion-icon"></i>
-                            <div class="suggestion-title">Mobile Experience</div>
-                        </div>
-                        <div class="suggestion-description">
-                            How can we improve the mobile experience? Share your thoughts on the app's responsiveness.
-                        </div>
-                        <div class="suggestion-actions">
-                            <button class="btn-primary" id="suggestMobileBtn">
-                                <i class="fas fa-envelope"></i> Share Feedback
-                            </button>
-                        </div>
-                    </div>
+                    <!-- Removed the three suggestion items -->
                 </div>
                 
                 <div class="settings-section">
@@ -5228,9 +5198,6 @@
         const videoEditList = document.getElementById('videoEditList');
         const addVideoBtn = document.getElementById('addVideoBtn');
         const saveVideosBtn = document.getElementById('saveVideosBtn');
-        const suggestFeatureBtn = document.getElementById('suggestFeatureBtn');
-        const suggestDesignBtn = document.getElementById('suggestDesignBtn');
-        const suggestMobileBtn = document.getElementById('suggestMobileBtn');
         
         // Initialize the app
         function init() {
@@ -5368,11 +5335,6 @@
             reportBugBtn.addEventListener('click', reportBug);
             writeReviewBtn.addEventListener('click', writeReview);
             
-            // Suggestion buttons
-            suggestFeatureBtn.addEventListener('click', () => suggestImprovement('Feature Request'));
-            suggestDesignBtn.addEventListener('click', () => suggestImprovement('Design Improvement'));
-            suggestMobileBtn.addEventListener('click', () => suggestImprovement('Mobile Experience'));
-            
             // Edit playlist functionality
             closeEditPlaylistModal.addEventListener('click', () => {
                 editPlaylistModal.classList.remove('active');
@@ -5408,15 +5370,6 @@
             }, 800);
         }
         
-        // Function to handle improvement suggestions
-        function suggestImprovement(type) {
-            const email = 'thedeepkjha4u@gmail.com';
-            const subject = `Achieve-mate ${type} Suggestion`;
-            const body = `I have a suggestion for ${type}:\n\n[Please describe your suggestion here]`;
-            
-            window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
-        }
-        
         // Switch navigation tabs
         function switchNavTab(tabName) {
             // Update active desktop nav tab
@@ -5445,6 +5398,22 @@
                     content.classList.remove('active');
                 }
             });
+            
+            // Reset calendar to today's date when switching to dashboard
+            if (tabName === 'dashboard') {
+                // Reset calendar view to current month/year
+                const today = new Date();
+                currentCalendarMonth = today.getMonth();
+                currentCalendarYear = today.getFullYear();
+                buildCalendar();
+                
+                // Calculate stats first
+                updateStats();
+                // Delay to ensure DOM is ready and visible
+                setTimeout(() => {
+                    animateCircularProgress();
+                }, 150);
+            }
             
             // Trigger circular progress animation if switching to dashboard
             if (tabName === 'dashboard') {
@@ -5617,6 +5586,9 @@
                 goalEl.innerHTML = `
                     <input type="checkbox" class="goal-checkbox" ${goal.completed ? 'checked' : ''} data-id="${goal.id}">
                     <div class="goal-text">${goal.title}</div>
+                    <button class="goal-delete-btn" data-id="${goal.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 `;
                 todayGoalsEl.appendChild(goalEl);
                 
@@ -5625,11 +5597,17 @@
                 checkbox.addEventListener('change', (e) => {
                     toggleGoalCompletion(goal.id, e.target.checked);
                 });
+                
+                // Add event listener for delete button
+                const deleteBtn = goalEl.querySelector('.goal-delete-btn');
+                deleteBtn.addEventListener('click', () => {
+                    deleteGoal(goal.id);
+                });
             });
             
             updateStats();
-            // Update the circular progress graph immediately
-            animateCircularProgress();
+            // Update only the goals graph, not the topics graph
+            animateGoalsProgressOnly();
         }
         
         // Toggle goal completion
@@ -5654,6 +5632,60 @@
                     }
                 }
             }
+        }
+        
+        // Delete goal
+        function deleteGoal(goalId) {
+            if (confirm('Are you sure you want to delete this goal?')) {
+                appData.dailyGoals = appData.dailyGoals.filter(goal => goal.id !== goalId);
+                localStorage.setItem('dailyGoals', JSON.stringify(appData.dailyGoals));
+                
+                // Update UI
+                renderTodayGoals();
+                renderGoals();
+                renderTimeline();
+                
+                // Update only the goals graph
+                animateGoalsProgressOnly();
+            }
+        }
+        
+        // Function to update only the goals progress graph
+        function animateGoalsProgressOnly() {
+            const goalsCircle = document.getElementById('goalsProgressCircle');
+            const goalsText = document.getElementById('todayGoalsPercentage');
+            
+            if (!goalsCircle) return;
+            
+            // Reset animation
+            goalsCircle.classList.remove('animate-progress', 'complete');
+            
+            // Force DOM reflow to restart animation
+            void goalsCircle.offsetWidth;
+            
+            // Get target value from data attribute
+            const goalsPercentage = parseInt(goalsText.dataset.target) || 0;
+            
+            // Calculate stroke dasharray (circumference = 2πr, r=54)
+            const circumference = 2 * Math.PI * 54;
+            const goalsProgress = (goalsPercentage / 100) * circumference;
+            
+            // Set CSS custom property
+            goalsCircle.style.setProperty('--progress', goalsProgress);
+            
+            // Add animation class to trigger animation
+            goalsCircle.classList.add('animate-progress');
+            
+            // Handle 100% completion styling
+            if (goalsPercentage === 100) {
+                setTimeout(() => {
+                    goalsCircle.classList.add('complete');
+                    goalsText.style.color = 'var(--success)';
+                }, 2500);
+            }
+            
+            // Animate percentage text counting
+            animatePercentageText(goalsText, 0, goalsPercentage);
         }
         
         // Generate calendar - using buildCalendar
@@ -6002,7 +6034,6 @@ function calculateAchievementProgress(achievement) {
             editPlaylistModal.classList.remove('active');
             editVideosModal.classList.add('active');
         }
-        
 
         
         // Add new video to edit list
@@ -6260,6 +6291,9 @@ function calculateAchievementProgress(achievement) {
                 goalEl.innerHTML = `
                     <input type="checkbox" class="goal-checkbox" ${goal.completed ? 'checked' : ''} data-id="${goal.id}">
                     <div class="goal-text">${goal.title}</div>
+                    <button class="goal-delete-btn" data-id="${goal.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 `;
                 goalsList.appendChild(goalEl);
                 
@@ -6267,6 +6301,12 @@ function calculateAchievementProgress(achievement) {
                 const checkbox = goalEl.querySelector('.goal-checkbox');
                 checkbox.addEventListener('change', (e) => {
                     toggleGoalCompletion(goal.id, e.target.checked);
+                });
+                
+                // Add event listener for delete button
+                const deleteBtn = goalEl.querySelector('.goal-delete-btn');
+                deleteBtn.addEventListener('click', () => {
+                    deleteGoal(goal.id);
                 });
             });
         }
@@ -6847,7 +6887,17 @@ function renderAchievements() {
         return;
     }
     
-    achievements.forEach(achievement => {
+    // Sort achievements: earned first, then unearned
+    const sortedAchievements = [...achievements].sort((a, b) => {
+        const aProgress = calculateAchievementProgress(a);
+        const bProgress = calculateAchievementProgress(b);
+        
+        if (aProgress.earned && !bProgress.earned) return -1;
+        if (!aProgress.earned && bProgress.earned) return 1;
+        return 0;
+    });
+    
+    sortedAchievements.forEach(achievement => {
         const progress = calculateAchievementProgress(achievement);
         const isEarned = progress.earned;
         
