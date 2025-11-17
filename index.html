@@ -1559,6 +1559,8 @@
         
         .video-list {
             margin-top: 15px;
+            max-height: 300px; /* Added max height for scrolling */
+            overflow-y: auto; /* Added scroll for long video lists */
         }
         
         .video-item {
@@ -1570,7 +1572,6 @@
             background: var(--dark);
             transition: all 0.3s;
             border: 1px solid var(--border);
-            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
@@ -1593,12 +1594,6 @@
         
         .video-item:hover {
             background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .video-item.locked {
-            opacity: 0.6;
-            background: rgba(255, 255, 255, 0.02);
-            cursor: not-allowed;
         }
         
         /* FIXED: Enhanced video checkbox styling */
@@ -1670,12 +1665,6 @@
             background: rgba(239, 71, 111, 0.2);
             color: #ef476f;
             border: 1px solid rgba(239, 71, 111, 0.3);
-        }
-        
-        .status-locked {
-            background: rgba(108, 117, 125, 0.2);
-            color: var(--gray);
-            border: 1px solid rgba(108, 117, 125, 0.3);
         }
         
         .progress-bar {
@@ -4572,6 +4561,22 @@
                 min-height: 60px;
             }
         }
+
+        /* FIX: Calendar mobile centering */
+        @media (max-width: 768px) {
+            .calendar-section {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .calendar-grid {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
     </style>
     <base target="_blank">
 </head>
@@ -5729,11 +5734,12 @@
                 .map(title => title.trim())
                 .filter(title => title.length > 0);
             
+            // FIX: Remove locking system - all videos are unlocked by default
             const videos = videoTitles.map((title, index) => ({
                 id: Date.now() + index,
                 title: title,
                 completed: false,
-                locked: index > 0, // Lock all videos except the first one
+                locked: false, // All videos are now unlocked
                 url: playlistUrl ? `${playlistUrl}&index=${index+1}` : ''
             }));
             
@@ -5882,10 +5888,9 @@ function calculateAchievementProgress(achievement) {
                 <div class="playlist-details ${isExpanded ? 'expanded' : ''}">
                     <div class="video-list">
                         ${playlist.videos.map(video => `
-                            <div class="video-item ${video.locked ? 'locked' : ''}" data-url="${video.url || ''}">
+                            <div class="video-item" data-url="${video.url || ''}">
                                 <input type="checkbox" class="video-checkbox" 
                                     ${video.completed ? 'checked' : ''} 
-                                    ${video.locked ? 'disabled' : ''}
                                     data-playlist="${playlist.id}" 
                                     data-video="${video.id}">
                                 <div class="video-title">${video.title}</div>
@@ -5943,18 +5948,11 @@ function calculateAchievementProgress(achievement) {
                 checkbox.addEventListener('change', handleVideoCompletion);
             });
             
-            // Video click to open URL
+            // FIX: Remove video click redirection - only checkbox should be interactive
             const videoItems = playlistEl.querySelectorAll('.video-item');
             videoItems.forEach(videoItem => {
-                videoItem.addEventListener('click', (e) => {
-                    // Don't trigger if checkbox was clicked
-                    if (!e.target.classList.contains('video-checkbox') && !videoItem.classList.contains('locked')) {
-                        const url = videoItem.dataset.url;
-                        if (url) {
-                            window.open(url, '_blank');
-                        }
-                    }
-                });
+                // Remove any click event that redirects to URL
+                // Only the checkbox should be interactive
             });
         }
         
@@ -6081,7 +6079,7 @@ function calculateAchievementProgress(achievement) {
                             id: Date.now() + Math.random(),
                             title: title,
                             completed: false,
-                            locked: updatedVideos.length > 0, // Lock if not first video
+                            locked: false, // All videos are unlocked
                             url: ''
                         });
                     } else {
@@ -6098,9 +6096,6 @@ function calculateAchievementProgress(achievement) {
             // Replace videos array
             playlist.videos = updatedVideos;
             
-            // Update locking logic
-            updateVideoLocks(playlist);
-            
             // Save and update UI
             savePlaylists();
             renderPlaylists();
@@ -6108,23 +6103,7 @@ function calculateAchievementProgress(achievement) {
             // Close modal and show success message
             editVideosModal.classList.remove('active');
             alert('Videos updated successfully!');
-        }
-
-        function updateVideoLocks(playlist) {
-            let foundIncomplete = false;
-            
-            playlist.videos.forEach(video => {
-                if (foundIncomplete) {
-                    video.locked = true;
-                } else {
-                    video.locked = false;
-                    if (!video.completed) {
-                        foundIncomplete = true;
-                    }
-                }
-            });
-        }       
-        
+        }      
         
         // Delete playlist
         function deletePlaylist() {
@@ -6159,47 +6138,23 @@ function calculateAchievementProgress(achievement) {
             if (video) {
                 video.completed = checked;
                 
-                // If this video is completed, unlock the next one
-                if (checked) {
-                    const videoIndex = playlist.videos.findIndex(v => v.id === videoId);
-                    if (videoIndex < playlist.videos.length - 1) {
-                        playlist.videos[videoIndex + 1].locked = false;
-                    }
-                    
-                    // Update streak
-                    updateStreak(true);
-                    
-                    // Add to study history with exact topic details
-                    const today = new Date().toISOString().split('T')[0];
-                    if (!appData.studyHistory[today]) {
-                        appData.studyHistory[today] = [];
-                    }
-                    
-                    // Add study record with exact topic
-                    appData.studyHistory[today].push({
-                        playlist: playlist.name,
-                        video: video.title,
-                        completedAt: new Date().toISOString()
-                    });
-                    
-                    localStorage.setItem('studyHistory', JSON.stringify(appData.studyHistory));
-                } else {
-                    // Remove from study history when unchecked
-                    const today = new Date().toISOString().split('T')[0];
-                    if (appData.studyHistory[today]) {
-                        // Find and remove the study record for this video
-                        appData.studyHistory[today] = appData.studyHistory[today].filter(
-                            record => !(record.playlist === playlist.name && record.video === video.title)
-                        );
-                        
-                        // If no studies left for today, remove the day entirely
-                        if (appData.studyHistory[today].length === 0) {
-                            delete appData.studyHistory[today];
-                        }
-                        
-                        localStorage.setItem('studyHistory', JSON.stringify(appData.studyHistory));
-                    }
+                // Update streak
+                updateStreak(true);
+                
+                // Add to study history with exact topic details
+                const today = new Date().toISOString().split('T')[0];
+                if (!appData.studyHistory[today]) {
+                    appData.studyHistory[today] = [];
                 }
+                
+                // Add study record with exact topic
+                appData.studyHistory[today].push({
+                    playlist: playlist.name,
+                    video: video.title,
+                    completedAt: new Date().toISOString()
+                });
+                
+                localStorage.setItem('studyHistory', JSON.stringify(appData.studyHistory));
                 
                 // Update playlist progress
                 const completedVideos = playlist.videos.filter(v => v.completed).length;
@@ -7342,13 +7297,11 @@ function renderAchievements() {
         
         function getStatusClass(video) {
             if (video.completed) return 'status-completed';
-            if (video.locked) return 'status-locked';
             return 'status-pending';
         }
         
         function getStatusText(video) {
             if (video.completed) return 'Completed';
-            if (video.locked) return 'Locked';
             return 'Pending';
         }
         
