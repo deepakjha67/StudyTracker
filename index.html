@@ -14,6 +14,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: var(--font-primary);
+            -webkit-tap-highlight-color: transparent; /* Remove touch highlight */
         }
         
         :root {
@@ -43,6 +44,7 @@
             padding: 20px;
             transition: all 0.3s ease;
             font-family: var(--font-primary);
+            touch-action: manipulation; /* Improve touch responsiveness */
         }
         
         .container {
@@ -364,9 +366,6 @@
             .nav-tabs {
                 display: none;
             }
-            
-            
-            
         }
         
         @media (min-width: 769px) {
@@ -4475,8 +4474,89 @@
     text-shadow: 0 0 8px rgba(6, 214, 160, 0.3);
 }
 
+        /* ========== NEW STYLES FOR DESKTOP LAYOUT ========== */
+        
+        /* FOCUS MODE TAB LAYOUT */
+        @media (min-width: 769px) {
+          .focus-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+          }
+          
+          .focus-session-setup,
+          .focus-history-section {
+            height: fit-content;
+          }
+        }
+
+        /* TODAY'S GOALS TAB LAYOUT */
+        @media (min-width: 769px) {
+          #goals-content .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+          }
+          
+          #goals-content .card {
+            margin-bottom: 0;
+          }
+        }
+
+        /* Ensure mobile layout remains unchanged */
+        @media (max-width: 768px) {
+          .focus-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          
+          #goals-content .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+        }
+
+        /* Mobile touch improvements */
+        @media (max-width: 768px) {
+            /* Remove tap highlights and improve touch response */
+            button, .sidebar-tab, .nav-tab, .mobile-nav-tab, .duration-option, 
+            .goal-checkbox, .video-checkbox, .calendar-day, .calendar-nav,
+            .filter-btn, .tab, .playlist-header, .video-item {
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+            
+            /* Improve button touch targets */
+            button, .btn-primary, .btn-success, .btn-warning, .btn-edit {
+                min-height: 44px;
+                min-width: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Improve checkbox touch targets */
+            .goal-checkbox, .video-checkbox {
+                min-width: 24px;
+                min-height: 24px;
+            }
+            
+            /* Improve calendar day touch targets */
+            .calendar-day {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Improve sidebar tab touch targets */
+            .sidebar-tab {
+                min-height: 60px;
+            }
+        }
     </style>
-<base target="_blank">
+    <base target="_blank">
 </head>
 <body>
     <div class="container">
@@ -4675,39 +4755,41 @@
         </div>
         
         <div class="nav-content" id="goals-content">
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-bullseye"></i> Today's Goals</h2>
-                <p>Set and track your daily learning objectives</p>
-                
-                <div class="goal-form">
-                    <div class="form-group">
-                        <label for="goalTitle">Goal Title</label>
-                        <input type="text" id="goalTitle" placeholder="e.g., Complete React Hooks tutorial">
+            <div class="app-container">
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-bullseye"></i> Today's Goals</h2>
+                    <p>Set and track your daily learning objectives</p>
+                    
+                    <div class="goal-form">
+                        <div class="form-group">
+                            <label for="goalTitle">Goal Title</label>
+                            <input type="text" id="goalTitle" placeholder="e.g., Complete React Hooks tutorial">
+                        </div>
+                        
+                        <button class="btn-primary" id="addGoal">
+                            <i class="fas fa-plus"></i> Add Goal
+                        </button>
                     </div>
                     
-                    <button class="btn-primary" id="addGoal">
-                        <i class="fas fa-plus"></i> Add Goal
-                    </button>
+                    <div class="today-goals" id="goalsList">
+                        </div>
                 </div>
                 
-                <div class="today-goals" id="goalsList">
-                    </div>
-            </div>
-            
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-chart-bar"></i> Progress Timeline</h2>
-                <div class="timeline-container">
-                    <div class="timeline-header">
-                    </div>
-                    <div class="timeline-chart" id="timelineChart">
-                        <div class="y-axis">
-                            <div class="y-axis-label">100%</div>
-                            <div class="y-axis-label">75%</div>
-                            <div class="y-axis-label">50%</div>
-                            <div class="y-axis-label">25%</div>
-                            <div class="y-axis-label">0%</div>
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-chart-bar"></i> Progress Timeline</h2>
+                    <div class="timeline-container">
+                        <div class="timeline-header">
                         </div>
-                        </div>
+                        <div class="timeline-chart" id="timelineChart">
+                            <div class="y-axis">
+                                <div class="y-axis-label">100%</div>
+                                <div class="y-axis-label">75%</div>
+                                <div class="y-axis-label">50%</div>
+                                <div class="y-axis-label">25%</div>
+                                <div class="y-axis-label">0%</div>
+                            </div>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>
