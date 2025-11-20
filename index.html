@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Achieve-mate | Student Productivity</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Theme Variables */
             --bg-body: #0f172a;
             --bg-card: #1e293b;
             --bg-card-hover: #334155;
@@ -29,7 +28,6 @@
             --radius-lg: 16px;
             --radius-md: 12px;
             
-            --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.3);
             --font-main: 'Inter', sans-serif;
             --font-heading: 'Poppins', sans-serif;
         }
@@ -37,225 +35,273 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; scrollbar-width: thin; scrollbar-color: var(--border) var(--bg-body); }
         body { background-color: var(--bg-body); color: var(--text-main); font-family: var(--font-main); line-height: 1.6; overflow-x: hidden; }
 
-        /* --- Layout --- */
         .app-wrapper { display: flex; min-height: 100vh; }
 
         /* Sidebar */
         .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1.5rem; position: fixed; height: 100vh; z-index: 50; transition: transform 0.3s ease; }
         .brand { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2.5rem; color: var(--primary); font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; }
         
-        .nav-item { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 1rem; border-radius: var(--radius-md); color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; font-weight: 500; margin-bottom: 0.5rem; }
+        .nav-item { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 1rem; border-radius: var(--radius-md); color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; font-weight: 500; margin-bottom: 0.5rem; border-left: 3px solid transparent; }
         .nav-item:hover { background: var(--bg-card-hover); color: var(--text-main); }
-        .nav-item.active { background: var(--primary); color: white; box-shadow: var(--shadow-glow); }
-        
-        .user-profile-mini { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; }
-        .user-avatar { width: 35px; height: 35px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
-        .user-info-mini div { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-        .user-info-mini span { font-size: 0.7rem; color: var(--text-muted); }
+        .nav-item.active { background: rgba(99, 102, 241, 0.1); color: var(--primary); border-left-color: var(--primary); box-shadow: 0 0 15px rgba(99, 102, 241, 0.1); }
+
+        /* Credits Section in Sidebar */
+        .sidebar-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+        .creator-link { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; transition: color 0.2s; }
+        .creator-link:hover { color: var(--primary); }
 
         /* Main Content */
         .main-content { flex: 1; margin-left: 260px; padding: 2rem; max-width: 1600px; padding-bottom: 100px; }
 
         /* Mobile Nav */
         .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card); border-top: 1px solid var(--border); padding: 0 1rem; justify-content: space-around; z-index: 100; padding-bottom: env(safe-area-inset-bottom); height: 70px; align-items: center; }
-        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.7rem; padding: 8px 16px; cursor: pointer; transition: all 0.2s; border-radius: 12px; }
+        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.7rem; padding: 8px 16px; cursor: pointer; transition: all 0.2s; border-radius: 12px; position: relative; }
         .mobile-nav-item i { font-size: 1.3rem; margin-bottom: 2px; transition: transform 0.2s; }
-        .mobile-nav-item.active { color: #fff; background: var(--primary); box-shadow: 0 4px 12px rgba(99,102,241,0.4); transform: translateY(-5px); }
-        .mobile-nav-item.active i { transform: scale(1.1); }
+        .mobile-nav-item.active { color: #fff; }
+        .mobile-nav-item.active i { color: var(--primary); transform: translateY(-2px); }
+        .mobile-nav-item.active::after { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 20px; height: 4px; background: var(--primary); border-radius: 0 0 4px 4px; box-shadow: 0 0 10px var(--primary); }
 
         /* Header */
         .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .header-right { display: flex; align-items: center; gap: 15px; }
         .greeting h1 { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 600; line-height: 1.2; }
+        
         .streak-badge { display: flex; align-items: center; gap: 0.75rem; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2); padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer; transition: transform 0.2s; white-space: nowrap; height: fit-content; }
-        .streak-badge:hover { transform: translateY(-2px); background: rgba(251, 191, 36, 0.15); }
         .streak-count { font-weight: 700; color: var(--accent); font-size: 1.1rem; }
         
-        .mobile-settings-btn { display: none; font-size: 1.4rem; color: var(--text-muted); cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s; }
-        .mobile-settings-btn:hover { background: var(--bg-card-hover); color: var(--text-main); }
-        .mobile-settings-btn.active { color: var(--primary); background: rgba(99,102,241,0.1); }
+        .header-login-btn { background: var(--primary); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); transition: transform 0.2s; }
+        .header-login-btn:hover { transform: translateY(-2px); background: var(--primary-hover); }
 
-        /* Cards & Grid */
+        /* Common Components */
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
-        .card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; color: var(--text-main); }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .grid-dashboard { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem; }
-
-        /* Components */
+        .card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
+        
         .btn { border: none; outline: none; cursor: pointer; font-family: var(--font-main); font-weight: 500; border-radius: var(--radius-md); padding: 0.75rem 1.5rem; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.95rem; }
         .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
         .btn-secondary { background: var(--bg-card-hover); color: var(--text-main); border: 1px solid var(--border); }
-        .btn-secondary:hover { background: #475569; }
         .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
-        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        .btn-icon-only { padding: 0.5rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); background: transparent; }
+        .btn-icon-only:hover { background: var(--bg-card-hover); color: var(--text-main); }
+        .btn-google { background: #ffffff; color: #333; width: 100%; margin-bottom: 1rem; border: 1px solid #ddd; }
+        .btn-google:hover { background: #f1f1f1; }
         
-        input, select, textarea { width: 100%; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 0.95rem; transition: border-color 0.2s; }
+        /* Special Link Button Style */
+        .btn-link-external { color: var(--accent); border: 1px solid rgba(251, 191, 36, 0.2); background: rgba(251, 191, 36, 0.05); }
+        .btn-link-external:hover { background: rgba(251, 191, 36, 0.1); color: #fff; border-color: var(--accent); }
+
+        input, select, textarea { width: 100%; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 0.95rem; }
         input:focus, textarea:focus { outline: none; border-color: var(--primary); }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
-        /* Consistency Graph */
-        .graph-container { display: flex; justify-content: space-between; align-items: flex-end; height: 240px; padding: 30px 15px 10px 15px; background: linear-gradient(to bottom, rgba(30,41,59,0.3), rgba(15,23,42,0.3)); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
-        .graph-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; height: 100%; justify-content: flex-end; position: relative; cursor: default; }
-        .graph-track { width: 14px; height: 100%; background: rgba(255,255,255,0.03); border-radius: 20px; position: relative; overflow: hidden; display: flex; align-items: flex-end; }
-        .graph-bar { width: 100%; background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%); border-radius: 20px; transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); min-height: 0; box-shadow: 0 0 10px rgba(99, 102, 241, 0.2); }
-        .graph-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
-        .graph-tooltip { position: absolute; top: -35px; background: var(--bg-card-hover); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; opacity: 0; transform: translateY(8px); transition: all 0.2s ease; border: 1px solid var(--border); white-space: nowrap; pointer-events: none; z-index: 10; }
-        .graph-tooltip::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid var(--bg-card-hover); }
-        .graph-col:hover .graph-tooltip { opacity: 1; transform: translateY(0); }
-        .graph-col:hover .graph-bar { filter: brightness(1.2); }
-
-        /* Courses Grid */
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-        .course-filter-container { display: flex; gap: 10px; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-        .course-tab { background: none; border: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.2s; }
-        .course-tab.active { background: var(--bg-card-hover); color: var(--text-main); }
-        .fade-slide { animation: fadeSlide 0.3s ease-out; }
-        @keyframes fadeSlide { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
-
-        .course-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; position: relative; }
-        .course-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
-        .course-header { padding: 1.5rem; background: linear-gradient(to bottom right, rgba(30,41,59,1), rgba(15,23,42,1)); border-bottom: 1px solid var(--border); position: relative; cursor: pointer; }
-        .course-header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
-        .course-badge { font-size: 0.7rem; padding: 0.25rem 0.75rem; border-radius: 20px; background: rgba(99, 102, 241, 0.1); color: var(--primary); border: 1px solid rgba(99, 102, 241, 0.2); font-weight: 600; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
-        .course-title { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; line-height: 1.4; display: flex; align-items: center; gap: 8px; flex: 1; }
-        .course-title i { font-size: 0.9rem; opacity: 0.5; transition: transform 0.3s; margin-top: 3px; }
-        .course-card.expanded .course-title i { transform: rotate(180deg); color: var(--primary); opacity: 1; }
-        .course-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 1rem; margin-top: 0.5rem; }
-        .course-progress-area { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .progress-bar-bg { height: 6px; background: var(--bg-body); border-radius: 3px; overflow: hidden; margin-bottom: 0.5rem; }
-        .progress-bar-fill { height: 100%; background: var(--success); border-radius: 3px; transition: width 0.5s ease; }
-        .progress-text { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
-        .video-accordion { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); background: var(--bg-card); }
-        .video-accordion.open { max-height: 400px; overflow-y: auto; }
-        .course-edit-btn { position: absolute; bottom: 15px; right: 15px; z-index: 5; background: var(--bg-card-hover); color: var(--text-muted); border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .course-edit-btn:hover { color: var(--text-main); border-color: var(--text-muted); }
-        
-        /* Check Items */
-        .check-item { display: flex; align-items: center; gap: 12px; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; cursor: pointer; }
-        .check-item:hover { background: rgba(255,255,255,0.03); }
-        .check-circle { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--text-muted); display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
-        .check-item.checked .check-circle { background: var(--success); border-color: var(--success); }
-        .check-item.checked .check-circle::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #fff; font-size: 12px; }
-        .check-text { font-size: 0.95rem; color: var(--text-main); transition: color 0.2s; line-height: 1.4; }
-        .check-item.checked .check-text { color: var(--text-muted); text-decoration: line-through; }
-
-        /* Achievements */
-        .ach-filters { display: flex; gap: 10px; margin-bottom: 1.5rem; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
-        .ach-filters::-webkit-scrollbar { display: none; }
-        .ach-filter-btn { padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-muted); cursor: pointer; font-size: 0.9rem; transition: all 0.2s; flex-shrink: 0; }
-        .ach-filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
-        .ach-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; gap: 1rem; align-items: flex-start; opacity: 0.6; filter: grayscale(0.8); transition: all 0.3s; position: relative; }
-        .ach-card.earned { opacity: 1; filter: grayscale(0); border-color: var(--accent); background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.05)); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-        .ach-icon { min-width: 48px; height: 48px; background: var(--bg-body); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--text-muted); }
-        .ach-card.earned .ach-icon { background: rgba(251, 191, 36, 0.2); color: var(--accent); box-shadow: 0 0 15px rgba(251, 191, 36, 0.2); }
-        .badge-progress-wrapper { margin-top: 0.5rem; width: 100%; }
-        .badge-progress-bg { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin-top: 4px; }
-        .badge-progress-fill { height: 100%; background: var(--primary); border-radius: 2px; transition: width 0.5s; }
-        .badge-progress-text { font-size: 0.75rem; color: var(--text-muted); display: flex; justify-content: space-between; }
-
-        /* Modals & Overlay */
-        .modal-overlay, #focus-overlay, #onboarding-overlay, #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 1000; }
-        .modal-overlay.active, #focus-overlay.active, #onboarding-overlay.active, #auth-overlay.active { display: flex; animation: fadeIn 0.2s; }
-        .modal-box { background: var(--bg-card); width: 90%; max-width: 600px; border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 2rem; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative; }
-        
         /* Auth Specific */
         .auth-container { width: 100%; max-width: 400px; text-align: center; }
         .auth-tabs { display: flex; margin-bottom: 1.5rem; background: var(--bg-body); padding: 5px; border-radius: 10px; }
         .auth-tab { flex: 1; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 500; color: var(--text-muted); transition: all 0.2s; }
         .auth-tab.active { background: var(--bg-card); color: var(--text-main); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         
+        /* Password Wrapper for Eye Icon */
+        .password-wrapper { position: relative; width: 100%; margin-bottom: 0.5rem; }
+        .password-wrapper input { width: 100%; padding-right: 40px; } 
+        .password-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); z-index: 10; }
+        .password-toggle:hover { color: var(--primary); }
+
+        /* Divider */
+        .auth-divider { display: flex; align-items: center; text-align: center; margin: 1rem 0; color: var(--text-muted); font-size: 0.8rem; }
+        .auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
+        .auth-divider::before { margin-right: .5em; }
+        .auth-divider::after { margin-left: .5em; }
+
+        /* Grids */
+        .grid-dashboard { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 1.5rem; }
+        .grid-profile { display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+        /* Priority List */
+        .priority-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-body); border: 1px solid var(--border); border-radius: var(--radius-md); transition: all 0.2s; cursor: pointer; margin-bottom: 0.75rem; }
+        .priority-item:hover { border-color: var(--primary); transform: translateX(4px); }
+        .priority-item.checked .priority-text { text-decoration: line-through; color: var(--text-muted); }
+        .priority-checkbox { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--text-muted); display: flex; align-items: center; justify-content: center; color: transparent; }
+        .priority-item.checked .priority-checkbox { background: var(--success); border-color: var(--success); color: white; }
+
+        /* Graph */
+        .graph-container { display: flex; justify-content: space-between; align-items: flex-end; height: 180px; padding: 20px 10px 5px 10px; background: linear-gradient(to bottom, rgba(30,41,59,0.3), rgba(15,23,42,0.3)); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .graph-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+        .graph-bar { width: 10px; background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%); border-radius: 20px; transition: height 0.8s; min-height: 4px; }
+        .graph-label { font-size: 0.65rem; color: var(--text-muted); }
+
         /* Calendar */
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 1rem; touch-action: pan-y; }
-        .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.9rem; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; position: relative; }
-        .cal-day:hover { border-color: var(--primary); background: var(--bg-body); }
-        .cal-day.today { background: var(--accent); color: #000; font-weight: 700; }
-        .cal-day.selected { border-color: var(--primary); background: rgba(99,102,241,0.15); box-shadow: 0 0 10px rgba(99,102,241,0.3); }
-        .cal-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); position: absolute; bottom: 6px; display: none; }
-        .cal-day.has-data .cal-dot { display: block; }
-        
-        /* Activity Log */
-        .activity-log-container { max-height: 300px; overflow-y: auto; padding-right: 5px; }
+        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.9rem; font-weight: 700; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.8rem; cursor: pointer; border: 1px solid transparent; position: relative; }
+        .cal-day:hover { background: var(--bg-card-hover); border-color: var(--primary); }
+        .cal-day.today { color: var(--accent); font-weight: bold; border-color: var(--accent); }
+        .cal-day.has-data .cal-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--success); position: absolute; bottom: 4px; }
+
+        /* Activity Log Groups */
         .activity-group { background: var(--bg-card-hover); border-radius: 8px; margin-bottom: 10px; border-left: 3px solid var(--text-muted); overflow: hidden; }
         .activity-group.type-study { border-color: var(--primary); }
         .activity-group.type-goal { border-color: var(--success); }
-        .group-header { padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .group-title { font-weight: 600; font-size: 0.95rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
-        .group-count { font-size: 0.75rem; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 12px; color: var(--text-muted); }
+        .group-header { padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
         .group-items { padding: 0 15px 10px 15px; display: none; font-size: 0.85rem; color: var(--text-muted); }
         .group-items.show { display: block; }
-        .group-item { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* Courses */
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+        .course-filter-container { display: flex; gap: 10px; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .course-tab { background: none; border: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.2s; }
+        .course-tab.active { background: var(--bg-card-hover); color: var(--text-main); }
+        
+        .course-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; position: relative; }
+        .course-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+        .course-header { padding: 1.5rem; background: linear-gradient(to bottom right, rgba(30,41,59,1), rgba(15,23,42,1)); border-bottom: 1px solid var(--border); position: relative; cursor: pointer; }
+        .course-header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
+        .course-badge { font-size: 0.7rem; padding: 0.25rem 0.75rem; border-radius: 20px; background: rgba(99, 102, 241, 0.1); color: var(--primary); border: 1px solid rgba(99, 102, 241, 0.2); font-weight: 600; text-transform: uppercase; }
+        .course-title { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; line-height: 1.4; display: flex; align-items: center; gap: 8px; flex: 1; }
+        .course-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 1rem; margin-top: 0.5rem; }
+        .course-progress-area { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .progress-text { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-top: 5px; }
+        .video-accordion { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: var(--bg-card); }
+        .video-accordion.open { max-height: 400px; overflow-y: auto; }
+        
+        /* Course Edit & Link Buttons */
+        .course-actions-container { position: absolute; bottom: 15px; right: 15px; z-index: 5; display: flex; gap: 8px; }
+        .course-edit-btn { background: var(--bg-card-hover); color: var(--text-muted); border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+        .course-edit-btn:hover { color: var(--text-main); border-color: var(--text-muted); transform: translateY(-2px); }
+
+        /* Awards Grid */
+        .ach-filters { display: flex; gap: 10px; margin-bottom: 1.5rem; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
+        .ach-filter-btn { padding: 0.4rem 1rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-muted); cursor: pointer; font-size: 0.85rem; }
+        .ach-filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+        .ach-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; gap: 1rem; align-items: center; opacity: 0.5; filter: grayscale(1); transition: all 0.3s; position: relative; }
+        .ach-card.earned { opacity: 1; filter: grayscale(0); border-color: var(--accent); background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.05)); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .ach-icon { font-size: 1.8rem; color: var(--text-muted); min-width: 50px; text-align: center; }
+        .ach-card.earned .ach-icon { color: var(--accent); text-shadow: 0 0 10px rgba(251,191,36,0.4); }
+        .ach-info h4 { font-size: 0.95rem; margin-bottom: 2px; }
+        .ach-info p { font-size: 0.75rem; color: var(--text-muted); }
+        .ach-progress { height: 4px; background: rgba(255,255,255,0.1); margin-top: 8px; border-radius: 2px; overflow: hidden; }
+        .ach-fill { height: 100%; background: var(--primary); width: 0%; }
+
+        /* Modals */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.2s; }
+        .modal-box { background: var(--bg-card); width: 90%; max-width: 600px; border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 2rem; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-lg { max-width: 800px; }
+
+        /* Onboarding Dots */
+        .guide-step { margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
+        .guide-icon { width: 40px; height: 40px; background: rgba(99,102,241,0.2); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes confetti-fall { 0% { transform: translateY(-100%) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
-        .confetti { position: fixed; top: 0; width: 10px; height: 10px; z-index: 3000; pointer-events: none; }
+        @keyframes confetti { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+        .confetti { position: fixed; top: 0; width: 8px; height: 8px; z-index: 2000; pointer-events: none; }
 
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
-            .main-content { margin-left: 0; padding: 1.25rem; padding-bottom: 90px; }
+            .main-content { margin-left: 0; padding: 1.25rem; padding-bottom: 100px; }
             .mobile-nav { display: flex; }
-            .mobile-settings-btn { display: block; }
-            .grid-2, .grid-dashboard { grid-template-columns: 1fr; }
-            .courses-grid { grid-template-columns: 1fr; }
-            .swipe-instruction { display: block; }
-            .page-header { flex-direction: row; align-items: center; gap: 10px; }
+            .grid-dashboard, .grid-profile, .grid-2, .courses-grid { grid-template-columns: 1fr; }
+            .page-header { flex-direction: row; }
             .greeting h1 { font-size: 1.2rem; }
-            .greeting p { font-size: 0.75rem; }
-            .streak-badge { padding: 0.3rem 0.8rem; }
-            .streak-label { display: none; }
-            .streak-count { font-size: 1rem; }
-            #focus-overlay h1 { font-size: 1.5rem; }
-            #overlayTimer { font-size: 5rem; }
         }
     </style>
 </head>
 <body>
 
     <!-- Auth Overlay -->
-    <div id="auth-overlay" class="active">
+    <div id="auth-overlay" class="modal-overlay">
         <div class="modal-box auth-container">
+            <div style="display:flex; justify-content:flex-end;"><button class="btn-icon-only" onclick="document.getElementById('auth-overlay').classList.remove('active')">✕</button></div>
             <h2 style="margin-bottom: 1rem; color: var(--primary);">Achieve-mate</h2>
             <div class="auth-tabs">
                 <div class="auth-tab active" id="tab-login" onclick="toggleAuthMode('login')">Login</div>
                 <div class="auth-tab" id="tab-signup" onclick="toggleAuthMode('signup')">Sign Up</div>
             </div>
-            <form id="auth-form" onsubmit="handleAuth(event)">
+            
+            <!-- Google Login Button -->
+            <button class="btn btn-google" onclick="window.handleGoogleAuth()">
+                <i class="fab fa-google" style="margin-right: 8px;"></i> Continue with Google
+            </button>
+
+            <div class="auth-divider">OR</div>
+
+            <form id="auth-form">
                 <input type="email" id="auth-email" placeholder="Email Address" required style="margin-bottom: 1rem;">
-                <input type="password" id="auth-password" placeholder="Password" required style="margin-bottom: 1.5rem;">
+                
+                <!-- Password Wrapper for Eye Icon -->
+                <div class="password-wrapper">
+                    <input type="password" id="auth-password" placeholder="Password" required>
+                    <i class="fas fa-eye password-toggle" id="togglePassword" onclick="window.togglePasswordVisibility()"></i>
+                </div>
+                
+                <!-- FORGOT PASSWORD LINK -->
+                <div style="text-align:right; margin-bottom:1.5rem;" id="forgot-pass-container">
+                    <button type="button" onclick="window.handleResetPassword()" style="background:none; border:none; font-size:0.8rem; color:var(--text-muted); cursor:pointer; text-decoration:underline;">Forgot Password?</button>
+                </div>
+
                 <button type="submit" class="btn btn-primary" style="width: 100%;" id="auth-btn">Login</button>
             </form>
             <div id="auth-msg" style="margin-top: 1rem; font-size: 0.85rem; color: var(--danger);"></div>
             <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
-                Don't have a Firebase project? <br>
-                <a href="#" onclick="skipAuth()" style="color: var(--accent);">Continue as Guest (Offline)</a>
+                <a href="#" onclick="document.getElementById('auth-overlay').classList.remove('active')" style="color: var(--accent);">Continue as Guest (Offline)</a>
             </div>
         </div>
     </div>
 
+    <!-- Welcome Guide Modal -->
+    <div id="welcome-overlay" class="modal-overlay">
+        <div class="modal-box" style="max-width: 500px;">
+            <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary);">Welcome to Achieve-mate! 🚀</h2>
+            <div class="guide-step">
+                <div class="guide-icon"><i class="fas fa-home"></i></div>
+                <div>
+                    <h4 style="margin-bottom:0.2rem">Dashboard</h4>
+                    <p style="font-size:0.9rem; color:var(--text-muted)">Track daily priorities and see your progress at a glance.</p>
+                </div>
+            </div>
+            <div class="guide-step">
+                <div class="guide-icon"><i class="fas fa-play-circle"></i></div>
+                <div>
+                    <h4 style="margin-bottom:0.2rem">Courses</h4>
+                    <p style="font-size:0.9rem; color:var(--text-muted)">Create custom learning playlists and track topics.</p>
+                </div>
+            </div>
+            <div class="guide-step">
+                <div class="guide-icon"><i class="fas fa-clock"></i></div>
+                <div>
+                    <h4 style="margin-bottom:0.2rem">Focus Mode</h4>
+                    <p style="font-size:0.9rem; color:var(--text-muted)">Distraction-free timer to boost your deep work sessions.</p>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="closeWelcomeGuide()">Let's Get Started!</button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
     <nav class="mobile-nav">
-        <div class="mobile-nav-item active" onclick="switchTab('dashboard')"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="mobile-nav-item" onclick="switchTab('courses')"><i class="fas fa-book"></i><span>Courses</span></div>
-        <div class="mobile-nav-item" onclick="switchTab('goals')"><i class="fas fa-bullseye"></i><span>Goals</span></div>
-        <div class="mobile-nav-item" onclick="switchTab('focus')"><i class="fas fa-clock"></i><span>Focus</span></div>
-        <div class="mobile-nav-item" onclick="switchTab('achievements')"><i class="fas fa-trophy"></i><span>Awards</span></div>
+        <div class="mobile-nav-item active" id="mob-dashboard" onclick="switchTab('dashboard')"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="mobile-nav-item" id="mob-courses" onclick="switchTab('courses')"><i class="fas fa-book"></i><span>Courses</span></div>
+        <div class="mobile-nav-item" id="mob-focus" onclick="switchTab('focus')"><i class="fas fa-clock"></i><span>Focus</span></div>
+        <div class="mobile-nav-item" id="mob-achievements" onclick="switchTab('achievements')"><i class="fas fa-trophy"></i><span>Awards</span></div>
+        <div class="mobile-nav-item" id="mob-profile" onclick="switchTab('profile')"><i class="fas fa-user"></i><span>Profile</span></div>
     </nav>
 
     <div class="app-wrapper">
         <aside class="sidebar">
             <div class="brand"><i class="fas fa-graduation-cap"></i><span>Achieve-mate</span></div>
-            <div class="nav-item active" onclick="switchTab('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</div>
-            <div class="nav-item" onclick="switchTab('courses')"><i class="fas fa-play-circle"></i> My Courses</div>
-            <div class="nav-item" onclick="switchTab('goals')"><i class="fas fa-bullseye"></i> Daily Goals</div>
-            <div class="nav-item" onclick="switchTab('achievements')"><i class="fas fa-trophy"></i> Achievements</div>
-            <div class="nav-item" onclick="switchTab('focus')"><i class="fas fa-stopwatch"></i> Focus Mode</div>
-            <div class="nav-item" onclick="switchTab('settings')"><i class="fas fa-sliders-h"></i> Settings</div>
+            <div class="nav-item active" id="nav-dashboard" onclick="switchTab('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</div>
+            <div class="nav-item" id="nav-courses" onclick="switchTab('courses')"><i class="fas fa-play-circle"></i> My Courses</div>
+            <div class="nav-item" id="nav-focus" onclick="switchTab('focus')"><i class="fas fa-stopwatch"></i> Focus Mode</div>
+            <div class="nav-item" id="nav-achievements" onclick="switchTab('achievements')"><i class="fas fa-trophy"></i> Achievements</div>
+            <div class="nav-item" id="nav-profile" onclick="switchTab('profile')"><i class="fas fa-user-circle"></i> Profile</div>
             
-            <div class="user-profile-mini" id="userProfileSidebar" style="display:none;">
-                <div class="user-avatar" id="userAvatarInitials">U</div>
-                <div class="user-info-mini">
-                    <div id="userEmailDisplay">User</div>
-                    <span id="syncStatus">Sync Active</span>
-                </div>
+            <!-- CREATOR CREDITS SECTION -->
+            <div class="sidebar-footer">
+                <div>Built by Developer</div>
+                <a href="https://www.linkedin.com/in/your-profile-link" target="_blank" class="creator-link">
+                    <i class="fab fa-linkedin"></i> Connect
+                </a>
             </div>
         </aside>
 
@@ -268,49 +314,53 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <div class="streak-badge" onclick="openCalendarModal()">
+                    <button id="headerLoginBtn" class="header-login-btn" onclick="document.getElementById('auth-overlay').classList.add('active')">
+                        <i class="fas fa-sign-in-alt"></i> Login / Sync
+                    </button>
+                    <div class="streak-badge" onclick="switchTab('profile')">
                         <i class="fas fa-fire" style="color: var(--accent)"></i>
                         <div class="streak-count" id="headerStreak">0</div>
-                        <div class="streak-label" style="margin-left: 5px;">Streak</div>
                     </div>
-                    <i class="fas fa-cog mobile-settings-btn" id="mobileSettingsIcon" onclick="toggleMobileSettings()"></i>
                 </div>
             </header>
 
             <!-- DASHBOARD -->
             <div id="dashboard-view" class="view-section">
                 <div class="grid-dashboard">
-                    <div>
+                    <!-- Left: Tasks & Graph -->
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                         <div class="card">
-                            <div class="card-title"><i class="fas fa-tasks"></i> Today's Priority</div>
+                            <div class="card-title">
+                                <span><i class="fas fa-tasks"></i> Today's Priority</span>
+                                <button class="btn-icon-only" onclick="openModal('manageGoalsModal')"><i class="fas fa-pencil-alt"></i></button>
+                            </div>
                             <div id="dashboardGoalsList"></div>
-                            <button class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 1rem;" onclick="switchTab('goals')"><i class="fas fa-plus"></i> Manage Goals</button>
+                            <div id="emptyGoalsMsg" style="text-align:center; color:var(--text-muted); padding:1rem; font-size:0.9rem; display:none;">No tasks set. Tap the pencil to add.</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title"><i class="fas fa-chart-bar"></i> 7-Day Consistency</div>
+                            <div class="graph-container" id="consistencyGraph"></div>
                         </div>
                     </div>
+
+                    <!-- Right: Stats -->
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                         <div class="card">
                             <div class="card-title"><i class="fas fa-chart-line"></i> Progress</div>
                             <div style="display: flex; justify-content: space-around; text-align: center; padding: 10px 0;">
-                                <div>
-                                    <div style="font-size: 2rem; font-weight: 700; color: var(--primary);" id="topicPct">0%</div>
-                                    <div style="font-size: 0.9rem; color: var(--text-muted);">Topics</div>
+                                <div style="cursor: pointer;" onclick="switchTab('courses')">
+                                    <div style="font-size: 2rem; font-weight: 700; color: var(--accent);" id="topicPct">0%</div>
+                                    <div style="font-size: 0.9rem; color: var(--text-muted);">Courses</div>
                                 </div>
-                                <div>
+                                <div style="cursor: pointer;" onclick="openModal('manageGoalsModal')">
                                     <div style="font-size: 2rem; font-weight: 700; color: var(--accent);" id="goalPct">0%</div>
                                     <div style="font-size: 0.9rem; color: var(--text-muted);">Goals</div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="card" id="recentVictoryCard" style="background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.1)); border-color: rgba(251, 191, 36, 0.3);">
+                        <div class="card" onclick="switchTab('achievements')" style="cursor:pointer; background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.1)); border-color: rgba(251, 191, 36, 0.3);">
                             <div class="card-title" style="color: var(--accent);"><i class="fas fa-crown"></i> Recent Victory</div>
-                            <div id="recentBadgeContent" style="display: flex; align-items: center; gap: 15px;">
-                                <div style="font-size: 2rem; color: var(--accent);"><i class="fas fa-lock"></i></div>
-                                <div>
-                                    <div style="font-weight: 600;">No Badges Yet</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-muted);">Start learning to unlock!</div>
-                                </div>
-                            </div>
+                            <div id="recentBadgeContent">Loading...</div>
                         </div>
                     </div>
                 </div>
@@ -320,7 +370,7 @@
             <div id="courses-view" class="view-section" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem;">Learning Playlists</h2>
+                        <h2 style="font-family: var(--font-heading);">Learning Playlists</h2>
                         <button class="btn btn-primary" onclick="openModal('addPlaylistModal')"><i class="fas fa-plus"></i> Add Course</button>
                     </div>
                     <div class="course-filter-container">
@@ -328,45 +378,7 @@
                         <button class="course-tab" onclick="filterCourses('active', this)">In Progress</button>
                         <button class="course-tab" onclick="filterCourses('completed', this)">Completed</button>
                     </div>
-                    <div class="swipe-instruction"><i class="fas fa-arrow-left"></i> Swipe to filter <i class="fas fa-arrow-right"></i></div>
-                    <div id="courseSwipeArea" style="min-height: 200px;">
-                        <div id="playlistsContainer" class="courses-grid"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- GOALS -->
-            <div id="goals-view" class="view-section" style="display: none;">
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-calendar-check"></i> Today's Goals</div>
-                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
-                            <input type="text" id="newGoalInput" placeholder="Main focus today?">
-                            <button class="btn btn-primary" onclick="addGoal()">Add</button>
-                        </div>
-                        <div id="fullGoalsList"></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-chart-bar"></i> 7-Day Consistency</div>
-                        <div class="graph-container" id="consistencyGraph"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ACHIEVEMENTS -->
-            <div id="achievements-view" class="view-section" style="display: none;">
-                <div class="card">
-                    <div style="margin-bottom: 1.5rem;">
-                        <h2 style="font-family: var(--font-heading);">Badges & Milestones</h2>
-                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Unlocked: <span id="achieveCount" style="color: var(--accent); font-weight: 700;">0</span> / 17</p>
-                        <div class="ach-filters">
-                            <button class="ach-filter-btn active" onclick="filterBadges('all', this)">All</button>
-                            <button class="ach-filter-btn" onclick="filterBadges('streak', this)">Streak</button>
-                            <button class="ach-filter-btn" onclick="filterBadges('playlist', this)">Courses</button>
-                            <button class="ach-filter-btn" onclick="filterBadges('focus', this)">Focus</button>
-                        </div>
-                    </div>
-                    <div class="achievements-grid" id="achievementsGrid"></div>
+                    <div id="playlistsContainer" class="courses-grid"></div>
                 </div>
             </div>
 
@@ -374,502 +386,819 @@
             <div id="focus-view" class="view-section" style="display: none;">
                 <div class="grid-2">
                     <div class="card">
-                        <div class="card-title" style="justify-content: center;"><i class="fas fa-brain"></i> Setup Session</div>
+                        <div class="card-title" style="justify-content: center;">Focus Session</div>
                         <input type="text" id="focusTaskInput" placeholder="What are you working on?" style="text-align: center; margin-bottom: 1.5rem;">
-                        <label style="color: var(--text-muted); font-size: 0.9rem;">Duration (Minutes)</label>
-                        <div style="display: flex; justify-content: center; gap: 10px; margin: 0.5rem 0 1.5rem 0;">
-                            <input type="number" id="customFocusTime" value="25" style="width: 80px; text-align: center;">
-                            <button class="btn btn-secondary btn-sm" onclick="setCustomTime(25)">25m</button>
-                            <button class="btn btn-secondary btn-sm" onclick="setCustomTime(45)">45m</button>
-                            <button class="btn btn-secondary btn-sm" onclick="setCustomTime(60)">60m</button>
+                        <label style="display:block; text-align:center; color:var(--text-muted); margin-bottom:0.5rem;">Duration (Minutes)</label>
+                        <input type="number" id="customFocusTime" value="25" style="text-align:center; margin-bottom:1rem; width:80px; margin-left:auto; margin-right:auto; display:block;">
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 1.5rem;">
+                            <button class="btn btn-secondary btn-sm" onclick="document.getElementById('customFocusTime').value=25">25m</button>
+                            <button class="btn btn-secondary btn-sm" onclick="document.getElementById('customFocusTime').value=45">45m</button>
+                            <button class="btn btn-secondary btn-sm" onclick="document.getElementById('customFocusTime').value=60">60m</button>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;" onclick="startFullScreenFocus()"><i class="fas fa-play"></i> Start Focus</button>
+                        <button class="btn btn-primary" style="width:100%" onclick="startFullScreenFocus()">Start Focus</button>
                     </div>
                     <div class="card">
-                        <div class="card-title"><i class="fas fa-history"></i> Recent Sessions</div>
+                        <div class="card-title">Recent Sessions</div>
                         <div id="focusHistoryList" style="max-height: 300px; overflow-y: auto;"></div>
                     </div>
                 </div>
             </div>
-            
-            <!-- SETTINGS -->
-            <div id="settings-view" class="view-section" style="display: none;">
+
+            <!-- AWARDS -->
+            <div id="achievements-view" class="view-section" style="display: none;">
                 <div class="card">
-                    <div class="card-title">Account & Data</div>
-                    <div id="account-info-settings" style="margin-bottom: 1.5rem;">
-                        <p style="color: var(--text-muted);">Logged in as: <span id="settingsEmail" style="color: var(--text-main); font-weight: 600;">Guest</span></p>
+                    <div class="card-title">
+                        <span>Badges & Milestones</span>
+                        <span id="badgeCount" style="color:var(--accent)">0 / 17</span>
                     </div>
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <button class="btn btn-danger" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                        <button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> Export</button>
-                        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import</button>
-                        <input type="file" id="importFile" style="display: none;" accept=".json" onchange="importData(this)">
+                    <div class="ach-filters">
+                        <button class="ach-filter-btn active" onclick="filterBadges('all', this)">All</button>
+                        <button class="ach-filter-btn" onclick="filterBadges('streak', this)">Streak</button>
+                        <button class="ach-filter-btn" onclick="filterBadges('playlist', this)">Courses</button>
+                        <button class="ach-filter-btn" onclick="filterBadges('focus', this)">Focus</button>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Help & Support</div>
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                         <button class="btn btn-secondary" onclick="showOnboarding()"><i class="fas fa-question-circle"></i> Show Welcome Guide</button>
-                         <button class="btn btn-secondary" onclick="contactDeveloper()"><i class="fas fa-envelope"></i> Connect with Developer</button>
-                    </div>
+                    <div class="achievements-grid" id="achievementsGrid"></div>
                 </div>
             </div>
+
+            <!-- PROFILE -->
+            <div id="profile-view" class="view-section" style="display: none;">
+                <div class="card" style="display:flex; align-items:center; gap:1.5rem; background: linear-gradient(to right, var(--bg-card), rgba(99,102,241,0.1));">
+                    <div style="width:70px; height:70px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:700;" id="profilePic">U</div>
+                    <div>
+                        <h2 id="profileName" style="line-height:1.2">Guest User</h2>
+                        <p id="profileEmail" style="color:var(--text-muted); font-size:0.9rem;">Not logged in</p>
+                        <p id="verificationStatus" style="color:var(--accent); font-size:0.8rem; display:none;">Email not verified</p>
+                    </div>
+                </div>
+
+                <div class="grid-profile">
+                    <div class="card">
+                        <div class="cal-header">
+                            <button class="btn-icon-only btn-sm" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                            <span id="calMonthYear"></span>
+                            <button class="btn-icon-only btn-sm" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="cal-grid" id="calGrid"></div>
+                        <div style="margin-top:1rem; font-size:0.8rem; color:var(--text-muted); text-align:center;">Select date to view activity</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">
+                            <span>Activity Log</span>
+                            <span id="selectedDateDisplay" style="font-size:0.9rem; color:var(--primary)">Today</span>
+                        </div>
+                        <div id="activityLogContainer" style="height:300px; overflow-y:auto;">
+                            <div style="text-align:center; padding:2rem; color:var(--text-muted);">Click a date on the calendar to view details.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Account Settings</div>
+                    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                        <button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import Data</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('welcome-overlay').classList.add('active')"><i class="fas fa-question-circle"></i> Help Guide</button>
+                        <button class="btn btn-secondary" onclick="if(confirm('Clear all local data?')) { localStorage.clear(); location.reload(); }"><i class="fas fa-trash"></i> Reset App</button>
+                        <button class="btn btn-secondary" onclick="window.location.href='mailto:support@achievemate.com'"><i class="fas fa-bug"></i> Report Bug</button>
+                        <button class="btn btn-danger" id="logoutBtn" style="display:none;" onclick="window.logoutUser()">Logout</button>
+                    </div>
+                    <input type="file" id="importFile" style="display: none;" accept=".json" onchange="importData(this)">
+                </div>
+            </div>
+
         </main>
     </div>
 
-    <!-- FULL SCREEN FOCUS OVERLAY -->
-    <div id="focus-overlay" style="flex-direction: column; text-align: center;">
-        <div style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1rem;" id="overlayTask">Deep Work</div>
-        <div style="font-size: 6rem; font-weight: 700; color: var(--primary); font-family: monospace; line-height: 1;" id="overlayTimer">25:00</div>
-        <div style="margin-top: 3rem;">
-            <button class="btn btn-danger" style="padding: 1rem 2rem; font-size: 1.2rem;" onclick="stopFullScreenFocus()"><i class="fas fa-stop"></i> Stop Session</button>
+    <!-- Modals -->
+    <div id="manageGoalsModal" class="modal-overlay">
+        <div class="modal-box">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>Manage Tasks</h3><button class="btn-icon-only" onclick="closeModal('manageGoalsModal')">✕</button></div>
+            <div style="display:flex; gap:0.5rem; margin-bottom:1rem;">
+                <input type="text" id="newGoalInput" placeholder="Add new task...">
+                <button class="btn btn-primary" onclick="addGoal()">Add</button>
+            </div>
+            <div id="manageGoalsList"></div>
         </div>
     </div>
 
-    <!-- MODALS -->
-    <div class="modal-overlay" id="addPlaylistModal">
+    <div id="addPlaylistModal" class="modal-overlay">
         <div class="modal-box">
-            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>New Course</h3><button class="btn btn-sm" onclick="closeModal('addPlaylistModal')">✕</button></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>New Course</h3><button class="btn-icon-only" onclick="closeModal('addPlaylistModal')">✕</button></div>
             <form onsubmit="savePlaylist(event)" id="addCourseForm">
                 <input type="text" id="plName" required placeholder="Course Name" style="margin-bottom: 1rem;">
-                <div style="display:flex; gap:1rem; margin-bottom:1rem;">
-                    <select id="plSource" style="width:40%;">
+                <div style="display: flex; gap: 10px; margin-bottom: 1rem;">
+                    <select id="plSource" style="width:50%; padding:0.75rem; background:var(--bg-body); color:var(--text-main); border:1px solid var(--border); border-radius:var(--radius-md);">
                         <option value="Youtube">YouTube</option>
                         <option value="Udemy">Udemy</option>
                         <option value="Coursera">Coursera</option>
                     </select>
-                    <input type="url" id="plUrl" placeholder="Link (Optional)">
+                    <input type="url" id="plLink" placeholder="Course Link (Optional)" style="width:50%;">
                 </div>
-                <label>Videos / Topics (One per line)</label>
-                <textarea id="plVideos" rows="6" required style="margin-bottom: 1rem;"></textarea>
-                <button type="submit" class="btn btn-primary" style="width:100%">Add Course</button>
+                <textarea id="plVideos" rows="5" required placeholder="Topics list (one per line)" style="margin-bottom:1rem;"></textarea>
+                <button type="submit" class="btn btn-primary" style="width:100%">Create Course</button>
             </form>
         </div>
     </div>
 
-    <div class="modal-overlay" id="editPlaylistModal">
-        <div class="modal-box">
-            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>Edit Course</h3><button class="btn btn-sm" onclick="closeModal('editPlaylistModal')">✕</button></div>
+    <!-- Edit Playlist Modal -->
+    <div id="editPlaylistModal" class="modal-overlay">
+        <div class="modal-box modal-lg">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>Edit Course</h3><button class="btn-icon-only" onclick="closeModal('editPlaylistModal')">✕</button></div>
             <input type="hidden" id="editPlId">
-            <label>Name</label>
-            <input type="text" id="editPlName" style="margin-bottom: 1rem;">
-            <label>Bulk Edit Topics (Preserves status if title matches)</label>
-            <textarea id="editPlVideos" rows="8" style="margin-bottom: 1rem;"></textarea>
-            <div style="display: flex; justify-content: space-between;">
-                <button class="btn btn-danger" onclick="deletePlaylist()">Delete</button>
-                <button class="btn btn-primary" onclick="saveEditedPlaylist()">Save</button>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem;">
+                <input type="text" id="editPlName" placeholder="Course Name">
+                <input type="url" id="editPlLink" placeholder="Course URL">
+            </div>
+            <textarea id="editPlVideos" rows="10" placeholder="Topics (one per line)" style="margin-bottom:1rem; font-family:monospace; font-size:0.9rem;"></textarea>
+            <div style="display:flex; justify-content:space-between;">
+                <button class="btn btn-danger" onclick="deletePlaylist()">Delete Course</button>
+                <button class="btn btn-primary" onclick="updatePlaylist()">Save Changes</button>
             </div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="calendarModal">
-        <div class="modal-box" style="max-width: 800px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>History Log</h3><button class="btn btn-sm" onclick="closeModal('calendarModal')">✕</button></div>
-            <div class="grid-2">
-                <div id="calSwipeArea">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <button class="btn btn-sm btn-secondary" onclick="changeCalMonth(-1)">Prev</button>
-                        <div style="font-weight: 700;" id="calMonthYear"></div>
-                        <button class="btn btn-sm btn-secondary" onclick="changeCalMonth(1)">Next</button>
-                    </div>
-                    <div class="cal-grid" id="calGrid"></div>
-                </div>
-                <div style="background: var(--bg-body); padding: 1rem; border-radius: 8px; display:flex; flex-direction:column;">
-                    <h4 style="margin-bottom: 1rem; color: var(--primary); border-bottom:1px solid var(--border); padding-bottom:0.5rem;" id="detailDate">Select a Date</h4>
-                    <div id="dayDetails" class="activity-log-container">Click a date to view activity.</div>
-                </div>
-            </div>
+    <!-- Focus Overlay -->
+    <div id="focus-overlay" class="modal-overlay" style="background:var(--bg-body); z-index:2000;">
+        <div style="text-align:center;">
+            <div id="overlayTask" style="font-size:1.5rem; color:var(--text-muted); margin-bottom:1rem;">Focusing</div>
+            <div id="overlayTimer" style="font-size:6rem; font-weight:700; color:var(--primary); font-family:monospace; line-height:1;">25:00</div>
+            <button class="btn btn-danger" style="margin-top:3rem; padding:1rem 2rem;" onclick="stopFullScreenFocus()">Stop Session</button>
         </div>
     </div>
 
-    <div id="onboarding-overlay">
-        <div class="modal-box" style="max-width: 500px;">
-            <h2 style="text-align: center; margin-bottom: 1rem; color: var(--primary);">Welcome to Achieve-mate! 🚀</h2>
-            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Your personal productivity companion.</p>
-            <button class="btn btn-primary" style="width: 100%; font-size: 1.1rem;" onclick="closeOnboarding()">Let's Start!</button>
-        </div>
-    </div>
-
-    <!-- Firebase Imports -->
+    <!-- Firebase Logic (Module) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        
+        /* IMPORTANT: To use YOUR specific firebase project in your local file, 
+           uncomment your config below and comment out the 'const firebaseConfig' line 
+           that uses 'typeof __firebase_config'.
+        */
+
+        // Your specific config (Uncomment this block when you download!)
+        /*
         const firebaseConfig = {
-  apiKey: "AIzaSyBBuXEgTrEbAkj-BN_VSSYoVDx5e51fw4A",
-  authDomain: "achieve-mate.firebaseapp.com",
-  projectId: "achieve-mate",
-  storageBucket: "achieve-mate.firebasestorage.app",
-  messagingSenderId: "209711943902",
-  appId: "1:209711943902:web:e8df445f14cc5c9b6eb24f"
-};
+            apiKey: "AIzaSyBBuXEgTrEbAkj-BN_VSSYoVDx5e51fw4A",
+            authDomain: "achieve-mate.firebaseapp.com",
+            projectId: "achieve-mate",
+            storageBucket: "achieve-mate.firebasestorage.app",
+            messagingSenderId: "209711943902",
+            appId: "1:209711943902:web:e8df445f14cc5c9b6eb24f"
+        };
+        */
 
-        let auth, db;
-        let currentUser = null;
+        // System config for preview (Do not delete this line for the preview to work)
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
 
-        // Init Firebase if config present
-        if (firebaseConfig.apiKey) {
-            const app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-            
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    currentUser = user;
-                    document.getElementById('auth-overlay').classList.remove('active');
-                    updateProfileUI(user.email);
-                    loadDataFromCloud();
-                } else {
-                    currentUser = null;
-                    // Show auth screen if desired, or just stay in guest
-                    // For this implementation, we show auth on load if no local data
-                }
-            });
-        } else {
-            // No config - Guest Mode
-            console.log("Firebase not configured. Running in Guest Mode.");
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        // --- GOOGLE LOGIN HANDLER ---
+        window.handleGoogleAuth = async () => {
+             const msg = document.getElementById('auth-msg');
+             msg.textContent = "Opening Google Login...";
+             msg.style.color = "var(--text-muted)";
+             
+             try {
+                 await signInWithPopup(auth, googleProvider);
+                 document.getElementById('auth-overlay').classList.remove('active');
+                 msg.textContent = "";
+             } catch (err) {
+                 msg.style.color = 'var(--danger)';
+                 console.error(err);
+                 if (err.code === 'auth/popup-blocked') {
+                     msg.textContent = "Popup blocked. Please allow popups for this site.";
+                 } else if (err.code === 'auth/operation-not-allowed') {
+                     msg.textContent = "Google Login is disabled in Firebase Console.";
+                 } else if (err.message.includes('Cross-Origin-Opener-Policy')) {
+                     msg.textContent = "Preview Mode Error: Open this page in a new tab/window to sign in with Google.";
+                 } else {
+                     msg.textContent = err.message;
+                 }
+             }
         }
 
+        // --- EMAIL/PASSWORD HANDLER ---
         window.handleAuth = async (e) => {
             e.preventDefault();
-            if(!auth) { alert("Please configure Firebase in the code first."); return; }
-            
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-password').value;
             const isSignup = document.getElementById('tab-signup').classList.contains('active');
             const msg = document.getElementById('auth-msg');
             
+            msg.textContent = "Processing...";
+            msg.style.color = "var(--text-muted)";
+
             try {
                 if (isSignup) {
-                    await createUserWithEmailAndPassword(auth, email, pass);
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+                    const user = userCredential.user;
+                    await sendEmailVerification(user);
+                    await signOut(auth);
+                    msg.style.color = 'var(--success)';
+                    msg.textContent = "Account created! Verification email sent. Please check your inbox.";
                 } else {
-                    await signInWithEmailAndPassword(auth, email, pass);
+                    const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+                    const user = userCredential.user;
+                    if (!user.emailVerified) {
+                        // document.getElementById('auth-overlay').classList.remove('active'); // Optionally force strict verification
+                        msg.style.color = 'var(--accent)';
+                        msg.textContent = "Warning: Email not verified yet.";
+                         setTimeout(() => {
+                             document.getElementById('auth-overlay').classList.remove('active');
+                         }, 1500);
+                    } else {
+                        msg.textContent = "";
+                        document.getElementById('auth-overlay').classList.remove('active');
+                    }
                 }
             } catch (err) {
+                msg.style.color = 'var(--danger)';
+                console.error("Auth Error:", err.code);
+                if(err.code === 'auth/email-already-in-use') msg.textContent = "Email already registered. Try logging in.";
+                else if(err.code === 'auth/wrong-password') msg.textContent = "Incorrect password.";
+                else if(err.code === 'auth/user-not-found') msg.textContent = "No account found.";
+                else if(err.code === 'auth/operation-not-allowed') msg.textContent = "Error: You MUST enable the top 'Email/Password' switch in Firebase Console.";
+                else msg.textContent = err.message;
+            }
+        };
+
+        document.getElementById('auth-form').addEventListener('submit', window.handleAuth);
+
+        window.handleResetPassword = async () => {
+            const email = document.getElementById('auth-email').value;
+            const msg = document.getElementById('auth-msg');
+            
+            if (!email) {
+                msg.style.color = 'var(--accent)';
+                msg.textContent = "Please enter your email address in the input box above first.";
+                return;
+            }
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                msg.style.color = 'var(--success)';
+                msg.textContent = "Password reset link sent! Check your inbox.";
+            } catch (err) {
+                msg.style.color = 'var(--danger)';
                 msg.textContent = err.message;
             }
         };
 
-        window.logoutUser = () => {
-            if(auth) signOut(auth);
-            location.reload();
-        };
+        window.logoutUser = () => signOut(auth).then(() => location.reload());
 
-        window.updateProfileUI = (email) => {
-            document.getElementById('userProfileSidebar').style.display = 'flex';
-            document.getElementById('userAvatarInitials').textContent = email[0].toUpperCase();
-            document.getElementById('userEmailDisplay').textContent = email.split('@')[0];
-            document.getElementById('settingsEmail').textContent = email;
-            document.getElementById('syncStatus').textContent = "Cloud Sync On";
-        };
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                if(!user.emailVerified) {
+                     document.getElementById('verificationStatus').style.display = 'block';
+                } else {
+                     document.getElementById('verificationStatus').style.display = 'none';
+                }
 
-        // --- Data Sync Logic ---
-        window.loadDataFromCloud = async () => {
-            if (!db || !currentUser) return;
-            const docRef = doc(db, "users", currentUser.uid);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                appData = docSnap.data();
-                refreshAllUI();
+                document.getElementById('headerLoginBtn').style.display = 'none';
+                document.getElementById('profileName').textContent = user.displayName || user.email.split('@')[0];
+                document.getElementById('profileEmail').textContent = user.email;
+                document.getElementById('profilePic').textContent = (user.displayName || user.email)[0].toUpperCase();
+                document.getElementById('logoutBtn').style.display = 'inline-flex';
+                loadCloudData(user.uid);
             } else {
-                saveDataToCloud(); // Create initial doc
+                document.getElementById('headerLoginBtn').style.display = 'flex';
+                document.getElementById('logoutBtn').style.display = 'none';
             }
-        };
+        });
 
-        window.saveDataToCloud = async () => {
-            if (!db || !currentUser) return;
-            await setDoc(doc(db, "users", currentUser.uid), appData);
-        };
-
-        // Override SaveData to use Cloud if available
-        const originalSave = window.saveData;
-        window.saveData = () => {
-            localStorage.setItem('achieveMate_v8', JSON.stringify(appData)); // Always save local backup
-            if (currentUser) saveDataToCloud();
-            renderAchievements();
-            updateRecentVictory();
-        };
+        async function loadCloudData(uid) {
+            const snap = await getDoc(doc(db, "users", uid));
+            if(snap.exists()) {
+                window.appData = snap.data(); 
+                window.refreshUI(); 
+            }
+        }
+        
+        window.saveCloudData = async () => {
+            if(auth.currentUser) await setDoc(doc(db, "users", auth.currentUser.uid), window.appData);
+        }
     </script>
 
+    <!-- Main App Logic -->
     <script>
-        // --- Main App Logic ---
-        let appData = { playlists: [], dailyGoals: [], streak: 0, lastActiveDate: null, studyHistory: {}, focusHistory: [], totalFocusTime: 0, isNewUser: true };
-        let calCursorDate = new Date();
-        let selectedDateISO = new Date().toLocaleDateString('en-CA');
-        let editingPlId = null;
-        let focusInterval = null;
-        let focusTimeLeft = 0;
+        window.appData = { playlists: [], dailyGoals: [], streak: 0, lastActive: null, history: {}, focusLogs: [], totalFocusTime: 0, isNewUser: true };
         let currentBadgeFilter = 'all';
         let currentCourseFilter = 'all';
-        let authMode = 'login';
-        
-        // Swipe Vars
-        let touchStartX = 0; let touchEndX = 0;
-        let courseTouchStartX = 0; let courseTouchEndX = 0;
+        let calDate = new Date();
+        let focusInterval = null;
+        let currentTab = 'dashboard';
+
+        // Password Visibility Toggle
+        window.togglePasswordVisibility = function() {
+            const input = document.getElementById('auth-password');
+            const icon = document.getElementById('togglePassword');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
 
         function init() {
-            const saved = localStorage.getItem('achieveMate_v8');
-            if (saved) {
-                appData = JSON.parse(saved);
-                document.getElementById('auth-overlay').classList.remove('active'); // Skip login if local data exists (Guest)
+            const local = localStorage.getItem('achieveMate_v12');
+            if(local) window.appData = JSON.parse(local);
+            
+            if(window.appData.isNewUser) {
+                document.getElementById('welcome-overlay').classList.add('active');
             }
-            if(appData.isNewUser) showOnboarding();
 
             updateGreeting();
-            refreshAllUI();
-            
-            // Event Listeners
-            document.getElementById('calSwipeArea').addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
-            document.getElementById('calSwipeArea').addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); });
-            
-            const courseArea = document.getElementById('courseSwipeArea');
-            if(courseArea) {
-                courseArea.addEventListener('touchstart', e => courseTouchStartX = e.changedTouches[0].screenX);
-                courseArea.addEventListener('touchend', e => { courseTouchEndX = e.changedTouches[0].screenX; handleCourseSwipe(); });
-            }
-        }
-
-        function refreshAllUI() {
-            renderGoals(); renderPlaylists(); renderAchievements(); renderConsistencyGraph(); renderFocusHistory(); updateRecentVictory();
-            document.getElementById('headerStreak').textContent = appData.streak;
+            refreshUI();
+            updateActiveTabUI('dashboard');
         }
         
-        // Auth UI Toggles
-        window.toggleAuthMode = (mode) => {
-            authMode = mode;
+        window.closeWelcomeGuide = function() {
+            document.getElementById('welcome-overlay').classList.remove('active');
+            window.appData.isNewUser = false;
+            window.saveData();
+        }
+
+        window.refreshUI = function() {
+            renderGoals();
+            renderConsistencyGraph();
+            renderPlaylists();
+            renderAchievements();
+            renderCalendar();
+            renderFocusHistory();
+            document.getElementById('headerStreak').textContent = window.appData.streak;
+        }
+
+        window.saveData = function() {
+            localStorage.setItem('achieveMate_v12', JSON.stringify(window.appData));
+            if(window.saveCloudData) window.saveCloudData();
+        }
+
+        // --- Navigation ---
+        window.switchTab = function(id) {
+            currentTab = id;
+            document.querySelectorAll('.view-section').forEach(e => e.style.display = 'none');
+            document.getElementById(id + '-view').style.display = 'block';
+            updateActiveTabUI(id);
+        }
+
+        function updateActiveTabUI(id) {
+            document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(e => e.classList.remove('active'));
+            const pcNav = document.getElementById('nav-' + id);
+            const mobNav = document.getElementById('mob-' + id);
+            if(pcNav) pcNav.classList.add('active');
+            if(mobNav) mobNav.classList.add('active');
+        }
+
+        window.toggleAuthMode = function(mode) {
             document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
             document.getElementById('tab-' + mode).classList.add('active');
             document.getElementById('auth-btn').textContent = mode === 'login' ? 'Login' : 'Sign Up';
-            document.getElementById('auth-msg').textContent = '';
-        };
-        
-        window.skipAuth = () => {
-            document.getElementById('auth-overlay').classList.remove('active');
-        };
-
-        // Logic Functions (Same as before, just simplified for brevity in this view)
-        function handleSwipe() { if (touchEndX < touchStartX - 50) changeCalMonth(1); if (touchEndX > touchStartX + 50) changeCalMonth(-1); }
-        function handleCourseSwipe() {
-            const filters = ['all', 'active', 'completed'];
-            let idx = filters.indexOf(currentCourseFilter);
-            if (courseTouchEndX < courseTouchStartX - 50 && idx < 2) filterCourses(filters[idx+1], document.querySelectorAll('.course-tab')[idx+1]);
-            else if (courseTouchEndX > courseTouchStartX + 50 && idx > 0) filterCourses(filters[idx-1], document.querySelectorAll('.course-tab')[idx-1]);
+            
+            const fp = document.getElementById('forgot-pass-container');
+            if(mode === 'signup') fp.style.display = 'none';
+            else fp.style.display = 'block';
         }
 
-        // ... (All other functions: switchTab, updateGreeting, toggleMobileSettings, etc. remain identical to previous version) ...
-        // Re-pasting the core logic to ensure it works in this file context:
-        
-        let currentActiveTab = 'dashboard';
-        function switchTab(id) {
-            if (id === 'settings' && currentActiveTab === 'settings') id = 'dashboard';
-            currentActiveTab = id;
-            document.querySelectorAll('.view-section').forEach(el => el.style.display = 'none');
-            document.getElementById(id + '-view').style.display = 'block';
-            document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
-            const mobileItems = document.querySelectorAll('.mobile-nav-item');
-            if(id=='dashboard') mobileItems[0].classList.add('active');
-            if(id=='courses') mobileItems[1].classList.add('active');
-            if(id=='goals') mobileItems[2].classList.add('active');
-            if(id=='focus') mobileItems[3].classList.add('active');
-            if(id=='achievements') mobileItems[4].classList.add('active');
-            const settingsIcon = document.getElementById('mobileSettingsIcon');
-            if(id === 'settings') settingsIcon.classList.add('active'); else settingsIcon.classList.remove('active');
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-        }
-        
-        function toggleMobileSettings() { switchTab('settings'); }
-        function showOnboarding() { document.getElementById('onboarding-overlay').classList.add('active'); }
-        function closeOnboarding() { document.getElementById('onboarding-overlay').classList.remove('active'); appData.isNewUser = false; saveData(); }
-        function updateGreeting() {
-            const h = new Date().getHours();
-            document.getElementById('greetingText').textContent = h < 12 ? "Good Morning!" : h < 18 ? "Good Afternoon!" : "Good Evening!";
-            document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        }
-        
-        function updateStudyHistory(type, title, isAdding) {
-            const today = new Date().toLocaleDateString('en-CA');
-            if (!appData.studyHistory[today]) appData.studyHistory[today] = [];
-            if (isAdding) { if(!appData.studyHistory[today].some(h => h.type === type && h.title === title)) appData.studyHistory[today].push({type, title}); }
-            else { appData.studyHistory[today] = appData.studyHistory[today].filter(h => !(h.type === type && h.title === title)); if (appData.studyHistory[today].length === 0) delete appData.studyHistory[today]; }
-            saveData();
-        }
-        
-        function addGoal() {
-            const val = document.getElementById('newGoalInput').value.trim();
-            if (!val) return;
-            appData.dailyGoals.push({ id: Date.now(), title: val, completed: false, date: new Date().toDateString() });
+        // --- Goals Logic ---
+        window.addGoal = function() {
+            const txt = document.getElementById('newGoalInput').value.trim();
+            if(!txt) return;
+            window.appData.dailyGoals.push({ id: Date.now(), text: txt, done: false, date: new Date().toDateString() });
             document.getElementById('newGoalInput').value = '';
-            saveData(); renderGoals();
+            window.saveData();
+            window.refreshUI();
+            renderManageGoalsList();
         }
-        function toggleGoal(id) {
-            const g = appData.dailyGoals.find(x => x.id === id);
-            if (g) { g.completed = !g.completed; updateStudyHistory('Goal', g.title, g.completed); if(g.completed) triggerConfetti(); saveData(); renderGoals(); }
-        }
-        function deleteGoal(id) { 
-            const g = appData.dailyGoals.find(x => x.id === id);
-            if(g) updateStudyHistory('Goal', g.title, false);
-            appData.dailyGoals = appData.dailyGoals.filter(x => x.id !== id); saveData(); renderGoals(); 
-        }
-        function renderGoals() {
-            const today = new Date().toDateString();
-            const todays = appData.dailyGoals.filter(g => g.date === today);
-            const html = todays.map(g => `<div class="check-item ${g.completed?'checked':''}" onclick="toggleGoal(${g.id})"><div class="check-circle"></div><span class="check-text" style="flex:1">${g.title}</span><i class="fas fa-trash" style="color:var(--danger); opacity:0.5;" onclick="event.stopPropagation(); deleteGoal(${g.id})"></i></div>`).join('');
-            document.getElementById('dashboardGoalsList').innerHTML = html || '<div style="text-align:center;color:var(--text-muted);padding:1rem;">No goals set for today.</div>';
-            document.getElementById('fullGoalsList').innerHTML = html;
-            updateStats(); renderConsistencyGraph();
-        }
-        
-        function renderConsistencyGraph() {
-            const container = document.getElementById('consistencyGraph'); container.innerHTML = '';
-            const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-            for (let i=6; i>=0; i--) {
-                const d = new Date(); d.setDate(d.getDate() - i);
-                const dateStr = d.toDateString();
-                const goals = appData.dailyGoals.filter(g => g.date === dateStr);
-                const pct = goals.length ? Math.round((goals.filter(g=>g.completed).length / goals.length)*100) : 0;
-                container.innerHTML += `<div class="graph-col"><div class="graph-tooltip">${pct}%</div><div class="graph-track"><div class="graph-bar" style="height:${pct}%"></div></div><div class="graph-label">${dayNames[d.getDay()]}</div></div>`;
+
+        window.toggleGoal = function(id) {
+            const g = window.appData.dailyGoals.find(x => x.id === id);
+            if(g) {
+                g.done = !g.done;
+                logActivity('Goal', g.text);
+                if(g.done) { triggerConfetti(); updateStreak(); }
+                window.saveData();
+                window.refreshUI(); 
             }
         }
-        
-        function togglePlaylist(id) {
-            const el = document.getElementById('acc-' + id);
-            const icon = document.getElementById('icon-' + id);
-            if(el.classList.contains('open')) { el.classList.remove('open'); icon.style.transform = 'rotate(0deg)'; document.getElementById('card-' + id).classList.remove('expanded'); }
-            else { el.classList.add('open'); icon.style.transform = 'rotate(180deg)'; document.getElementById('card-' + id).classList.add('expanded'); }
+
+        window.deleteGoal = function(id) {
+            window.appData.dailyGoals = window.appData.dailyGoals.filter(x => x.id !== id);
+            window.saveData();
+            window.refreshUI();
+            renderManageGoalsList();
         }
-        function savePlaylist(e) {
+
+        function renderGoals() {
+            const today = new Date().toDateString();
+            const list = document.getElementById('dashboardGoalsList');
+            const goals = window.appData.dailyGoals.filter(g => g.date === today);
+            
+            list.innerHTML = goals.length ? '' : document.getElementById('emptyGoalsMsg').outerHTML;
+            document.getElementById('emptyGoalsMsg').style.display = goals.length ? 'none' : 'block';
+
+            goals.forEach(g => {
+                const div = document.createElement('div');
+                div.className = `priority-item ${g.done?'checked':''}`;
+                div.onclick = () => window.toggleGoal(g.id);
+                div.innerHTML = `
+                    <div class="priority-checkbox">${g.done?'<i class="fas fa-check"></i>':''}</div>
+                    <div class="priority-text">${g.text}</div>
+                `;
+                list.appendChild(div);
+            });
+            
+            const done = goals.filter(g=>g.done).length;
+            document.getElementById('goalPct').textContent = goals.length ? Math.round((done/goals.length)*100)+'%' : '0%';
+        }
+
+        function renderManageGoalsList() {
+            const today = new Date().toDateString();
+            const list = document.getElementById('manageGoalsList');
+            const goals = window.appData.dailyGoals.filter(g => g.date === today);
+            list.innerHTML = goals.map(g => `
+                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid var(--border);">
+                    <span>${g.text}</span>
+                    <button class="btn-icon-only" style="color:var(--danger)" onclick="deleteGoal(${g.id})"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function renderConsistencyGraph() {
+            const container = document.getElementById('consistencyGraph');
+            container.innerHTML = '';
+            const days = ['S','M','T','W','T','F','S'];
+            for(let i=6; i>=0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const goals = window.appData.dailyGoals.filter(g => g.date === d.toDateString());
+                const pct = goals.length ? (goals.filter(g=>g.done).length / goals.length)*100 : 0;
+                container.innerHTML += `
+                    <div class="graph-col">
+                        <div style="height:100%; width:10px; background:rgba(255,255,255,0.05); border-radius:10px; display:flex; align-items:flex-end;">
+                            <div class="graph-bar" style="height:${pct}%"></div>
+                        </div>
+                        <div class="graph-label">${days[d.getDay()]}</div>
+                    </div>`;
+            }
+        }
+
+        // --- Courses Logic ---
+        window.savePlaylist = function(e) {
             e.preventDefault();
-            const videos = document.getElementById('plVideos').value.split('\n').filter(v=>v.trim()).map(v=>({id:Date.now()+Math.random(), title:v, completed:false}));
-            appData.playlists.push({ id: Date.now(), name: document.getElementById('plName').value, source: document.getElementById('plSource').value, url:document.getElementById('plUrl').value, videos });
-            saveData(); closeModal('addPlaylistModal'); document.getElementById('addCourseForm').reset(); renderPlaylists();
+            const videos = document.getElementById('plVideos').value.split('\n').filter(v=>v.trim()).map(v=>({id:Date.now()+Math.random(), title:v, done:false}));
+            const link = document.getElementById('plLink').value;
+            window.appData.playlists.push({ id:Date.now(), name:document.getElementById('plName').value, source:document.getElementById('plSource').value, link:link, videos });
+            window.closeModal('addPlaylistModal'); 
+            window.saveData();
+            window.refreshUI();
         }
-        function toggleVideo(plId, vId) {
-            const pl = appData.playlists.find(p=>p.id===plId);
+
+        window.openModal = function(id) { 
+            document.getElementById(id).classList.add('active'); 
+            if(id==='manageGoalsModal') renderManageGoalsList(); 
+            if(id==='addPlaylistModal') document.getElementById('addCourseForm').reset();
+        }
+        window.closeModal = function(id) { document.getElementById(id).classList.remove('active'); }
+
+        window.toggleVideo = function(plId, vId) {
+            const pl = window.appData.playlists.find(p=>p.id===plId);
             const v = pl.videos.find(x=>x.id===vId);
-            v.completed = !v.completed;
-            updateStudyHistory('Study', `${pl.name}: ${v.title}`, v.completed);
-            if(v.completed) { updateStreak(); triggerConfetti(); }
-            saveData();
-            const checkItem = document.getElementById(`vid-item-${plId}-${vId}`);
-            if(checkItem) { if(v.completed) checkItem.classList.add('checked'); else checkItem.classList.remove('checked'); }
-            const total = pl.videos.length;
-            const done = pl.videos.filter(x=>x.completed).length;
-            const pct = total ? Math.round((done/total)*100) : 0;
-            const headerBar = document.getElementById(`prog-bar-${plId}`);
-            const headerText = document.getElementById(`prog-text-${plId}`);
-            if(headerBar) headerBar.style.width = `${pct}%`;
-            if(headerText) headerText.innerText = `${pct}%`;
-            const meta = document.getElementById(`pl-meta-${plId}`);
-            if(meta) meta.innerHTML = `<i class="fas fa-play-circle"></i> ${done} / ${total} Completed`;
-            updateStats();
+            v.done = !v.done;
+            logActivity('Study', `${pl.name}: ${v.title}`);
+            if(v.done) { triggerConfetti(); updateStreak(); }
+            window.saveData();
+
+            const btn = event.currentTarget; 
+            if(v.done) btn.classList.add('checked'); else btn.classList.remove('checked');
+            const checkIcon = btn.querySelector('.priority-checkbox');
+            checkIcon.innerHTML = v.done ? '<i class="fas fa-check"></i>' : '';
+
+            window.refreshUI();
         }
-        
-        function filterCourses(filter, btn) {
+
+        window.openEditPlaylist = function(id) {
+            const pl = window.appData.playlists.find(p=>p.id===id);
+            document.getElementById('editPlId').value = id;
+            document.getElementById('editPlName').value = pl.name;
+            document.getElementById('editPlLink').value = pl.link || '';
+            document.getElementById('editPlVideos').value = pl.videos.map(v=>v.title).join('\n');
+            document.getElementById('editPlaylistModal').classList.add('active');
+        }
+
+        window.updatePlaylist = function() {
+            const id = parseInt(document.getElementById('editPlId').value);
+            const pl = window.appData.playlists.find(p=>p.id===id);
+            pl.name = document.getElementById('editPlName').value;
+            pl.link = document.getElementById('editPlLink').value;
+            const lines = document.getElementById('editPlVideos').value.split('\n').filter(v=>v.trim());
+            pl.videos = lines.map(title => {
+                const existing = pl.videos.find(v => v.title === title);
+                return existing ? existing : { id: Date.now()+Math.random(), title, done:false };
+            });
+            window.closeModal('editPlaylistModal'); window.saveData(); window.refreshUI();
+        }
+
+        window.deletePlaylist = function() {
+            const id = parseInt(document.getElementById('editPlId').value);
+            if(confirm("Delete this course?")) {
+                window.appData.playlists = window.appData.playlists.filter(p=>p.id!==id);
+                window.closeModal('editPlaylistModal'); window.saveData(); window.refreshUI();
+            }
+        }
+
+        window.filterCourses = function(filter, btn) {
             currentCourseFilter = filter;
             document.querySelectorAll('.course-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            const container = document.getElementById('playlistsContainer');
-            container.classList.remove('fade-slide'); void container.offsetWidth; container.classList.add('fade-slide');
             renderPlaylists();
         }
+
         function renderPlaylists() {
-            const container = document.getElementById('playlistsContainer'); container.innerHTML = '';
-            let filteredList = appData.playlists;
-            if (currentCourseFilter === 'active') filteredList = appData.playlists.filter(pl => { const done = pl.videos.filter(v => v.completed).length; return done > 0 && done < pl.videos.length; });
-            else if (currentCourseFilter === 'completed') filteredList = appData.playlists.filter(pl => { const done = pl.videos.filter(v => v.completed).length; return done === pl.videos.length && pl.videos.length > 0; });
+            const div = document.getElementById('playlistsContainer');
+            div.innerHTML = '';
+            let totalV=0, doneV=0;
+
+            let filteredList = window.appData.playlists;
+            if(currentCourseFilter === 'active') filteredList = filteredList.filter(p => { const d=p.videos.filter(v=>v.done).length; return d>0 && d<p.videos.length; });
+            if(currentCourseFilter === 'completed') filteredList = filteredList.filter(p => { const d=p.videos.filter(v=>v.done).length; return d===p.videos.length && p.videos.length>0; });
             
-            if (filteredList.length === 0) { container.innerHTML = `<div style="text-align:center; color:var(--text-muted); grid-column: 1/-1; padding: 2rem;">No courses found.</div>`; return; }
+            window.appData.playlists.forEach(pl => { totalV += pl.videos.length; doneV += pl.videos.filter(v=>v.done).length; });
+            document.getElementById('topicPct').textContent = totalV ? Math.round((doneV/totalV)*100)+'%' : '0%';
+
+            if (filteredList.length === 0) { div.innerHTML = `<div style="text-align:center; color:var(--text-muted); grid-column: 1/-1; padding: 2rem;">No courses found.</div>`; return; }
             
             filteredList.forEach(pl => {
-                const total = pl.videos.length; const done = pl.videos.filter(v=>v.completed).length; const pct = total ? Math.round((done/total)*100) : 0;
-                container.innerHTML += `<div class="course-card" id="card-${pl.id}"><div class="course-header" onclick="togglePlaylist(${pl.id})"><div class="course-header-top"><div class="course-title"><i class="fas fa-chevron-down" id="icon-${pl.id}"></i>${pl.name}</div><div class="course-badge">${pl.source}</div></div><div class="course-meta" id="pl-meta-${pl.id}"><i class="fas fa-play-circle"></i> ${done} / ${total} Completed</div><div class="course-edit-btn" onclick="event.stopPropagation(); openEditPlaylist(${pl.id})"><i class="fas fa-edit"></i></div></div><div class="course-progress-area"><div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-bar-${pl.id}" style="width:${pct}%"></div></div><div class="progress-text"><span>Progress</span><span id="prog-text-${pl.id}">${pct}%</span></div></div><div class="video-accordion" id="acc-${pl.id}">${pl.videos.map(v => `<div class="check-item ${v.completed?'checked':''}" id="vid-item-${pl.id}-${v.id}" onclick="toggleVideo(${pl.id}, ${v.id})"><div class="check-circle"></div><span class="check-text" style="flex:1">${v.title}</span></div>`).join('')}</div></div>`;
+                const done = pl.videos.filter(v=>v.done).length;
+                const total = pl.videos.length;
+                const pct = total ? Math.round((done/total)*100) : 0;
+                
+                const linkBtn = pl.link ? `
+                    <a href="${pl.link}" target="_blank" class="course-edit-btn btn-link-external" onclick="event.stopPropagation()">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>` : '';
+
+                div.innerHTML += `
+                    <div class="course-card">
+                        <div class="course-header" onclick="this.parentElement.querySelector('.video-accordion').classList.toggle('open')">
+                            <div class="course-header-top">
+                                <div class="course-title"><i class="fas fa-chevron-down"></i>${pl.name}</div>
+                                <div class="course-badge">${pl.source}</div>
+                            </div>
+                            <div class="course-meta">
+                                <span>${done} / ${total} Completed</span>
+                            </div>
+                            <div class="course-actions-container">
+                                ${linkBtn}
+                                <div class="course-edit-btn" onclick="event.stopPropagation(); openEditPlaylist(${pl.id})"><i class="fas fa-edit"></i></div>
+                            </div>
+                        </div>
+                        <div class="course-progress-area">
+                            <div style="height:6px; background:var(--bg-body); border-radius:3px; overflow:hidden;">
+                                <div style="height:100%; background:var(--success); width:${pct}%"></div>
+                            </div>
+                            <div class="progress-text"><span>Progress</span><span>${pct}%</span></div>
+                        </div>
+                        <div class="video-accordion">
+                            ${pl.videos.map(v => `
+                                <div class="priority-item ${v.done?'checked':''}" style="border-radius:0; border:none; border-bottom:1px solid var(--border);" onclick="toggleVideo(${pl.id}, ${v.id})">
+                                    <div class="priority-checkbox" style="width:18px; height:18px; font-size:10px;">${v.done?'<i class="fas fa-check"></i>':''}</div>
+                                    <div class="priority-text" style="font-size:0.9rem;">${v.title}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>`;
             });
         }
 
-        function openEditPlaylist(id) { editingPlId = id; const pl = appData.playlists.find(p=>p.id===id); document.getElementById('editPlName').value = pl.name; document.getElementById('editPlVideos').value = pl.videos.map(v=>v.title).join('\n'); openModal('editPlaylistModal'); }
-        function saveEditedPlaylist() { const pl = appData.playlists.find(p=>p.id===editingPlId); pl.name = document.getElementById('editPlName').value; const newTitles = document.getElementById('editPlVideos').value.split('\n').filter(l=>l.trim()); pl.videos = newTitles.map(t => { const existing = pl.videos.find(v => v.title === t); return existing ? existing : { id:Date.now()+Math.random(), title:t, completed:false }; }); saveData(); renderPlaylists(); closeModal('editPlaylistModal'); }
-        function deletePlaylist() { if(confirm('Delete playlist?')) { appData.playlists = appData.playlists.filter(p=>p.id!==editingPlId); saveData(); renderPlaylists(); closeModal('editPlaylistModal'); } }
-        
-        const badgeList = [
-            {id:'s3', cat:'streak', n:'Streak 3', d:'3 Day Streak', t:3, c:d=>d.streak}, {id:'s7', cat:'streak', n:'Streak 7', d:'7 Day Streak', t:7, c:d=>d.streak},
-            {id:'s30', cat:'streak', n:'Streak 30', d:'30 Day Streak', t:30, c:d=>d.streak}, {id:'s50', cat:'streak', n:'Streak 50', d:'50 Day Streak', t:50, c:d=>d.streak},
-            {id:'s100', cat:'streak', n:'Streak 100', d:'100 Day Streak', t:100, c:d=>d.streak}, {id:'s150', cat:'streak', n:'Streak 150', d:'150 Day Streak', t:150, c:d=>d.streak},
-            {id:'s200', cat:'streak', n:'Streak 200', d:'200 Day Streak', t:200, c:d=>d.streak}, {id:'s365', cat:'streak', n:'Legend', d:'365 Day Streak', t:365, c:d=>d.streak},
-            {id:'p1', cat:'playlist', n:'Creator', d:'Create 1 Playlist', t:1, c:d=>d.playlists.length}, {id:'pf1', cat:'playlist', n:'Finisher', d:'Complete 1 Playlist', t:1, c:d=>d.playlists.filter(p=>p.videos.length>0&&p.videos.every(v=>v.completed)).length},
-            {id:'pf5', cat:'playlist', n:'Pro', d:'Complete 5 Playlists', t:5, c:d=>d.playlists.filter(p=>p.videos.length>0&&p.videos.every(v=>v.completed)).length}, {id:'pf10', cat:'playlist', n:'Expert', d:'Complete 10 Playlists', t:10, c:d=>d.playlists.filter(p=>p.videos.length>0&&p.videos.every(v=>v.completed)).length},
-            {id:'pf25', cat:'playlist', n:'Master', d:'Complete 25 Playlists', t:25, c:d=>d.playlists.filter(p=>p.videos.length>0&&p.videos.every(v=>v.completed)).length}, {id:'f5', cat:'focus', n:'Focus 5', d:'5 Hours Focus', t:300, c:d=>d.totalFocusTime},
-            {id:'f10', cat:'focus', n:'Focus 10', d:'10 Hours Focus', t:600, c:d=>d.totalFocusTime}, {id:'f25', cat:'focus', n:'Focus 25', d:'25 Hours Focus', t:1500, c:d=>d.totalFocusTime},
-            {id:'f50', cat:'focus', n:'Focus 50', d:'50 Hours Focus', t:3000, c:d=>d.totalFocusTime}
+        // --- Awards ---
+        window.filterBadges = function(cat, btn) {
+            currentBadgeFilter = cat;
+            document.querySelectorAll('.ach-filter-btn').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            renderAchievements();
+        }
+
+        const BADGES = [
+            { id: 's3', cat: 'streak', n: 'Streak 3', d: '3 Day Streak', t: 3, c: d=>d.streak },
+            { id: 's7', cat: 'streak', n: 'Streak 7', d: '7 Day Streak', t: 7, c: d=>d.streak },
+            { id: 's30', cat: 'streak', n: 'Streak 30', d: '30 Day Streak', t: 30, c: d=>d.streak },
+            { id: 's50', cat: 'streak', n: 'Streak 50', d: '50 Day Streak', t: 50, c: d=>d.streak },
+            { id: 's100', cat: 'streak', n: 'Streak 100', d: '100 Day Streak', t: 100, c: d=>d.streak },
+            { id: 's150', cat: 'streak', n: 'Streak 150', d: '150 Day Streak', t: 150, c: d=>d.streak },
+            { id: 's200', cat: 'streak', n: 'Streak 200', d: '200 Day Streak', t: 200, c: d=>d.streak },
+            { id: 's365', cat: 'streak', n: 'Legend', d: '365 Day Streak', t: 365, c: d=>d.streak },
+            { id: 'c1', cat: 'playlist', n: 'Creator', d: 'Create 1 Course', t: 1, c: d=>d.playlists.length },
+            { id: 'f1', cat: 'playlist', n: 'Finisher', d: 'Finish 1 Course', t: 1, c: d=>d.playlists.filter(p=>p.videos.length>0 && p.videos.every(v=>v.done)).length },
+            { id: 'f5', cat: 'playlist', n: 'Scholar', d: 'Finish 5 Courses', t: 5, c: d=>d.playlists.filter(p=>p.videos.length>0 && p.videos.every(v=>v.done)).length },
+            { id: 'f10', cat: 'playlist', n: 'Master', d: 'Finish 10 Courses', t: 10, c: d=>d.playlists.filter(p=>p.videos.length>0 && p.videos.every(v=>v.done)).length },
+            { id: 'f25', cat: 'playlist', n: 'Grandmaster', d: 'Finish 25 Courses', t: 25, c: d=>d.playlists.filter(p=>p.videos.length>0 && p.videos.every(v=>v.done)).length },
+            { id: 't5', cat: 'focus', n: 'Focus 5', d: '5 Hours Focused', t: 300, c: d=>(d.totalFocusTime||0) },
+            { id: 't10', cat: 'focus', n: 'Focus 10', d: '10 Hours Focused', t: 600, c: d=>(d.totalFocusTime||0) },
+            { id: 't25', cat: 'focus', n: 'Focus 25', d: '25 Hours Focused', t: 1500, c: d=>(d.totalFocusTime||0) },
+            { id: 't50', cat: 'focus', n: 'Focus 50', d: '50 Hours Focused', t: 3000, c: d=>(d.totalFocusTime||0) }
         ];
 
-        function filterBadges(type, btn) { currentBadgeFilter = type; document.querySelectorAll('.ach-filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderAchievements(); }
         function renderAchievements() {
-            let unlocked = 0; const grid = document.getElementById('achievementsGrid'); grid.innerHTML = '';
-            const badgesWithData = badgeList.map(b => { const current = b.c(appData); const earned = current >= b.t; const pct = Math.min(100, Math.round((current/b.t)*100)); return { ...b, earned, current, pct }; });
-            unlocked = badgesWithData.filter(b=>b.earned).length; document.getElementById('achieveCount').textContent = unlocked;
-            let displayBadges = badgesWithData; if(currentBadgeFilter !== 'all') displayBadges = displayBadges.filter(b => b.cat === currentBadgeFilter);
-            displayBadges.sort((a, b) => (a.earned === b.earned) ? 0 : a.earned ? -1 : 1);
-            grid.innerHTML = displayBadges.map(b => `<div class="ach-card ${b.earned?'earned':''}"><div class="ach-icon"><i class="fas fa-trophy"></i></div><div style="flex:1"><div style="font-weight:600">${b.n}</div><div style="font-size:0.8rem;color:var(--text-muted)">${b.d}</div>${!b.earned ? `<div class="badge-progress-wrapper"><div class="badge-progress-text"><span>Progress</span><span>${b.current}/${b.t}</span></div><div class="badge-progress-bg"><div class="badge-progress-fill" style="width:${b.pct}%"></div></div></div>` : '<div style="font-size:0.75rem;color:var(--success);margin-top:4px;"><i class="fas fa-check"></i> Unlocked</div>'}</div></div>`).join('');
-        }
+            const grid = document.getElementById('achievementsGrid');
+            grid.innerHTML = '';
+            let mapped = BADGES.map(b => {
+                const val = b.c(window.appData);
+                const earned = val >= b.t;
+                const pct = Math.min(100, Math.round((val/b.t)*100));
+                return { ...b, earned, val, pct };
+            });
+            mapped.sort((a,b) => b.earned - a.earned);
+            if(currentBadgeFilter !== 'all') mapped = mapped.filter(b => b.cat === currentBadgeFilter);
 
-        function updateRecentVictory() {
-            const badgesWithData = badgeList.map(b => { const current = b.c(appData); const earned = current >= b.t; return { ...b, earned }; });
-            const earnedBadges = badgesWithData.filter(b => b.earned);
-            const content = document.getElementById('recentBadgeContent');
-            if (earnedBadges.length > 0) { const recent = earnedBadges[earnedBadges.length - 1]; content.innerHTML = `<div style="font-size: 2rem; color: var(--accent);"><i class="fas fa-trophy"></i></div><div><div style="font-weight: 600;">${recent.n}</div><div style="font-size: 0.85rem; color: var(--text-muted);">${recent.d}</div></div>`; }
-            else { content.innerHTML = `<div style="font-size: 2rem; color: var(--text-muted); opacity: 0.5;"><i class="fas fa-lock"></i></div><div><div style="font-weight: 600;">No Badges Yet</div><div style="font-size: 0.85rem; color: var(--text-muted);">Start learning to unlock!</div></div>`; }
-        }
+            mapped.forEach(b => {
+                grid.innerHTML += `
+                    <div class="ach-card ${b.earned?'earned':''}">
+                        <div class="ach-icon"><i class="fas ${b.cat==='streak'?'fa-fire':b.cat==='focus'?'fa-clock':'fa-graduation-cap'}"></i></div>
+                        <div class="ach-info" style="flex:1">
+                            <h4>${b.n}</h4>
+                            <p>${b.d}</p>
+                            ${!b.earned ? `<div class="ach-progress"><div class="ach-fill" style="width:${b.pct}%"></div></div>` : '<div style="font-size:0.7rem; color:var(--success); margin-top:4px;"><i class="fas fa-check"></i> Unlocked</div>'}
+                        </div>
+                    </div>`;
+            });
 
-        function setCustomTime(m) { document.getElementById('customFocusTime').value = m; }
-        function startFullScreenFocus() {
-            const mins = parseInt(document.getElementById('customFocusTime').value)||25; const task = document.getElementById('focusTaskInput').value||"Deep Work"; focusTimeLeft = mins * 60;
-            document.getElementById('overlayTask').textContent = task; document.getElementById('focus-overlay').classList.add('active'); document.documentElement.requestFullscreen().catch(e=>{});
-            updateTimer(); focusInterval = setInterval(() => { focusTimeLeft--; updateTimer(); if(focusTimeLeft<=0) finishFocus(mins, task); }, 1000);
-        }
-        function updateTimer() { const m = Math.floor(focusTimeLeft/60); const s = focusTimeLeft%60; document.getElementById('overlayTimer').textContent = `${m}:${s.toString().padStart(2,'0')}`; }
-        function stopFullScreenFocus() { clearInterval(focusInterval); document.getElementById('focus-overlay').classList.remove('active'); if(document.fullscreenElement) document.exitFullscreen(); }
-        function finishFocus(mins, task) { stopFullScreenFocus(); alert('Session Complete!'); triggerConfetti(); appData.totalFocusTime += mins; appData.focusHistory.unshift({date:new Date().toLocaleString(), task, duration:mins}); updateStudyHistory('Focus', `${mins}m: ${task}`, true); saveData(); renderFocusHistory(); }
-        function renderFocusHistory() { document.getElementById('focusHistoryList').innerHTML = appData.focusHistory.map(f=>`<div style="border-bottom:1px solid var(--border);padding:0.5rem;"><b>${f.task}</b><div style="font-size:0.8rem;color:var(--text-muted)">${f.date} • ${f.duration}m</div></div>`).join(''); }
-
-        function openCalendarModal() { calCursorDate = new Date(); selectedDateISO = new Date().toLocaleDateString('en-CA'); openModal('calendarModal'); renderCalendar(); showDayDetails(selectedDateISO); }
-        function changeCalMonth(d) { calCursorDate.setMonth(calCursorDate.getMonth()+d); renderCalendar(); }
-        function renderCalendar() {
-            const y = calCursorDate.getFullYear(); const m = calCursorDate.getMonth(); document.getElementById('calMonthYear').textContent = calCursorDate.toLocaleString('default',{month:'long',year:'numeric'});
-            const firstDay = new Date(y,m,1).getDay(); const daysInMonth = new Date(y,m+1,0).getDate(); const grid = document.getElementById('calGrid'); grid.innerHTML = '';
-            ['S','M','T','W','T','F','S'].forEach(d=>grid.innerHTML+=`<div style="text-align:center;font-size:0.8rem;color:var(--text-muted)">${d}</div>`);
-            for(let i=0; i<firstDay; i++) grid.innerHTML+=`<div></div>`;
-            for(let i=1; i<=daysInMonth; i++) {
-                const iso = `${y}-${String(m+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
-                const hasData = appData.studyHistory[iso] && appData.studyHistory[iso].length > 0;
-                const isToday = new Date().toDateString() === new Date(y,m,i).toDateString();
-                const isSelected = iso === selectedDateISO;
-                const div = document.createElement('div'); div.className = `cal-day ${isToday?'today':''} ${isSelected?'selected':''}`; if(hasData) div.innerHTML = `<div class="cal-dot"></div>`; div.innerHTML += i; div.onclick = () => { selectedDateISO = iso; renderCalendar(); showDayDetails(iso); }; grid.appendChild(div);
+            const earnedCount = mapped.filter(b=>b.earned).length;
+            document.getElementById('badgeCount').textContent = `${earnedCount} / 17`;
+            const lastEarned = mapped.find(b=>b.earned);
+            if(lastEarned) {
+                document.getElementById('recentBadgeContent').innerHTML = `
+                    <div style="display:flex; gap:15px; align-items:center;">
+                        <div style="font-size:2rem; color:var(--accent);"><i class="fas fa-trophy"></i></div>
+                        <div><div style="font-weight:600">${lastEarned.n}</div><div style="font-size:0.8rem; color:var(--text-muted)">Unlocked</div></div>
+                    </div>`;
+            } else {
+                document.getElementById('recentBadgeContent').innerHTML = `<div style="color:var(--text-muted);">Keep working to unlock badges!</div>`;
             }
         }
-        function showDayDetails(iso) {
-            const logs = appData.studyHistory[iso] || []; const d = new Date(iso); d.setMinutes(d.getMinutes() + d.getTimezoneOffset()); document.getElementById('detailDate').textContent = d.toDateString(); const container = document.getElementById('dayDetails');
-            if(logs.length === 0) { container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);"><i class="fas fa-mug-hot" style="font-size:2rem; margin-bottom:10px;"></i><p>No activity recorded.</p></div>`; return; }
-            const goals = logs.filter(l => l.type === 'Goal'); const studies = logs.filter(l => l.type === 'Study');
-            const studyGroups = {}; studies.forEach(s => { const parts = s.title.split(':'); const courseName = parts[0].trim(); const videoTitle = parts.slice(1).join(':').trim(); if(!studyGroups[courseName]) studyGroups[courseName] = []; studyGroups[courseName].push(videoTitle); });
-            let html = '';
-            if (goals.length > 0) { html += `<div class="activity-group type-goal"><div class="group-header" onclick="toggleGroup(this)"><div class="group-title"><i class="fas fa-check-circle" style="color:var(--success)"></i> Completed Goals</div><div class="group-count">${goals.length}</div></div><div class="group-items">${goals.map(g => `<div class="group-item">${g.title}</div>`).join('')}</div></div>`; }
-            for (const [course, videos] of Object.entries(studyGroups)) { html += `<div class="activity-group type-study"><div class="group-header" onclick="toggleGroup(this)"><div class="group-title"><i class="fas fa-book" style="color:var(--primary)"></i> ${course}</div><div class="group-count">${videos.length} Topics</div></div><div class="group-items">${videos.map(v => `<div class="group-item">${v}</div>`).join('')}</div></div>`; }
-            container.innerHTML = html;
-        }
-        function toggleGroup(header) { const items = header.nextElementSibling; items.classList.toggle('show'); }
 
-        function updateStreak() { const today = new Date().toDateString(); if(appData.lastActiveDate !== today) { const yest = new Date(); yest.setDate(yest.getDate()-1); if(appData.lastActiveDate === yest.toDateString()) appData.streak++; else appData.streak = 1; appData.lastActiveDate = today; saveData(); document.getElementById('headerStreak').textContent = appData.streak; } }
-        function updateStats() { const t = appData.dailyGoals.filter(g=>g.date===new Date().toDateString()); const d = t.filter(g=>g.completed).length; document.getElementById('goalPct').textContent = t.length ? Math.round((d/t.length)*100)+'%' : '0%'; let totalV = 0, doneV = 0; appData.playlists.forEach(p => { totalV += p.videos.length; doneV += p.videos.filter(v=>v.completed).length; }); document.getElementById('topicPct').textContent = totalV ? Math.round((doneV/totalV)*100)+'%' : '0%'; }
-        function contactDeveloper() { window.location.href = "mailto:thedeepkjha4u@gmail.com?subject=Achieve-mate%20Feedback&body=Hi%20Deepak,%0A%0AI%20want%20to%20share%20my%20experience%20or%20report%20a%20bug:%0A%0A"; }
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function triggerConfetti() { for(let i=0;i<30;i++){ const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=['#f00','#0f0','#00f','#ff0'][Math.floor(Math.random()*4)];c.style.animation=`confetti-fall ${2+Math.random()*2}s linear`;document.body.appendChild(c);setTimeout(()=>c.remove(),4000); } }
-        function exportData() { const a=document.createElement('a');a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(appData));a.download="backup.json";document.body.appendChild(a);a.click();a.remove(); }
-        function importData(input) { const file = input.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = function(e) { try { appData = JSON.parse(e.target.result); saveData(); init(); alert("Data imported successfully!"); } catch (err) { alert("Invalid file format."); } }; reader.readAsText(file); }
-        function clearData() { if(confirm('Reset all data? This cannot be undone.')) { localStorage.removeItem('achieveMate_v8'); location.reload(); } }
+        // --- Calendar & Profile ---
+        window.changeMonth = function(dir) {
+            calDate.setMonth(calDate.getMonth() + dir);
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const y = calDate.getFullYear(), m = calDate.getMonth();
+            document.getElementById('calMonthYear').textContent = calDate.toLocaleString('default', { month:'long', year:'numeric' });
+            const grid = document.getElementById('calGrid');
+            grid.innerHTML = ['S','M','T','W','T','F','S'].map(d=>`<div style="text-align:center; font-size:0.7rem; color:var(--text-muted);">${d}</div>`).join('');
+            
+            const firstDay = new Date(y, m, 1).getDay();
+            const daysInMonth = new Date(y, m+1, 0).getDate();
+            
+            for(let i=0; i<firstDay; i++) grid.innerHTML += `<div></div>`;
+            
+            for(let i=1; i<=daysInMonth; i++) {
+                const dString = new Date(y, m, i).toLocaleDateString('en-CA'); 
+                const hasData = window.appData.history[dString];
+                const isToday = new Date().toDateString() === new Date(y,m,i).toDateString();
+                
+                grid.innerHTML += `
+                    <div class="cal-day ${isToday?'today':''} ${hasData?'has-data':''}" onclick="showActivity('${dString}')">
+                        ${i}
+                        ${hasData ? '<div class="cal-dot"></div>' : ''}
+                    </div>`;
+            }
+        }
+
+        window.showActivity = function(dateStr) {
+            document.getElementById('selectedDateDisplay').textContent = new Date(dateStr).toDateString();
+            const div = document.getElementById('activityLogContainer');
+            const logs = window.appData.history[dateStr] || [];
+            
+            if(!logs.length) {
+                div.innerHTML = `<div style="text-align:center; padding:2rem; color:var(--text-muted);">No activity recorded for this date.</div>`;
+                return;
+            }
+
+            const studies = logs.filter(l => l.type === 'Study');
+            const goals = logs.filter(l => l.type === 'Goal');
+            const focus = logs.filter(l => l.type === 'Focus');
+            
+            // Grouping Logic
+            const studyGroups = {};
+            studies.forEach(s => {
+                let [course, ...topic] = s.title.split(':');
+                topic = topic.join(':').trim();
+                if (!course) return;
+                if (!studyGroups[course.trim()]) studyGroups[course.trim()] = [];
+                studyGroups[course.trim()].push(topic || "General Study");
+            });
+
+            let html = '';
+            if(goals.length) html += `<div class="activity-group type-goal"><div class="group-header">Goals (${goals.length})</div><div class="group-items show">${goals.map(g=>`<div>${g.title}</div>`).join('')}</div></div>`;
+            
+            for (const [course, topics] of Object.entries(studyGroups)) {
+                html += `<div class="activity-group type-study"><div class="group-header">${course} (${topics.length})</div><div class="group-items show">${topics.map(t=>`<div>${t}</div>`).join('')}</div></div>`;
+            }
+            
+            if(focus.length) html += `<div class="activity-group"><div class="group-header">Focus (${focus.length})</div><div class="group-items show">${focus.map(f=>`<div>${f.title}</div>`).join('')}</div></div>`;
+            div.innerHTML = html;
+        }
+
+        function logActivity(type, title) {
+            const d = new Date().toLocaleDateString('en-CA');
+            if(!window.appData.history[d]) window.appData.history[d] = [];
+            window.appData.history[d].unshift({ type, title, time: new Date().toLocaleTimeString() });
+            renderCalendar();
+        }
+
+        // --- Focus Mode ---
+        window.startFullScreenFocus = function() {
+            const task = document.getElementById('focusTaskInput').value || "Deep Work";
+            const mins = parseInt(document.getElementById('customFocusTime').value) || 25;
+            document.getElementById('overlayTask').textContent = task;
+            document.getElementById('focus-overlay').classList.add('active');
+            let secs = mins * 60;
+            
+            if(focusInterval) clearInterval(focusInterval);
+            focusInterval = setInterval(() => {
+                secs--;
+                const m = Math.floor(secs / 60);
+                const s = secs % 60;
+                document.getElementById('overlayTimer').textContent = `${m}:${s<10?'0':''}${s}`;
+                if(secs <= 0) {
+                    window.stopFullScreenFocus();
+                    alert("Session Complete!");
+                    triggerConfetti();
+                    window.appData.totalFocusTime = (window.appData.totalFocusTime||0) + mins;
+                    window.appData.focusLogs.unshift({ date: new Date().toLocaleString(), task, duration: mins });
+                    logActivity('Focus', `${mins}m: ${task}`);
+                    window.saveData();
+                    window.refreshUI();
+                }
+            }, 1000);
+        }
+
+        window.stopFullScreenFocus = function() {
+            clearInterval(focusInterval);
+            document.getElementById('focus-overlay').classList.remove('active');
+        }
+
+        function renderFocusHistory() {
+            document.getElementById('focusHistoryList').innerHTML = window.appData.focusLogs.map(f => `
+                <div style="padding:10px; border-bottom:1px solid var(--border);">
+                    <div style="font-weight:600">${f.task}</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted);">${f.duration}m • ${f.date}</div>
+                </div>
+            `).join('');
+        }
+
+        // --- Utilities ---
+        function updateStreak() {
+            const today = new Date().toDateString();
+            if(window.appData.lastActive !== today) {
+                const yest = new Date(); yest.setDate(yest.getDate()-1);
+                if(window.appData.lastActive === yest.toDateString()) window.appData.streak++;
+                else window.appData.streak = 1;
+                window.appData.lastActive = today;
+            }
+        }
+
+        function updateGreeting() {
+            const h = new Date().getHours();
+            document.getElementById('greetingText').textContent = h<12?"Good Morning!":h<18?"Good Afternoon!":"Good Evening!";
+            document.getElementById('dateDisplay').textContent = new Date().toDateString();
+        }
+        
+        function triggerConfetti() {
+            for(let i=0; i<30; i++) {
+                const c=document.createElement('div'); c.className='confetti';
+                c.style.left=Math.random()*100+'vw'; c.style.backgroundColor=['#f00','#0f0','#00f','#ff0'][Math.floor(Math.random()*4)];
+                c.style.animation=`confetti ${1+Math.random()}s linear`;
+                document.body.appendChild(c); setTimeout(()=>c.remove(), 2000);
+            }
+        }
+
+        window.exportData = function() {
+            const a=document.createElement('a'); a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(window.appData));
+            a.download="achieve_backup.json"; document.body.appendChild(a); a.click(); a.remove();
+        }
+        
+        window.importData = function(input) {
+            const f=input.files[0]; if(!f)return;
+            const r=new FileReader(); r.onload=e=>{ try{ window.appData=JSON.parse(e.target.result); window.saveData(); alert("Success"); }catch(e){alert("Error");} };
+            r.readAsText(f);
+        }
+
         init();
+
     </script>
 </body>
 </html>
