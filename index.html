@@ -2,13 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Achieve-mate | Student Productivity</title>
+    <!-- PWA & Mobile Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Achieve-mate</title>
+
+    <!-- Font Awesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Embedded App Icon (SVG Base64) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='background:%236366f1'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Cpath d='M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z' fill='white'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Cpath d='M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z' fill='white'/%3E%3C/svg%3E">
+
+    <!-- Embedded Web App Manifest -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Achieve-mate","short_name":"Achieve","start_url":".","display":"standalone","background_color":"#0f172a","theme_color":"#0f172a","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27 style=%27background:%236366f1%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27100%27 fill=%27%236366f1%27/%3E%3Cpath d=%27M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z%27 fill=%27white%27/%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+
     <style>
+        /* --- CORE STYLES --- */
         :root {
             --bg-body: #0f172a;
             --bg-card: #1e293b;
@@ -33,25 +49,32 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; scrollbar-width: thin; scrollbar-color: var(--border) var(--bg-body); }
-        body { background-color: var(--bg-body); color: var(--text-main); font-family: var(--font-main); line-height: 1.6; overflow-x: hidden; }
+        
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: var(--font-main); 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            overscroll-behavior-y: none; 
+        }
 
-        .app-wrapper { display: flex; min-height: 100vh; }
+        .app-wrapper { display: flex; min-height: 100vh; min-height: 100dvh; }
 
         /* Sidebar */
-        .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1.5rem; position: fixed; height: 100vh; z-index: 50; transition: transform 0.3s ease; }
+        .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1.5rem; position: fixed; height: 100vh; height: 100dvh; z-index: 50; transition: transform 0.3s ease; }
         .brand { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2.5rem; color: var(--primary); font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; }
         
         .nav-item { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 1rem; border-radius: var(--radius-md); color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; font-weight: 500; margin-bottom: 0.5rem; border-left: 3px solid transparent; }
         .nav-item:hover { background: var(--bg-card-hover); color: var(--text-main); }
         .nav-item.active { background: rgba(99, 102, 241, 0.1); color: var(--primary); border-left-color: var(--primary); box-shadow: 0 0 15px rgba(99, 102, 241, 0.1); }
 
-        /* Credits Section in Sidebar */
         .sidebar-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; color: var(--text-muted); }
         .creator-link { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; transition: color 0.2s; }
         .creator-link:hover { color: var(--primary); }
 
         /* Main Content */
-        .main-content { flex: 1; margin-left: 260px; padding: 2rem; max-width: 1600px; padding-bottom: 100px; }
+        .main-content { flex: 1; margin-left: 260px; padding: 2rem; max-width: 1600px; padding-bottom: 120px; }
 
         /* Mobile Nav */
         .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card); border-top: 1px solid var(--border); padding: 0 1rem; justify-content: space-around; z-index: 100; padding-bottom: env(safe-area-inset-bottom); height: 70px; align-items: center; }
@@ -72,7 +95,23 @@
         .header-login-btn { background: var(--primary); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); transition: transform 0.2s; }
         .header-login-btn:hover { transform: translateY(-2px); background: var(--primary-hover); }
 
-        /* Common Components */
+        /* INSTALL APP BANNER (MOBILE DASHBOARD) */
+        .install-banner { display: none; background: linear-gradient(135deg, var(--primary), #818cf8); color: white; padding: 1rem; border-radius: var(--radius-lg); margin-top: 1rem; margin-bottom: 1rem; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; animation: fadeIn 0.5s ease; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+        .install-text { font-size: 0.95rem; font-weight: 600; }
+        .install-sub { font-size: 0.8rem; opacity: 0.9; }
+        .install-icon-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+
+        /* IOS Guide */
+        .ios-install-guide { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 1px solid var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90%; max-width: 350px; z-index: 200; display: none; animation: slideUp 0.3s ease; }
+        .ios-install-guide::after { content: ''; position: absolute; bottom: -10px; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--bg-card) transparent transparent transparent; }
+        @keyframes slideUp { from { transform: translate(-50%, 20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+
+        /* NEW LOGGED IN BADGE */
+        .user-badge-header { display:none; align-items:center; gap:10px; background: var(--bg-card); padding: 5px 15px 5px 5px; border-radius: 30px; border: 1px solid var(--border); cursor:pointer; }
+        .user-badge-avatar { width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
+        .user-badge-name { font-size: 0.9rem; font-weight: 500; color: var(--text-main); }
+
+        /* Components */
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
         .card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
         
@@ -83,34 +122,90 @@
         .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
         .btn-icon-only { padding: 0.5rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); background: transparent; }
         .btn-icon-only:hover { background: var(--bg-card-hover); color: var(--text-main); }
-        .btn-google { background: #ffffff; color: #333; width: 100%; margin-bottom: 1rem; border: 1px solid #ddd; }
-        .btn-google:hover { background: #f1f1f1; }
-        
-        /* Special Link Button Style */
         .btn-link-external { color: var(--accent); border: 1px solid rgba(251, 191, 36, 0.2); background: rgba(251, 191, 36, 0.05); }
         .btn-link-external:hover { background: rgba(251, 191, 36, 0.1); color: #fff; border-color: var(--accent); }
 
-        input, select, textarea { width: 100%; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 0.95rem; }
-        input:focus, textarea:focus { outline: none; border-color: var(--primary); }
-        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input, select, textarea { width: 100%; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 0.95rem; transition: all 0.2s; }
+        input:focus, textarea:focus { outline: none; border-color: var(--primary); background: var(--bg-card-hover); }
 
-        /* Auth Specific */
-        .auth-container { width: 100%; max-width: 400px; text-align: center; }
-        .auth-tabs { display: flex; margin-bottom: 1.5rem; background: var(--bg-body); padding: 5px; border-radius: 10px; }
-        .auth-tab { flex: 1; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 500; color: var(--text-muted); transition: all 0.2s; }
-        .auth-tab.active { background: var(--bg-card); color: var(--text-main); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        /* Hide number input arrows */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        /* --- IMPROVED AUTH STYLES (MOBILE FIX) --- */
+        .auth-container { width: 100%; max-width: 400px; text-align: center; padding: 2.5rem !important; border: 1px solid var(--border); box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); }
         
-        /* Password Wrapper for Eye Icon */
-        .password-wrapper { position: relative; width: 100%; margin-bottom: 0.5rem; }
-        .password-wrapper input { width: 100%; padding-right: 40px; } 
-        .password-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-muted); z-index: 10; }
+        /* Specific Fix for Mobile Auth Box */
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 1.5rem !important;
+                width: 95%;
+                border-radius: 20px;
+                margin-top: 2rem; /* Add margin to prevent top clipping */
+            }
+            .modal-box h2 { font-size: 1.5rem; margin-top: 0.5rem; }
+            .input-group { margin-bottom: 1rem; }
+            .auth-bottom-link { margin-top: 1rem; padding-top: 0.8rem; }
+        }
+
+        .auth-tabs { display: flex; margin-bottom: 2rem; background: var(--bg-body); padding: 4px; border-radius: 50px; border: 1px solid var(--border); position: relative; overflow: hidden; }
+        .auth-tab { flex: 1; padding: 10px; border-radius: 40px; cursor: pointer; font-weight: 600; color: var(--text-muted); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2; position: relative; }
+        .auth-tab.active { color: white; }
+        
+        /* Sliding background for tabs */
+        .tab-slider { position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: calc(100% - 8px); background: var(--primary); border-radius: 40px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1; }
+        .auth-tabs.signup-active .tab-slider { transform: translateX(100%); }
+
+        .input-group { position: relative; margin-bottom: 1.2rem; text-align: left; }
+        .input-group label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem; display: block; font-weight: 500; margin-left: 5px; }
+        .input-group input { padding-left: 40px; }
+        .input-icon { position: absolute; left: 12px; top: 38px; color: var(--text-muted); transition: color 0.2s; }
+        .input-group input:focus + .input-icon { color: var(--primary); }
+
+        .password-toggle { position: absolute; right: 12px; top: 38px; cursor: pointer; color: var(--text-muted); z-index: 10; }
         .password-toggle:hover { color: var(--primary); }
 
-        /* Divider */
-        .auth-divider { display: flex; align-items: center; text-align: center; margin: 1rem 0; color: var(--text-muted); font-size: 0.8rem; }
-        .auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
-        .auth-divider::before { margin-right: .5em; }
-        .auth-divider::after { margin-left: .5em; }
+        .auth-btn-submit { width: 100%; padding: 1rem; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; font-weight: 600; border: none; cursor: pointer; font-size: 1rem; margin-top: 0.5rem; transition: transform 0.2s; }
+        .auth-btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4); }
+
+        /* Toggle Links at Bottom */
+        .auth-bottom-link { margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 1rem; }
+        .auth-bottom-link a { color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; }
+        .auth-bottom-link a:hover { text-decoration: underline; }
+
+        /* Toast Notifications */
+        #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; width: 90%; max-width: 400px; pointer-events: none; }
+        .toast { background: var(--bg-card); color: var(--text-main); padding: 12px 20px; border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border); display: flex; align-items: center; gap: 12px; animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto; }
+        .toast.error { border-color: var(--danger); }
+        .toast.success { border-color: var(--success); }
+        .toast i { font-size: 1.2rem; }
+        .toast.error i { color: var(--danger); }
+        .toast.success i { color: var(--success); }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+        /* XP LEVEL SYSTEM & VISUALS */
+        .level-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+        
+        /* New Circular Level Progress (Profile) */
+        .level-circle-container { display: flex; justify-content: center; align-items: center; margin-bottom: 1rem; }
+        .level-circle { position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; }
+        .level-circle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+        .level-circle circle { fill: none; stroke-width: 8; stroke-linecap: round; }
+        .level-circle-bg { stroke: rgba(255,255,255,0.1); }
+        .level-circle-fg { stroke: var(--accent); stroke-dasharray: 314; stroke-dashoffset: 314; transition: stroke-dashoffset 1s ease; }
+        .level-circle-content { position: absolute; text-align: center; }
+        .level-number-large { font-size: 2.2rem; font-weight: 700; color: white; line-height: 1; }
+        .level-label-small { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Floating XP Animation */
+        @keyframes floatUpFade { 0% { opacity:1; transform:translateY(0) scale(1); } 100% { opacity:0; transform:translateY(-50px) scale(1.2); } }
+        .floating-xp { position: fixed; color: var(--accent); font-weight: bold; font-size: 1.2rem; pointer-events: none; z-index: 9999; animation: floatUpFade 1.5s forwards; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+
+        /* Settings Buttons Grid */
+        .settings-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .settings-grid .btn { flex: 1 1 auto; }
 
         /* Grids */
         .grid-dashboard { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 1.5rem; }
@@ -138,14 +233,14 @@
         .cal-day.today { color: var(--accent); font-weight: bold; border-color: var(--accent); }
         .cal-day.has-data .cal-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--success); position: absolute; bottom: 4px; }
 
-        /* Activity Log Groups */
+        /* Activity Log */
         .activity-group { background: var(--bg-card-hover); border-radius: 8px; margin-bottom: 10px; border-left: 3px solid var(--text-muted); overflow: hidden; }
         .activity-group.type-study { border-color: var(--primary); }
         .activity-group.type-goal { border-color: var(--success); }
         .group-header { padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
         .group-items { padding: 0 15px 10px 15px; display: none; font-size: 0.85rem; color: var(--text-muted); }
         .group-items.show { display: block; }
-
+        
         /* Courses */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
         .course-filter-container { display: flex; gap: 10px; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
@@ -158,18 +253,19 @@
         .course-header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
         .course-badge { font-size: 0.7rem; padding: 0.25rem 0.75rem; border-radius: 20px; background: rgba(99, 102, 241, 0.1); color: var(--primary); border: 1px solid rgba(99, 102, 241, 0.2); font-weight: 600; text-transform: uppercase; }
         .course-title { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; line-height: 1.4; display: flex; align-items: center; gap: 8px; flex: 1; }
+        .course-title i { font-size: 0.9rem; opacity: 0.5; transition: transform 0.3s; margin-top: 3px; }
+        .video-accordion.open ~ .course-header .course-title i { transform: rotate(180deg); color: var(--primary); opacity: 1; }
         .course-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 1rem; margin-top: 0.5rem; }
         .course-progress-area { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .progress-text { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-top: 5px; }
         .video-accordion { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: var(--bg-card); }
         .video-accordion.open { max-height: 400px; overflow-y: auto; }
         
-        /* Course Edit & Link Buttons */
         .course-actions-container { position: absolute; bottom: 15px; right: 15px; z-index: 5; display: flex; gap: 8px; }
         .course-edit-btn { background: var(--bg-card-hover); color: var(--text-muted); border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
         .course-edit-btn:hover { color: var(--text-main); border-color: var(--text-muted); transform: translateY(-2px); }
 
-        /* Awards Grid */
+        /* Awards */
         .ach-filters { display: flex; gap: 10px; margin-bottom: 1.5rem; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
         .ach-filter-btn { padding: 0.4rem 1rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-muted); cursor: pointer; font-size: 0.85rem; }
         .ach-filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
@@ -189,7 +285,6 @@
         .modal-box { background: var(--bg-card); width: 90%; max-width: 600px; border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 2rem; max-height: 90vh; overflow-y: auto; position: relative; }
         .modal-lg { max-width: 800px; }
 
-        /* Onboarding Dots */
         .guide-step { margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
         .guide-icon { width: 40px; height: 40px; background: rgba(99,102,241,0.2); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
 
@@ -204,77 +299,195 @@
             .grid-dashboard, .grid-profile, .grid-2, .courses-grid { grid-template-columns: 1fr; }
             .page-header { flex-direction: row; }
             .greeting h1 { font-size: 1.2rem; }
+            
+            /* Fix Account Buttons for Mobile */
+            .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+            .settings-grid .btn { width: 100%; margin: 0; padding: 0.8rem 0.5rem; font-size: 0.85rem; flex-direction: column; gap: 5px; text-align: center; }
+            .settings-grid .btn i { font-size: 1.2rem; margin-bottom: 2px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Auth Overlay -->
-    <div id="auth-overlay" class="modal-overlay">
-        <div class="modal-box auth-container">
-            <div style="display:flex; justify-content:flex-end;"><button class="btn-icon-only" onclick="document.getElementById('auth-overlay').classList.remove('active')">✕</button></div>
-            <h2 style="margin-bottom: 1rem; color: var(--primary);">Achieve-mate</h2>
-            <div class="auth-tabs">
-                <div class="auth-tab active" id="tab-login" onclick="toggleAuthMode('login')">Login</div>
-                <div class="auth-tab" id="tab-signup" onclick="toggleAuthMode('signup')">Sign Up</div>
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- iOS Install Guide Overlay -->
+    <div id="ios-install-guide" class="ios-install-guide">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h3 style="font-size:0.95rem; color:var(--primary);">Install App</h3>
+            <button onclick="document.getElementById('ios-install-guide').style.display='none'" style="background:none; border:none; color:var(--text-muted); font-size:1.2rem;">&times;</button>
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;">Install this app on your iPhone for a better experience:</p>
+        <div style="display:flex; align-items:center; gap:10px; font-size:0.85rem; margin-bottom:5px;">
+            1. Tap the <strong>Share</strong> button <i class="fas fa-share-square" style="color:var(--accent)"></i>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; font-size:0.85rem;">
+            2. Select <strong>Add to Home Screen</strong> <i class="fas fa-plus-square" style="color:var(--text-main)"></i>
+        </div>
+    </div>
+
+    <!-- Welcome Overlay -->
+    <div id="welcome-overlay" class="modal-overlay">
+        <div class="modal-box modal-lg">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="color: var(--primary); font-family: var(--font-heading); font-size: 1.8rem;">Welcome to Achieve-mate</h2>
+                <p style="color: var(--text-muted);">Your personal productivity companion</p>
             </div>
             
-            <!-- Google Login Button -->
-            <button class="btn btn-google" onclick="window.handleGoogleAuth()">
-                <i class="fab fa-google" style="margin-right: 8px;"></i> Continue with Google
-            </button>
-
-            <div class="auth-divider">OR</div>
-
-            <form id="auth-form">
-                <input type="email" id="auth-email" placeholder="Email Address" required style="margin-bottom: 1rem;">
-                
-                <!-- Password Wrapper for Eye Icon -->
-                <div class="password-wrapper">
-                    <input type="password" id="auth-password" placeholder="Password" required>
-                    <i class="fas fa-eye password-toggle" id="togglePassword" onclick="window.togglePasswordVisibility()"></i>
+            <div class="guide-step">
+                <div class="guide-icon"><i class="fas fa-chart-pie"></i></div>
+                <div>
+                    <h4 style="font-family:var(--font-heading)">Dashboard</h4>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">View your daily progress, consistency streaks, and quick stats.</p>
                 </div>
-                
-                <!-- FORGOT PASSWORD LINK -->
-                <div style="text-align:right; margin-bottom:1.5rem;" id="forgot-pass-container">
-                    <button type="button" onclick="window.handleResetPassword()" style="background:none; border:none; font-size:0.8rem; color:var(--text-muted); cursor:pointer; text-decoration:underline;">Forgot Password?</button>
+            </div>
+            
+            <div class="guide-step">
+                <div class="guide-icon"><i class="fas fa-play-circle"></i></div>
+                <div>
+                    <h4 style="font-family:var(--font-heading)">Courses & Playlists</h4>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Create learning playlists, track video progress, and manage your studies.</p>
                 </div>
+            </div>
+            
+            <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="closeWelcomeGuide()">Get Started</button>
+        </div>
+    </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%;" id="auth-btn">Login</button>
+    <!-- Manage Goals Modal -->
+    <div id="manageGoalsModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="card-title">Manage Today's Goals <button class="btn-icon-only" onclick="closeModal('manageGoalsModal')">✕</button></div>
+            <div style="display: flex; gap: 10px; margin-bottom: 1.5rem;">
+                <input type="text" id="newGoalInput" placeholder="Add a new task...">
+                <button class="btn btn-primary" onclick="addGoal()">Add</button>
+            </div>
+            <div id="manageGoalsList"></div>
+        </div>
+    </div>
+
+    <!-- Add Playlist Modal -->
+    <div id="addPlaylistModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="card-title">Add New Course <button class="btn-icon-only" onclick="closeModal('addPlaylistModal')">✕</button></div>
+            <form id="addCourseForm" onsubmit="savePlaylist(event)">
+                <div class="input-group">
+                    <label>Course Name</label>
+                    <input type="text" id="plName" required placeholder="e.g., Machine Learning A-Z">
+                </div>
+                <div class="input-group">
+                    <label>Source (Platform)</label>
+                    <select id="plSource">
+                        <option value="Udemy">Udemy</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Coursera">Coursera</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Course Link (Optional)</label>
+                    <input type="url" id="plLink" placeholder="https://...">
+                </div>
+                <div class="input-group">
+                    <label>Video Titles (One per line)</label>
+                    <textarea id="plVideos" rows="5" placeholder="Intro to Python&#10;Setup Environment&#10;Variables & Data Types"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%">Create Course</button>
             </form>
-            <div id="auth-msg" style="margin-top: 1rem; font-size: 0.85rem; color: var(--danger);"></div>
-            <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted);">
-                <a href="#" onclick="document.getElementById('auth-overlay').classList.remove('active')" style="color: var(--accent);">Continue as Guest (Offline)</a>
+        </div>
+    </div>
+
+    <!-- Edit Playlist Modal -->
+    <div id="editPlaylistModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="card-title">Edit Course <button class="btn-icon-only" onclick="closeModal('editPlaylistModal')">✕</button></div>
+            <input type="hidden" id="editPlId">
+            <div class="input-group">
+                <label>Course Name</label>
+                <input type="text" id="editPlName">
+            </div>
+            <div class="input-group">
+                <label>Course Link</label>
+                <input type="url" id="editPlLink">
+            </div>
+            <div class="input-group">
+                <label>Video Titles (One per line)</label>
+                <textarea id="editPlVideos" rows="5"></textarea>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-primary" style="flex:1" onclick="updatePlaylist()">Save Changes</button>
+                <button class="btn btn-danger" onclick="deletePlaylist()"><i class="fas fa-trash"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Welcome Guide Modal -->
-    <div id="welcome-overlay" class="modal-overlay">
-        <div class="modal-box" style="max-width: 500px;">
-            <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary);">Welcome to Achieve-mate! 🚀</h2>
-            <div class="guide-step">
-                <div class="guide-icon"><i class="fas fa-home"></i></div>
-                <div>
-                    <h4 style="margin-bottom:0.2rem">Dashboard</h4>
-                    <p style="font-size:0.9rem; color:var(--text-muted)">Track daily priorities and see your progress at a glance.</p>
-                </div>
+    <!-- Focus Overlay -->
+    <div id="focus-overlay" class="modal-overlay" style="background: #0f172a; z-index: 2000;">
+        <div style="text-align: center;">
+            <div style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1rem;">Focusing on</div>
+            <h1 id="overlayTask" style="font-size: 2.5rem; margin-bottom: 3rem; font-family: var(--font-heading);">Deep Work</h1>
+            <div id="overlayTimer" style="font-size: 6rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--primary); margin-bottom: 3rem;">25:00</div>
+            <button class="btn btn-danger" onclick="stopFullScreenFocus()" style="padding: 1rem 3rem; font-size: 1.2rem; border-radius: 50px;">Stop Session</button>
+            
+            <!-- Soundscapes -->
+            <div style="margin-top: 3rem; display: flex; gap: 15px; justify-content: center;">
+                <button class="btn-icon-only sound-card" onclick="toggleSound('rain', this)" style="width: 50px; height: 50px; font-size: 1.2rem;"><i class="fas fa-cloud-rain"></i></button>
+                <button class="btn-icon-only sound-card" onclick="toggleSound('forest', this)" style="width: 50px; height: 50px; font-size: 1.2rem;"><i class="fas fa-tree"></i></button>
+                <button class="btn-icon-only sound-card" onclick="toggleSound('lofi', this)" style="width: 50px; height: 50px; font-size: 1.2rem;"><i class="fas fa-music"></i></button>
+                <button class="btn-icon-only sound-card" onclick="toggleSound('white', this)" style="width: 50px; height: 50px; font-size: 1.2rem;"><i class="fas fa-wind"></i></button>
             </div>
-            <div class="guide-step">
-                <div class="guide-icon"><i class="fas fa-play-circle"></i></div>
-                <div>
-                    <h4 style="margin-bottom:0.2rem">Courses</h4>
-                    <p style="font-size:0.9rem; color:var(--text-muted)">Create custom learning playlists and track topics.</p>
-                </div>
+        </div>
+    </div>
+
+    <!-- Auth Overlay -->
+    <div id="auth-overlay" class="modal-overlay">
+        <div class="modal-box auth-container">
+            <button class="btn-icon-only" onclick="document.getElementById('auth-overlay').classList.remove('active')" style="position:absolute; top:15px; right:15px;">✕</button>
+            
+            <h2 style="margin-bottom: 0.5rem; color: var(--primary); font-family: var(--font-heading);">Welcome Back</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">Sync your goals across devices</p>
+            
+            <div class="auth-tabs" id="authTabsContainer">
+                <div class="tab-slider"></div>
+                <div class="auth-tab active" id="tab-login" onclick="toggleAuthMode('login')">Login</div>
+                <div class="auth-tab" id="tab-signup" onclick="toggleAuthMode('signup')">Create Account</div>
             </div>
-            <div class="guide-step">
-                <div class="guide-icon"><i class="fas fa-clock"></i></div>
-                <div>
-                    <h4 style="margin-bottom:0.2rem">Focus Mode</h4>
-                    <p style="font-size:0.9rem; color:var(--text-muted)">Distraction-free timer to boost your deep work sessions.</p>
+            
+            <form id="auth-form" onsubmit="handleAuth(event)" novalidate>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="auth-email" placeholder="student@college.edu" required>
+                    <i class="fas fa-envelope input-icon"></i>
                 </div>
+                
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="auth-password" placeholder="••••••••" required>
+                        <i class="fas fa-lock input-icon"></i>
+                        <i class="fas fa-eye password-toggle" id="togglePassword" onclick="window.togglePasswordVisibility()"></i>
+                    </div>
+                </div>
+                
+                <div style="text-align:right; margin-bottom:1.5rem;" id="forgot-pass-container">
+                    <button type="button" onclick="window.handleResetPassword()" style="background:none; border:none; font-size:0.85rem; color:var(--primary); cursor:pointer; font-weight:500;">Forgot Password?</button>
+                </div>
+
+                <button type="submit" class="auth-btn-submit" id="auth-btn">Login</button>
+            </form>
+
+            <!-- SWITCH LINKS -->
+            <div id="switch-to-signup" class="auth-bottom-link" style="display:block;">
+                Don't have an account? <a onclick="toggleAuthMode('signup')">Create One</a>
             </div>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="closeWelcomeGuide()">Let's Get Started!</button>
+            <div id="switch-to-login" class="auth-bottom-link" style="display:none;">
+                Already have an account? <a onclick="toggleAuthMode('login')">Login</a>
+            </div>
+
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                <a href="#" onclick="document.getElementById('auth-overlay').classList.remove('active')">Continue as Guest</a>
+            </div>
         </div>
     </div>
 
@@ -296,11 +509,10 @@
             <div class="nav-item" id="nav-achievements" onclick="switchTab('achievements')"><i class="fas fa-trophy"></i> Achievements</div>
             <div class="nav-item" id="nav-profile" onclick="switchTab('profile')"><i class="fas fa-user-circle"></i> Profile</div>
             
-            <!-- CREATOR CREDITS SECTION -->
             <div class="sidebar-footer">
-                <div>Built by Developer</div>
-                <a href="https://www.linkedin.com/in/your-profile-link" target="_blank" class="creator-link">
-                    <i class="fab fa-linkedin"></i> Connect
+                <div>Contact Developer</div>
+                <a href="https://www.linkedin.com/in/deepak-kumar-jha-390694281/" target="_blank" class="creator-link">
+                    <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
             </div>
         </aside>
@@ -315,8 +527,14 @@
                 </div>
                 <div class="header-right">
                     <button id="headerLoginBtn" class="header-login-btn" onclick="document.getElementById('auth-overlay').classList.add('active')">
-                        <i class="fas fa-sign-in-alt"></i> Login / Sync
+                        <i class="fas fa-sign-in-alt"></i> Login
                     </button>
+
+                    <div id="headerUserBadge" class="user-badge-header" onclick="switchTab('profile')">
+                        <div class="user-badge-avatar" id="headerUserInitials">U</div>
+                        <div class="user-badge-name" id="headerUserName">User</div>
+                    </div>
+
                     <div class="streak-badge" onclick="switchTab('profile')">
                         <i class="fas fa-fire" style="color: var(--accent)"></i>
                         <div class="streak-count" id="headerStreak">0</div>
@@ -327,8 +545,24 @@
             <!-- DASHBOARD -->
             <div id="dashboard-view" class="view-section">
                 <div class="grid-dashboard">
-                    <!-- Left: Tasks & Graph -->
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <!-- FIXED: DASHBOARD LEVEL CARD COLOR -->
+                        <div class="card" style="background: var(--bg-card); border: 1px solid var(--primary); color: white;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 0.8rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; color: var(--primary);">Current Level</div>
+                                    <div style="font-size: 2rem; font-weight: 700; font-family: var(--font-heading);" id="dashboardLevelDisplay">1</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 0.9rem; font-weight: 600;" id="dashboardXPDisplay">0 XP</div>
+                                    <div style="font-size: 0.75rem; opacity: 0.8; color: var(--text-muted);">Keep pushing!</div>
+                                </div>
+                            </div>
+                            <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 10px; overflow: hidden;">
+                                <div id="dashboardLevelBar" style="height: 100%; background: var(--primary); width: 0%; transition: width 1s ease;"></div>
+                            </div>
+                        </div>
+
                         <div class="card">
                             <div class="card-title">
                                 <span><i class="fas fa-tasks"></i> Today's Priority</span>
@@ -343,7 +577,6 @@
                         </div>
                     </div>
 
-                    <!-- Right: Stats -->
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                         <div class="card">
                             <div class="card-title"><i class="fas fa-chart-line"></i> Progress</div>
@@ -364,6 +597,18 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- INSTALL APP BANNER (Mobile Footer) -->
+                <div id="installAppBanner" class="install-banner" onclick="installApp()">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="install-icon-circle"><i class="fas fa-download"></i></div>
+                        <div>
+                            <div class="install-text">Install App</div>
+                            <div class="install-sub">Add to home screen for better experience</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
             </div>
 
             <!-- COURSES -->
@@ -382,7 +627,7 @@
                 </div>
             </div>
 
-            <!-- FOCUS -->
+            <!-- FOCUS (UPGRADED) -->
             <div id="focus-view" class="view-section" style="display: none;">
                 <div class="grid-2">
                     <div class="card">
@@ -421,7 +666,7 @@
                 </div>
             </div>
 
-            <!-- PROFILE -->
+            <!-- PROFILE (UPGRADED) -->
             <div id="profile-view" class="view-section" style="display: none;">
                 <div class="card" style="display:flex; align-items:center; gap:1.5rem; background: linear-gradient(to right, var(--bg-card), rgba(99,102,241,0.1));">
                     <div style="width:70px; height:70px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:700;" id="profilePic">U</div>
@@ -430,6 +675,25 @@
                         <p id="profileEmail" style="color:var(--text-muted); font-size:0.9rem;">Not logged in</p>
                         <p id="verificationStatus" style="color:var(--accent); font-size:0.8rem; display:none;">Email not verified</p>
                     </div>
+                </div>
+
+                <!-- NEW LEVEL CIRCULAR VISUAL -->
+                <div class="level-container" style="text-align:center; padding: 2rem;">
+                    <div class="level-circle-container">
+                        <div class="level-circle">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="level-circle-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="level-circle-fg" id="levelCircleFg" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="level-circle-content">
+                                <div class="level-number-large" id="levelTitle">1</div>
+                                <div class="level-label-small">LEVEL</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 style="margin-bottom:5px; color:var(--primary);" id="xpDisplay">0 XP</h3>
+                    <p class="xp-text" id="xpToNext">500 XP to Level 2</p>
+                    <p class="xp-text" id="motivationalQuote" style="margin-top:10px; font-style:italic; color:var(--text-main);">Keep growing!</p>
                 </div>
 
                 <div class="grid-profile">
@@ -456,12 +720,14 @@
 
                 <div class="card">
                     <div class="card-title">Account Settings</div>
-                    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                    <div class="settings-grid">
                         <button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import Data</button>
-                        <button class="btn btn-secondary" onclick="document.getElementById('welcome-overlay').classList.add('active')"><i class="fas fa-question-circle"></i> Help Guide</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('welcome-overlay').classList.add('active')"><i class="fas fa-question-circle"></i> Guide</button>
                         <button class="btn btn-secondary" onclick="if(confirm('Clear all local data?')) { localStorage.clear(); location.reload(); }"><i class="fas fa-trash"></i> Reset App</button>
                         <button class="btn btn-secondary" onclick="window.location.href='mailto:support@achievemate.com'"><i class="fas fa-bug"></i> Report Bug</button>
+                        <button class="btn btn-secondary" onclick="window.open('https://www.linkedin.com/in/deepak-kumar-jha-390694281/', '_blank')"><i class="fab fa-linkedin"></i> Developer</button>
+                        <button id="installAppBtnMobile" class="btn btn-primary" style="display:none; background: linear-gradient(45deg, var(--primary), #818cf8);" onclick="installApp()"><i class="fas fa-download"></i> Install App</button>
                         <button class="btn btn-danger" id="logoutBtn" style="display:none;" onclick="window.logoutUser()">Logout</button>
                     </div>
                     <input type="file" id="importFile" style="display: none;" accept=".json" onchange="importData(this)">
@@ -471,76 +737,12 @@
         </main>
     </div>
 
-    <!-- Modals -->
-    <div id="manageGoalsModal" class="modal-overlay">
-        <div class="modal-box">
-            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>Manage Tasks</h3><button class="btn-icon-only" onclick="closeModal('manageGoalsModal')">✕</button></div>
-            <div style="display:flex; gap:0.5rem; margin-bottom:1rem;">
-                <input type="text" id="newGoalInput" placeholder="Add new task...">
-                <button class="btn btn-primary" onclick="addGoal()">Add</button>
-            </div>
-            <div id="manageGoalsList"></div>
-        </div>
-    </div>
-
-    <div id="addPlaylistModal" class="modal-overlay">
-        <div class="modal-box">
-            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>New Course</h3><button class="btn-icon-only" onclick="closeModal('addPlaylistModal')">✕</button></div>
-            <form onsubmit="savePlaylist(event)" id="addCourseForm">
-                <input type="text" id="plName" required placeholder="Course Name" style="margin-bottom: 1rem;">
-                <div style="display: flex; gap: 10px; margin-bottom: 1rem;">
-                    <select id="plSource" style="width:50%; padding:0.75rem; background:var(--bg-body); color:var(--text-main); border:1px solid var(--border); border-radius:var(--radius-md);">
-                        <option value="Youtube">YouTube</option>
-                        <option value="Udemy">Udemy</option>
-                        <option value="Coursera">Coursera</option>
-                    </select>
-                    <input type="url" id="plLink" placeholder="Course Link (Optional)" style="width:50%;">
-                </div>
-                <textarea id="plVideos" rows="5" required placeholder="Topics list (one per line)" style="margin-bottom:1rem;"></textarea>
-                <button type="submit" class="btn btn-primary" style="width:100%">Create Course</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit Playlist Modal -->
-    <div id="editPlaylistModal" class="modal-overlay">
-        <div class="modal-box modal-lg">
-            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><h3>Edit Course</h3><button class="btn-icon-only" onclick="closeModal('editPlaylistModal')">✕</button></div>
-            <input type="hidden" id="editPlId">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem;">
-                <input type="text" id="editPlName" placeholder="Course Name">
-                <input type="url" id="editPlLink" placeholder="Course URL">
-            </div>
-            <textarea id="editPlVideos" rows="10" placeholder="Topics (one per line)" style="margin-bottom:1rem; font-family:monospace; font-size:0.9rem;"></textarea>
-            <div style="display:flex; justify-content:space-between;">
-                <button class="btn btn-danger" onclick="deletePlaylist()">Delete Course</button>
-                <button class="btn btn-primary" onclick="updatePlaylist()">Save Changes</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Focus Overlay -->
-    <div id="focus-overlay" class="modal-overlay" style="background:var(--bg-body); z-index:2000;">
-        <div style="text-align:center;">
-            <div id="overlayTask" style="font-size:1.5rem; color:var(--text-muted); margin-bottom:1rem;">Focusing</div>
-            <div id="overlayTimer" style="font-size:6rem; font-weight:700; color:var(--primary); font-family:monospace; line-height:1;">25:00</div>
-            <button class="btn btn-danger" style="margin-top:3rem; padding:1rem 2rem;" onclick="stopFullScreenFocus()">Stop Session</button>
-        </div>
-    </div>
-
-    <!-- Firebase Logic (Module) -->
+    <!-- Firebase Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail, sendEmailVerification, setPersistence, browserLocalPersistence, inMemoryPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        /* IMPORTANT: To use YOUR specific firebase project in your local file, 
-           uncomment your config below and comment out the 'const firebaseConfig' line 
-           that uses 'typeof __firebase_config'.
-        */
-
-        // Your specific config (Uncomment this block when you download!)
-        /*
         const firebaseConfig = {
             apiKey: "AIzaSyBBuXEgTrEbAkj-BN_VSSYoVDx5e51fw4A",
             authDomain: "achieve-mate.firebaseapp.com",
@@ -549,176 +751,268 @@
             messagingSenderId: "209711943902",
             appId: "1:209711943902:web:e8df445f14cc5c9b6eb24f"
         };
-        */
 
-        // System config for preview (Do not delete this line for the preview to work)
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const googleProvider = new GoogleAuthProvider();
 
-        // --- GOOGLE LOGIN HANDLER ---
-        window.handleGoogleAuth = async () => {
-             const msg = document.getElementById('auth-msg');
-             msg.textContent = "Opening Google Login...";
-             msg.style.color = "var(--text-muted)";
-             
-             try {
-                 await signInWithPopup(auth, googleProvider);
-                 document.getElementById('auth-overlay').classList.remove('active');
-                 msg.textContent = "";
-             } catch (err) {
-                 msg.style.color = 'var(--danger)';
-                 console.error(err);
-                 if (err.code === 'auth/popup-blocked') {
-                     msg.textContent = "Popup blocked. Please allow popups for this site.";
-                 } else if (err.code === 'auth/operation-not-allowed') {
-                     msg.textContent = "Google Login is disabled in Firebase Console.";
-                 } else if (err.message.includes('Cross-Origin-Opener-Policy')) {
-                     msg.textContent = "Preview Mode Error: Open this page in a new tab/window to sign in with Google.";
-                 } else {
-                     msg.textContent = err.message;
-                 }
-             }
+        // PERSISTENCE: SIMPLIFIED FOR MOBILE
+        // Try browser persistence but don't block the app loading if it fails
+        setPersistence(auth, browserLocalPersistence).catch((error) => {
+            console.warn("Persistence error:", error);
+        });
+
+        window.showToast = function(msg, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            let icon = type === 'error' ? 'fa-exclamation-circle' : type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+            toast.innerHTML = `<i class="fas ${icon}"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.animation = 'fadeOut 0.3s forwards'; setTimeout(() => toast.remove(), 300); }, 4000);
         }
 
-        // --- EMAIL/PASSWORD HANDLER ---
+        // --- FIXED LOGIN LOGIC FOR MOBILE ---
         window.handleAuth = async (e) => {
-            e.preventDefault();
+            if(e) e.preventDefault();
+            
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-password').value;
             const isSignup = document.getElementById('tab-signup').classList.contains('active');
-            const msg = document.getElementById('auth-msg');
+            const btn = document.getElementById('auth-btn');
             
-            msg.textContent = "Processing...";
-            msg.style.color = "var(--text-muted)";
+            const originalText = isSignup ? "Create Account" : "Login";
+            
+            // 1. UI FEEDBACK
+            btn.textContent = "Processing...";
+            btn.disabled = true;
+            btn.style.opacity = "0.7";
+
+            // 2. SAFETY TIMEOUT (15 seconds)
+            const safetyTimeout = setTimeout(() => {
+                if(btn.disabled) {
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                    btn.style.opacity = "1";
+                    window.showToast("Request timed out. Please check connection.", "error");
+                }
+            }, 15000);
 
             try {
                 if (isSignup) {
                     const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-                    const user = userCredential.user;
-                    await sendEmailVerification(user);
+                    await sendEmailVerification(userCredential.user);
                     await signOut(auth);
-                    msg.style.color = 'var(--success)';
-                    msg.textContent = "Account created! Verification email sent. Please check your inbox.";
+                    window.showToast("Account created! Please verify email.", "success");
+                    window.toggleAuthMode('login');
                 } else {
-                    const userCredential = await signInWithEmailAndPassword(auth, email, pass);
-                    const user = userCredential.user;
-                    if (!user.emailVerified) {
-                        // document.getElementById('auth-overlay').classList.remove('active'); // Optionally force strict verification
-                        msg.style.color = 'var(--accent)';
-                        msg.textContent = "Warning: Email not verified yet.";
-                         setTimeout(() => {
-                             document.getElementById('auth-overlay').classList.remove('active');
-                         }, 1500);
-                    } else {
-                        msg.textContent = "";
-                        document.getElementById('auth-overlay').classList.remove('active');
-                    }
+                    // Standard login
+                    await signInWithEmailAndPassword(auth, email, pass);
+                    // Success handled by onAuthStateChanged
                 }
             } catch (err) {
-                msg.style.color = 'var(--danger)';
-                console.error("Auth Error:", err.code);
-                if(err.code === 'auth/email-already-in-use') msg.textContent = "Email already registered. Try logging in.";
-                else if(err.code === 'auth/wrong-password') msg.textContent = "Incorrect password.";
-                else if(err.code === 'auth/user-not-found') msg.textContent = "No account found.";
-                else if(err.code === 'auth/operation-not-allowed') msg.textContent = "Error: You MUST enable the top 'Email/Password' switch in Firebase Console.";
-                else msg.textContent = err.message;
+                console.error("Auth Error:", err);
+                let msg = "Something went wrong.";
+                if(err.code === 'auth/email-already-in-use') msg = "Email already in use.";
+                else if(err.code === 'auth/wrong-password') msg = "Incorrect password.";
+                else if(err.code === 'auth/user-not-found') msg = "User not found.";
+                else if(err.code === 'auth/weak-password') msg = "Password too weak (min 6 chars).";
+                else if(err.code === 'auth/invalid-email') msg = "Invalid email address.";
+                else if(err.code === 'auth/network-request-failed') msg = "Network error. Check connection.";
+                else if(err.code === 'auth/too-many-requests') msg = "Too many attempts. Try later.";
+                window.showToast(msg, "error");
+            } finally {
+                clearTimeout(safetyTimeout);
+                btn.textContent = originalText;
+                btn.disabled = false;
+                btn.style.opacity = "1";
             }
         };
 
-        document.getElementById('auth-form').addEventListener('submit', window.handleAuth);
-
         window.handleResetPassword = async () => {
             const email = document.getElementById('auth-email').value;
-            const msg = document.getElementById('auth-msg');
-            
-            if (!email) {
-                msg.style.color = 'var(--accent)';
-                msg.textContent = "Please enter your email address in the input box above first.";
-                return;
-            }
-
-            try {
-                await sendPasswordResetEmail(auth, email);
-                msg.style.color = 'var(--success)';
-                msg.textContent = "Password reset link sent! Check your inbox.";
-            } catch (err) {
-                msg.style.color = 'var(--danger)';
-                msg.textContent = err.message;
-            }
+            if (!email) return window.showToast("Enter email in the box first.", "error");
+            try { await sendPasswordResetEmail(auth, email); window.showToast("Reset link sent!", "success"); } catch(e){ window.showToast(e.message, "error"); }
         };
 
         window.logoutUser = () => signOut(auth).then(() => location.reload());
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                if(!user.emailVerified) {
-                     document.getElementById('verificationStatus').style.display = 'block';
-                } else {
-                     document.getElementById('verificationStatus').style.display = 'none';
+                if (!user.emailVerified) {
+                    window.showToast("Please verify your email first.", "error");
+                    signOut(auth);
+                    return;
                 }
-
-                document.getElementById('headerLoginBtn').style.display = 'none';
-                document.getElementById('profileName').textContent = user.displayName || user.email.split('@')[0];
-                document.getElementById('profileEmail').textContent = user.email;
-                document.getElementById('profilePic').textContent = (user.displayName || user.email)[0].toUpperCase();
-                document.getElementById('logoutBtn').style.display = 'inline-flex';
-                loadCloudData(user.uid);
+                document.getElementById('auth-overlay').classList.remove('active');
+                window.showToast("Welcome back!", "success");
+                updateUserUI(user);
+                loadDataFromCloud(user.uid);
             } else {
-                document.getElementById('headerLoginBtn').style.display = 'flex';
-                document.getElementById('logoutBtn').style.display = 'none';
+                resetUserUI();
             }
         });
 
-        async function loadCloudData(uid) {
-            const snap = await getDoc(doc(db, "users", uid));
-            if(snap.exists()) {
-                window.appData = snap.data(); 
-                window.refreshUI(); 
-            }
+        function updateUserUI(user) {
+            const name = user.displayName || user.email.split('@')[0];
+            const initial = name[0].toUpperCase();
+            setText('profileName', name);
+            setText('profileEmail', user.email);
+            setText('profilePic', initial);
+            const headerBtn = document.getElementById('headerLoginBtn');
+            const headerBadge = document.getElementById('headerUserBadge');
+            if(headerBtn) headerBtn.style.display = 'none';
+            if(headerBadge) { headerBadge.style.display = 'flex'; setText('headerUserInitials', initial); setText('headerUserName', name); }
+            const vStat = document.getElementById('verificationStatus');
+            if(vStat) vStat.style.display = 'none';
+            const logoutBtn = document.getElementById('logoutBtn');
+            if(logoutBtn) logoutBtn.style.display = 'inline-flex';
         }
-        
+
+        function resetUserUI() {
+            setText('profileName', "Guest User");
+            setText('profileEmail', "Not logged in");
+            setText('profilePic', "U");
+            const headerBtn = document.getElementById('headerLoginBtn');
+            const headerBadge = document.getElementById('headerUserBadge');
+            if(headerBtn) headerBtn.style.display = 'flex';
+            if(headerBadge) headerBadge.style.display = 'none';
+            const logoutBtn = document.getElementById('logoutBtn');
+            if(logoutBtn) logoutBtn.style.display = 'none';
+        }
+
+        function setText(id, val) { const el = document.getElementById(id); if(el) el.textContent = val; }
+
+        async function loadDataFromCloud(uid) {
+            const docRef = doc(db, "users", uid);
+            try {
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    window.appData = docSnap.data();
+                    // Ensure new fields exist
+                    if(!window.appData.xp) window.appData.xp = 0;
+                    if(!window.appData.level) window.appData.level = 1;
+                    if(window.refreshUI) window.refreshUI();
+                } else {
+                    window.saveCloudData();
+                }
+            } catch (e) { console.error(e); }
+        }
+
         window.saveCloudData = async () => {
-            if(auth.currentUser) await setDoc(doc(db, "users", auth.currentUser.uid), window.appData);
-        }
+            if (auth.currentUser && window.appData) {
+                await setDoc(doc(db, "users", auth.currentUser.uid), window.appData);
+            }
+        };
     </script>
 
-    <!-- Main App Logic -->
+    <!-- Main Logic -->
     <script>
-        window.appData = { playlists: [], dailyGoals: [], streak: 0, lastActive: null, history: {}, focusLogs: [], totalFocusTime: 0, isNewUser: true };
+        window.appData = { playlists: [], dailyGoals: [], streak: 0, lastActive: null, history: {}, focusLogs: [], totalFocusTime: 0, isNewUser: true, xp: 0, level: 1 };
         let currentBadgeFilter = 'all';
         let currentCourseFilter = 'all';
         let calDate = new Date();
         let focusInterval = null;
         let currentTab = 'dashboard';
+        let activeAudio = null;
+        let openPlaylistId = null; 
 
-        // Password Visibility Toggle
+        /* --- INSTALL APP LOGIC (PWA) --- */
+        let deferredPrompt;
+        const installBanner = document.getElementById('installAppBanner');
+
+        // 1. Detect if running on iOS
+        const isIos = () => {
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            return /iphone|ipad|ipod/.test(userAgent);
+        }
+        // 2. Detect if already in standalone mode (installed)
+        const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+        // 3. Logic for Android/PC Install
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // SHOW THE BANNER (Mobile Dashboard Footer)
+            if(window.innerWidth <= 768) {
+                installBanner.style.display = 'flex';
+            }
+        });
+
+        // 4. Handle Install Click
+        window.installApp = async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                // Hide banner if installed
+                if(outcome === 'accepted') {
+                    installBanner.style.display = 'none';
+                }
+            }
+        }
+        
+        // Hide banner if app is already installed (standard check)
+        window.addEventListener('appinstalled', () => {
+            installBanner.style.display = 'none';
+            console.log('App installed');
+        });
+
+        // 5. Logic for iOS Instructions
+        if (isIos() && !isInStandaloneMode()) {
+            setTimeout(() => {
+                document.getElementById('ios-install-guide').style.display = 'block';
+            }, 2000);
+        }
+
+        // Audio Files (Using reliable CDN links)
+        const sounds = {
+            rain: new Audio('https://cdn.pixabay.com/download/audio/2021/09/06/audio_3778189e0f.mp3'),
+            forest: new Audio('https://cdn.pixabay.com/download/audio/2021/08/09/audio_04d0458377.mp3'),
+            lofi: new Audio('https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3'),
+            white: new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_bb6aa02379.mp3')
+        };
+        // Loop all sounds
+        Object.values(sounds).forEach(s => s.loop = true);
+
+        window.toggleSound = function(type, el) {
+            // Stop current if different
+            if(activeAudio && activeAudio !== sounds[type]) {
+                activeAudio.pause();
+                document.querySelectorAll('.sound-card').forEach(c => c.classList.remove('active'));
+            }
+
+            if(sounds[type].paused) {
+                sounds[type].play();
+                activeAudio = sounds[type];
+                el.classList.add('active');
+            } else {
+                sounds[type].pause();
+                activeAudio = null;
+                el.classList.remove('active');
+            }
+        }
+
         window.togglePasswordVisibility = function() {
             const input = document.getElementById('auth-password');
             const icon = document.getElementById('togglePassword');
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = "password";
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
+            if (input.type === "password") { input.type = "text"; icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash'); } 
+            else { input.type = "password"; icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye'); }
         }
 
         function init() {
             const local = localStorage.getItem('achieveMate_v12');
             if(local) window.appData = JSON.parse(local);
+            if(!window.appData.xp) window.appData.xp = 0;
+            if(!window.appData.level) window.appData.level = 1;
             
-            if(window.appData.isNewUser) {
-                document.getElementById('welcome-overlay').classList.add('active');
+            const welcomeOverlay = document.getElementById('welcome-overlay');
+            if(window.appData.isNewUser && welcomeOverlay) {
+                welcomeOverlay.classList.add('active');
             }
-
+            
             updateGreeting();
             refreshUI();
             updateActiveTabUI('dashboard');
@@ -737,7 +1031,9 @@
             renderAchievements();
             renderCalendar();
             renderFocusHistory();
-            document.getElementById('headerStreak').textContent = window.appData.streak;
+            updateXP();
+            const streakEl = document.getElementById('headerStreak');
+            if(streakEl) streakEl.textContent = window.appData.streak;
         }
 
         window.saveData = function() {
@@ -745,11 +1041,94 @@
             if(window.saveCloudData) window.saveCloudData();
         }
 
+        // XP LOGIC & ANIMATION (FIXED)
+        function addXP(amount) {
+            window.appData.xp += amount;
+            if (window.appData.xp < 0) window.appData.xp = 0; // Prevent negative XP
+            
+            // Only show floating animation if XP is POSITIVE
+            if (amount > 0) {
+                const float = document.createElement('div');
+                float.className = 'floating-xp';
+                float.textContent = `+${amount} XP`;
+                float.style.left = '50%';
+                float.style.top = '50%';
+                float.style.transform = 'translate(-50%, -50%)';
+                document.body.appendChild(float);
+                setTimeout(() => float.remove(), 1500);
+
+                // Level Up Logic (Only check on gain)
+                const newLevel = Math.floor(window.appData.xp / 500) + 1;
+                if(newLevel > window.appData.level) {
+                    window.appData.level = newLevel;
+                    window.showToast(`🎉 Level Up! You are now Level ${newLevel}`, 'success');
+                    triggerConfetti();
+                }
+            } else {
+                // If XP drops significantly, adjust level down silently
+                const currentLevel = Math.floor(window.appData.xp / 500) + 1;
+                if(currentLevel < window.appData.level) {
+                    window.appData.level = currentLevel;
+                }
+            }
+            updateXP();
+            window.saveData();
+        }
+
+        function updateXP() {
+            const xp = window.appData.xp || 0;
+            const level = window.appData.level || 1;
+            const nextLevelXP = level * 500;
+            const currentLevelStart = (level - 1) * 500;
+            const progress = ((xp - currentLevelStart) / 500) * 100;
+            const clampedProgress = Math.max(0, Math.min(100, progress));
+
+            // Update Visuals (Profile Circle)
+            const titleEl = document.getElementById('levelTitle');
+            if(titleEl) titleEl.textContent = level;
+            
+            const xpDisplayEl = document.getElementById('xpDisplay');
+            if(xpDisplayEl) xpDisplayEl.textContent = `${xp} XP`;
+            
+            const nextEl = document.getElementById('xpToNext');
+            if(nextEl) nextEl.textContent = `${nextLevelXP - xp} XP to Level ${level + 1}`;
+
+            // Profile Circle Stroke Animation
+            const circleFg = document.getElementById('levelCircleFg');
+            if(circleFg) {
+                // 314 is roughly 2*PI*r (where r=50)
+                // Dashoffset = Circumference - (Circumference * percentage / 100)
+                const offset = 283 - (283 * clampedProgress / 100); // r=45 => circ approx 283
+                circleFg.style.strokeDasharray = '283';
+                circleFg.style.strokeDashoffset = offset;
+            }
+
+            // Dashboard Mini Bar
+            const dashLevelEl = document.getElementById('dashboardLevelDisplay');
+            if(dashLevelEl) dashLevelEl.textContent = level;
+            const dashXpEl = document.getElementById('dashboardXPDisplay');
+            if(dashXpEl) dashXpEl.textContent = `${xp} XP`;
+            const dashBarEl = document.getElementById('dashboardLevelBar');
+            if(dashBarEl) dashBarEl.style.width = `${clampedProgress}%`;
+            if(dashBarEl) dashBarEl.style.backgroundColor = "var(--primary)";
+
+            const quoteEl = document.getElementById('motivationalQuote');
+            if(quoteEl) {
+                const quotes = [
+                    "Keep growing!", "You're doing great!", "Consistent effort pays off.", 
+                    "Level up your skills!", "Almost there!", "Stay focused, stay sharp.",
+                    "Success is a journey.", "One step at a time."
+                ];
+                quoteEl.textContent = quotes[level % quotes.length];
+            }
+        }
+
         // --- Navigation ---
         window.switchTab = function(id) {
             currentTab = id;
             document.querySelectorAll('.view-section').forEach(e => e.style.display = 'none');
-            document.getElementById(id + '-view').style.display = 'block';
+            const view = document.getElementById(id + '-view');
+            if(view) view.style.display = 'block';
             updateActiveTabUI(id);
         }
 
@@ -761,14 +1140,30 @@
             if(mobNav) mobNav.classList.add('active');
         }
 
+        // --- TAB SWITCHING LOGIC FOR AUTH ---
         window.toggleAuthMode = function(mode) {
             document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
             document.getElementById('tab-' + mode).classList.add('active');
-            document.getElementById('auth-btn').textContent = mode === 'login' ? 'Login' : 'Sign Up';
             
+            const container = document.getElementById('authTabsContainer');
+            const btn = document.getElementById('auth-btn');
             const fp = document.getElementById('forgot-pass-container');
-            if(mode === 'signup') fp.style.display = 'none';
-            else fp.style.display = 'block';
+            const switchSignup = document.getElementById('switch-to-signup');
+            const switchLogin = document.getElementById('switch-to-login');
+
+            if(mode === 'signup') {
+                container.classList.add('signup-active');
+                btn.textContent = "Create Account";
+                fp.style.display = 'none';
+                switchSignup.style.display = 'none';
+                switchLogin.style.display = 'block';
+            } else {
+                container.classList.remove('signup-active');
+                btn.textContent = "Login";
+                fp.style.display = 'block';
+                switchSignup.style.display = 'block';
+                switchLogin.style.display = 'none';
+            }
         }
 
         // --- Goals Logic ---
@@ -786,8 +1181,19 @@
             const g = window.appData.dailyGoals.find(x => x.id === id);
             if(g) {
                 g.done = !g.done;
-                logActivity('Goal', g.text);
-                if(g.done) { triggerConfetti(); updateStreak(); }
+                const xpAmount = 20; // FIXED XP FOR GOALS
+
+                if(g.done) { 
+                    triggerConfetti(); 
+                    updateStreak();
+                    addXP(xpAmount); 
+                    logActivity('Goal', g.text, xpAmount);
+                } else {
+                    // DEDUCT XP if unchecked
+                    addXP(-xpAmount);
+                    // Don't log unchecking to keep log clean
+                }
+                
                 window.saveData();
                 window.refreshUI(); 
             }
@@ -804,52 +1210,52 @@
             const today = new Date().toDateString();
             const list = document.getElementById('dashboardGoalsList');
             const goals = window.appData.dailyGoals.filter(g => g.date === today);
+            const emptyMsg = document.getElementById('emptyGoalsMsg');
             
-            list.innerHTML = goals.length ? '' : document.getElementById('emptyGoalsMsg').outerHTML;
-            document.getElementById('emptyGoalsMsg').style.display = goals.length ? 'none' : 'block';
-
-            goals.forEach(g => {
-                const div = document.createElement('div');
-                div.className = `priority-item ${g.done?'checked':''}`;
-                div.onclick = () => window.toggleGoal(g.id);
-                div.innerHTML = `
-                    <div class="priority-checkbox">${g.done?'<i class="fas fa-check"></i>':''}</div>
-                    <div class="priority-text">${g.text}</div>
-                `;
-                list.appendChild(div);
-            });
-            
+            if(list) {
+                list.innerHTML = '';
+                if(goals.length === 0) {
+                    if(emptyMsg) emptyMsg.style.display = 'block';
+                } else {
+                    if(emptyMsg) emptyMsg.style.display = 'none';
+                    goals.forEach(g => {
+                        const div = document.createElement('div');
+                        div.className = `priority-item ${g.done?'checked':''}`;
+                        div.onclick = () => window.toggleGoal(g.id);
+                        div.innerHTML = `<div class="priority-checkbox">${g.done?'<i class="fas fa-check"></i>':''}</div><div class="priority-text">${g.text}</div>`;
+                        list.appendChild(div);
+                    });
+                }
+            }
             const done = goals.filter(g=>g.done).length;
-            document.getElementById('goalPct').textContent = goals.length ? Math.round((done/goals.length)*100)+'%' : '0%';
+            const pctEl = document.getElementById('goalPct');
+            if(pctEl) pctEl.textContent = goals.length ? Math.round((done/goals.length)*100)+'%' : '0%';
         }
 
         function renderManageGoalsList() {
             const today = new Date().toDateString();
             const list = document.getElementById('manageGoalsList');
             const goals = window.appData.dailyGoals.filter(g => g.date === today);
-            list.innerHTML = goals.map(g => `
-                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid var(--border);">
-                    <span>${g.text}</span>
-                    <button class="btn-icon-only" style="color:var(--danger)" onclick="deleteGoal(${g.id})"><i class="fas fa-trash"></i></button>
-                </div>
-            `).join('');
+            if(list) {
+                list.innerHTML = goals.map(g => `
+                    <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid var(--border);">
+                        <span>${g.text}</span>
+                        <button class="btn-icon-only" style="color:var(--danger)" onclick="deleteGoal(${g.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `).join('');
+            }
         }
 
         function renderConsistencyGraph() {
             const container = document.getElementById('consistencyGraph');
+            if(!container) return;
             container.innerHTML = '';
             const days = ['S','M','T','W','T','F','S'];
             for(let i=6; i>=0; i--) {
                 const d = new Date(); d.setDate(d.getDate() - i);
                 const goals = window.appData.dailyGoals.filter(g => g.date === d.toDateString());
                 const pct = goals.length ? (goals.filter(g=>g.done).length / goals.length)*100 : 0;
-                container.innerHTML += `
-                    <div class="graph-col">
-                        <div style="height:100%; width:10px; background:rgba(255,255,255,0.05); border-radius:10px; display:flex; align-items:flex-end;">
-                            <div class="graph-bar" style="height:${pct}%"></div>
-                        </div>
-                        <div class="graph-label">${days[d.getDay()]}</div>
-                    </div>`;
+                container.innerHTML += `<div class="graph-col"><div style="height:100%; width:10px; background:rgba(255,255,255,0.05); border-radius:10px; display:flex; align-items:flex-end;"><div class="graph-bar" style="height:${pct}%"></div></div><div class="graph-label">${days[d.getDay()]}</div></div>`;
             }
         }
 
@@ -871,20 +1277,46 @@
         }
         window.closeModal = function(id) { document.getElementById(id).classList.remove('active'); }
 
-        window.toggleVideo = function(plId, vId) {
+        // FIXED: SCROLL JUMP ISSUE
+        window.toggleVideo = function(plId, vId, event) {
             const pl = window.appData.playlists.find(p=>p.id===plId);
             const v = pl.videos.find(x=>x.id===vId);
             v.done = !v.done;
-            logActivity('Study', `${pl.name}: ${v.title}`);
-            if(v.done) { triggerConfetti(); updateStreak(); }
+            const xpAmount = 50;
+            
+            if(v.done) { 
+                triggerConfetti(); 
+                updateStreak();
+                addXP(xpAmount); 
+                logActivity('Study', `${pl.name}: ${v.title}`, xpAmount);
+            } else {
+                addXP(-xpAmount);
+            }
+            
             window.saveData();
-
-            const btn = event.currentTarget; 
-            if(v.done) btn.classList.add('checked'); else btn.classList.remove('checked');
-            const checkIcon = btn.querySelector('.priority-checkbox');
-            checkIcon.innerHTML = v.done ? '<i class="fas fa-check"></i>' : '';
-
-            window.refreshUI();
+            
+            // DOM UPDATE ONLY - PREVENTS SCROLL JUMP
+            const btn = event ? event.currentTarget : null;
+            if(btn) {
+                if(v.done) btn.classList.add('checked'); else btn.classList.remove('checked');
+                const checkIcon = btn.querySelector('.priority-checkbox');
+                if(checkIcon) checkIcon.innerHTML = v.done ? '<i class="fas fa-check"></i>' : '';
+                
+                // Update progress bar locally
+                const card = btn.closest('.course-card');
+                if(card) {
+                    const doneCount = pl.videos.filter(v=>v.done).length;
+                    const totalCount = pl.videos.length;
+                    const pct = totalCount ? Math.round((doneCount/totalCount)*100) : 0;
+                    const bar = card.querySelector('.course-progress-area div div');
+                    const text = card.querySelector('.progress-text span:last-child');
+                    const meta = card.querySelector('.course-meta span');
+                    
+                    if(bar) bar.style.width = `${pct}%`;
+                    if(text) text.textContent = `${pct}%`;
+                    if(meta) meta.textContent = `${doneCount} / ${totalCount} Completed`;
+                }
+            }
         }
 
         window.openEditPlaylist = function(id) {
@@ -924,17 +1356,24 @@
             renderPlaylists();
         }
 
+        // Accordion Toggling Logic
+        window.toggleAccordion = function(id) {
+            openPlaylistId = openPlaylistId === id ? null : id;
+            renderPlaylists();
+        }
+
         function renderPlaylists() {
             const div = document.getElementById('playlistsContainer');
+            if(!div) return;
             div.innerHTML = '';
             let totalV=0, doneV=0;
-
             let filteredList = window.appData.playlists;
             if(currentCourseFilter === 'active') filteredList = filteredList.filter(p => { const d=p.videos.filter(v=>v.done).length; return d>0 && d<p.videos.length; });
             if(currentCourseFilter === 'completed') filteredList = filteredList.filter(p => { const d=p.videos.filter(v=>v.done).length; return d===p.videos.length && p.videos.length>0; });
             
             window.appData.playlists.forEach(pl => { totalV += pl.videos.length; doneV += pl.videos.filter(v=>v.done).length; });
-            document.getElementById('topicPct').textContent = totalV ? Math.round((doneV/totalV)*100)+'%' : '0%';
+            const topicPct = document.getElementById('topicPct');
+            if(topicPct) topicPct.textContent = totalV ? Math.round((doneV/totalV)*100)+'%' : '0%';
 
             if (filteredList.length === 0) { div.innerHTML = `<div style="text-align:center; color:var(--text-muted); grid-column: 1/-1; padding: 2rem;">No courses found.</div>`; return; }
             
@@ -942,40 +1381,26 @@
                 const done = pl.videos.filter(v=>v.done).length;
                 const total = pl.videos.length;
                 const pct = total ? Math.round((done/total)*100) : 0;
+                const linkBtn = pl.link ? `<a href="${pl.link}" target="_blank" class="course-edit-btn btn-link-external" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>` : '';
                 
-                const linkBtn = pl.link ? `
-                    <a href="${pl.link}" target="_blank" class="course-edit-btn btn-link-external" onclick="event.stopPropagation()">
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>` : '';
+                const isOpen = pl.id === openPlaylistId ? 'open' : '';
 
                 div.innerHTML += `
                     <div class="course-card">
-                        <div class="course-header" onclick="this.parentElement.querySelector('.video-accordion').classList.toggle('open')">
+                        <div class="course-header" onclick="toggleAccordion(${pl.id})">
                             <div class="course-header-top">
-                                <div class="course-title"><i class="fas fa-chevron-down"></i>${pl.name}</div>
+                                <div class="course-title"><i class="fas fa-chevron-down" style="transform: ${isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}"></i>${pl.name}</div>
                                 <div class="course-badge">${pl.source}</div>
                             </div>
-                            <div class="course-meta">
-                                <span>${done} / ${total} Completed</span>
-                            </div>
-                            <div class="course-actions-container">
-                                ${linkBtn}
-                                <div class="course-edit-btn" onclick="event.stopPropagation(); openEditPlaylist(${pl.id})"><i class="fas fa-edit"></i></div>
-                            </div>
+                            <div class="course-meta"><span>${done} / ${total} Completed</span></div>
+                            <div class="course-actions-container">${linkBtn}<div class="course-edit-btn" onclick="event.stopPropagation(); openEditPlaylist(${pl.id})"><i class="fas fa-edit"></i></div></div>
                         </div>
                         <div class="course-progress-area">
-                            <div style="height:6px; background:var(--bg-body); border-radius:3px; overflow:hidden;">
-                                <div style="height:100%; background:var(--success); width:${pct}%"></div>
-                            </div>
+                            <div style="height:6px; background:var(--bg-body); border-radius:3px; overflow:hidden;"><div style="height:100%; background:var(--success); width:${pct}%"></div></div>
                             <div class="progress-text"><span>Progress</span><span>${pct}%</span></div>
                         </div>
-                        <div class="video-accordion">
-                            ${pl.videos.map(v => `
-                                <div class="priority-item ${v.done?'checked':''}" style="border-radius:0; border:none; border-bottom:1px solid var(--border);" onclick="toggleVideo(${pl.id}, ${v.id})">
-                                    <div class="priority-checkbox" style="width:18px; height:18px; font-size:10px;">${v.done?'<i class="fas fa-check"></i>':''}</div>
-                                    <div class="priority-text" style="font-size:0.9rem;">${v.title}</div>
-                                </div>
-                            `).join('')}
+                        <div class="video-accordion ${isOpen}">
+                            ${pl.videos.map(v => `<div class="priority-item ${v.done?'checked':''}" style="border-radius:0; border:none; border-bottom:1px solid var(--border);" onclick="toggleVideo(${pl.id}, ${v.id}, event)"><div class="priority-checkbox" style="width:18px; height:18px; font-size:10px;">${v.done?'<i class="fas fa-check"></i>':''}</div><div class="priority-text" style="font-size:0.9rem;">${v.title}</div></div>`).join('')}
                         </div>
                     </div>`;
             });
@@ -1011,6 +1436,7 @@
 
         function renderAchievements() {
             const grid = document.getElementById('achievementsGrid');
+            if(!grid) return;
             grid.innerHTML = '';
             let mapped = BADGES.map(b => {
                 const val = b.c(window.appData);
@@ -1034,16 +1460,17 @@
             });
 
             const earnedCount = mapped.filter(b=>b.earned).length;
-            document.getElementById('badgeCount').textContent = `${earnedCount} / 17`;
+            const countEl = document.getElementById('badgeCount');
+            if(countEl) countEl.textContent = `${earnedCount} / 17`;
+            
             const lastEarned = mapped.find(b=>b.earned);
-            if(lastEarned) {
-                document.getElementById('recentBadgeContent').innerHTML = `
-                    <div style="display:flex; gap:15px; align-items:center;">
-                        <div style="font-size:2rem; color:var(--accent);"><i class="fas fa-trophy"></i></div>
-                        <div><div style="font-weight:600">${lastEarned.n}</div><div style="font-size:0.8rem; color:var(--text-muted)">Unlocked</div></div>
-                    </div>`;
-            } else {
-                document.getElementById('recentBadgeContent').innerHTML = `<div style="color:var(--text-muted);">Keep working to unlock badges!</div>`;
+            const recentEl = document.getElementById('recentBadgeContent');
+            if(recentEl) {
+                if(lastEarned) {
+                    recentEl.innerHTML = `<div style="display:flex; gap:15px; align-items:center;"><div style="font-size:2rem; color:var(--accent);"><i class="fas fa-trophy"></i></div><div><div style="font-weight:600">${lastEarned.n}</div><div style="font-size:0.8rem; color:var(--text-muted)">Unlocked</div></div></div>`;
+                } else {
+                    recentEl.innerHTML = `<div style="color:var(--text-muted);">Keep working to unlock badges!</div>`;
+                }
             }
         }
 
@@ -1055,8 +1482,10 @@
 
         function renderCalendar() {
             const y = calDate.getFullYear(), m = calDate.getMonth();
-            document.getElementById('calMonthYear').textContent = calDate.toLocaleString('default', { month:'long', year:'numeric' });
+            const monthEl = document.getElementById('calMonthYear');
+            if(monthEl) monthEl.textContent = calDate.toLocaleString('default', { month:'long', year:'numeric' });
             const grid = document.getElementById('calGrid');
+            if(!grid) return;
             grid.innerHTML = ['S','M','T','W','T','F','S'].map(d=>`<div style="text-align:center; font-size:0.7rem; color:var(--text-muted);">${d}</div>`).join('');
             
             const firstDay = new Date(y, m, 1).getDay();
@@ -1068,17 +1497,13 @@
                 const dString = new Date(y, m, i).toLocaleDateString('en-CA'); 
                 const hasData = window.appData.history[dString];
                 const isToday = new Date().toDateString() === new Date(y,m,i).toDateString();
-                
-                grid.innerHTML += `
-                    <div class="cal-day ${isToday?'today':''} ${hasData?'has-data':''}" onclick="showActivity('${dString}')">
-                        ${i}
-                        ${hasData ? '<div class="cal-dot"></div>' : ''}
-                    </div>`;
+                grid.innerHTML += `<div class="cal-day ${isToday?'today':''} ${hasData?'has-data':''}" onclick="showActivity('${dString}')">${i}${hasData ? '<div class="cal-dot"></div>' : ''}</div>`;
             }
         }
 
         window.showActivity = function(dateStr) {
-            document.getElementById('selectedDateDisplay').textContent = new Date(dateStr).toDateString();
+            const dateEl = document.getElementById('selectedDateDisplay');
+            if(dateEl) dateEl.textContent = new Date(dateStr).toDateString();
             const div = document.getElementById('activityLogContainer');
             const logs = window.appData.history[dateStr] || [];
             
@@ -1091,31 +1516,35 @@
             const goals = logs.filter(l => l.type === 'Goal');
             const focus = logs.filter(l => l.type === 'Focus');
             
-            // Grouping Logic
             const studyGroups = {};
             studies.forEach(s => {
                 let [course, ...topic] = s.title.split(':');
                 topic = topic.join(':').trim();
+                const xp = s.xp ? `<span class="xp-pill">+${s.xp} XP</span>` : '';
                 if (!course) return;
                 if (!studyGroups[course.trim()]) studyGroups[course.trim()] = [];
-                studyGroups[course.trim()].push(topic || "General Study");
+                studyGroups[course.trim()].push({title: topic || "General Study", xp: xp});
             });
 
             let html = '';
+            // Display Goals with XP (FIXED: Removed XP pill visual)
             if(goals.length) html += `<div class="activity-group type-goal"><div class="group-header">Goals (${goals.length})</div><div class="group-items show">${goals.map(g=>`<div>${g.title}</div>`).join('')}</div></div>`;
             
-            for (const [course, topics] of Object.entries(studyGroups)) {
-                html += `<div class="activity-group type-study"><div class="group-header">${course} (${topics.length})</div><div class="group-items show">${topics.map(t=>`<div>${t}</div>`).join('')}</div></div>`;
+            // Display Studies with XP (FIXED: Removed XP pill visual)
+            for (const [course, items] of Object.entries(studyGroups)) {
+                html += `<div class="activity-group type-study"><div class="group-header">${course} (${items.length})</div><div class="group-items show">${items.map(t=>`<div>${t.title}</div>`).join('')}</div></div>`;
             }
             
+            // Display Focus with XP (FIXED: Removed XP pill visual)
             if(focus.length) html += `<div class="activity-group"><div class="group-header">Focus (${focus.length})</div><div class="group-items show">${focus.map(f=>`<div>${f.title}</div>`).join('')}</div></div>`;
+            
             div.innerHTML = html;
         }
 
-        function logActivity(type, title) {
+        function logActivity(type, title, xp = 0) {
             const d = new Date().toLocaleDateString('en-CA');
             if(!window.appData.history[d]) window.appData.history[d] = [];
-            window.appData.history[d].unshift({ type, title, time: new Date().toLocaleTimeString() });
+            window.appData.history[d].unshift({ type, title, xp, time: new Date().toLocaleTimeString() });
             renderCalendar();
         }
 
@@ -1138,8 +1567,13 @@
                     alert("Session Complete!");
                     triggerConfetti();
                     window.appData.totalFocusTime = (window.appData.totalFocusTime||0) + mins;
+                    
+                    // FIXED XP FOR FOCUS (5 XP per minute)
+                    const xpAmount = mins * 5;
+                    addXP(xpAmount); 
+                    
                     window.appData.focusLogs.unshift({ date: new Date().toLocaleString(), task, duration: mins });
-                    logActivity('Focus', `${mins}m: ${task}`);
+                    logActivity('Focus', `${mins}m: ${task}`, xpAmount);
                     window.saveData();
                     window.refreshUI();
                 }
@@ -1152,12 +1586,15 @@
         }
 
         function renderFocusHistory() {
-            document.getElementById('focusHistoryList').innerHTML = window.appData.focusLogs.map(f => `
-                <div style="padding:10px; border-bottom:1px solid var(--border);">
-                    <div style="font-weight:600">${f.task}</div>
-                    <div style="font-size:0.8rem; color:var(--text-muted);">${f.duration}m • ${f.date}</div>
-                </div>
-            `).join('');
+            const historyList = document.getElementById('focusHistoryList');
+            if(historyList) {
+                historyList.innerHTML = window.appData.focusLogs.map(f => `
+                    <div style="padding:10px; border-bottom:1px solid var(--border);">
+                        <div style="font-weight:600">${f.task}</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted);">${f.duration}m • ${f.date}</div>
+                    </div>
+                `).join('');
+            }
         }
 
         // --- Utilities ---
