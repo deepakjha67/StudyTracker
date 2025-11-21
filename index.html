@@ -95,25 +95,29 @@
         .header-login-btn { background: var(--primary); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); transition: transform 0.2s; }
         .header-login-btn:hover { transform: translateY(-2px); background: var(--primary-hover); }
 
-        /* INSTALL APP BANNER (MOBILE DASHBOARD) */
-        .install-banner { display: none; background: linear-gradient(135deg, var(--primary), #818cf8); color: white; padding: 1rem; border-radius: var(--radius-lg); margin-top: 1rem; margin-bottom: 1rem; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; animation: fadeIn 0.5s ease; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+        /* INSTALL APP BANNER (STICKY BOTTOM) */
+        .install-banner { display: none; position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 400px; background: linear-gradient(135deg, var(--primary), #818cf8); color: white; padding: 1rem; border-radius: var(--radius-lg); align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; animation: slideUp 0.5s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 90; }
         .install-text { font-size: 0.95rem; font-weight: 600; }
         .install-sub { font-size: 0.8rem; opacity: 0.9; }
         .install-icon-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
 
-        /* IOS Guide */
-        .ios-install-guide { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 1px solid var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90%; max-width: 350px; z-index: 200; display: none; animation: slideUp 0.3s ease; }
-        .ios-install-guide::after { content: ''; position: absolute; bottom: -10px; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--bg-card) transparent transparent transparent; }
+        /* INSTALL GUIDES */
+        .ios-install-guide, .android-manual-guide { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 1px solid var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90%; max-width: 350px; z-index: 200; display: none; animation: slideUp 0.3s ease; }
+        .ios-install-guide::after, .android-manual-guide::after { content: ''; position: absolute; bottom: -10px; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--bg-card) transparent transparent transparent; }
         @keyframes slideUp { from { transform: translate(-50%, 20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
 
-        /* NEW LOGGED IN BADGE */
-        .user-badge-header { display:none; align-items:center; gap:10px; background: var(--bg-card); padding: 5px 15px 5px 5px; border-radius: 30px; border: 1px solid var(--border); cursor:pointer; }
-        .user-badge-avatar { width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
-        .user-badge-name { font-size: 0.9rem; font-weight: 500; color: var(--text-main); }
+        /* NEW LOGGED IN BADGE (Minimal) */
+        .user-badge-header { display:none; align-items:center; gap:10px; cursor:pointer; }
+        .user-badge-avatar { width: 36px; height: 36px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; border: 2px solid var(--bg-card); box-shadow: 0 0 0 1px var(--border); }
+        .user-badge-name { display: none; } /* Hidden as requested */
 
         /* Components */
         .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+        
+        /* FIXED TITLE ALIGNMENT */
         .card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
+        /* Group icon and text together so they stay on the left */
+        .card-title-group { display: flex; align-items: center; gap: 10px; }
         
         .btn { border: none; outline: none; cursor: pointer; font-family: var(--font-main); font-weight: 500; border-radius: var(--radius-md); padding: 0.75rem 1.5rem; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.95rem; }
         .btn-primary { background: var(--primary); color: white; }
@@ -125,7 +129,8 @@
         .btn-link-external { color: var(--accent); border: 1px solid rgba(251, 191, 36, 0.2); background: rgba(251, 191, 36, 0.05); }
         .btn-link-external:hover { background: rgba(251, 191, 36, 0.1); color: #fff; border-color: var(--accent); }
 
-        input, select, textarea { width: 100%; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 0.95rem; transition: all 0.2s; }
+        /* ZOOM FIX: 16px font size prevents iOS zoom */
+        input, select, textarea { width: 100%; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 16px; transition: all 0.2s; }
         input:focus, textarea:focus { outline: none; border-color: var(--primary); background: var(--bg-card-hover); }
 
         /* Hide number input arrows */
@@ -142,7 +147,7 @@
                 padding: 1.5rem !important;
                 width: 95%;
                 border-radius: 20px;
-                margin-top: 2rem; /* Add margin to prevent top clipping */
+                margin-top: 4rem;
             }
             .modal-box h2 { font-size: 1.5rem; margin-top: 0.5rem; }
             .input-group { margin-bottom: 1rem; }
@@ -327,6 +332,21 @@
         </div>
     </div>
 
+    <!-- Android Manual Install Guide -->
+    <div id="android-manual-guide" class="android-manual-guide">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h3 style="font-size:0.95rem; color:var(--primary);">Install App</h3>
+            <button onclick="document.getElementById('android-manual-guide').style.display='none'" style="background:none; border:none; color:var(--text-muted); font-size:1.2rem;">&times;</button>
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;">App store not available? Install directly from browser:</p>
+        <div style="display:flex; align-items:center; gap:10px; font-size:0.85rem; margin-bottom:5px;">
+            1. Tap the <strong>Menu</strong> (3 dots) <i class="fas fa-ellipsis-v" style="color:var(--text-main)"></i>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; font-size:0.85rem;">
+            2. Select <strong>Install App</strong> or <strong>Add to Home</strong> <i class="fas fa-download" style="color:var(--accent)"></i>
+        </div>
+    </div>
+
     <!-- Welcome Overlay -->
     <div id="welcome-overlay" class="modal-overlay">
         <div class="modal-box modal-lg">
@@ -358,7 +378,10 @@
     <!-- Manage Goals Modal -->
     <div id="manageGoalsModal" class="modal-overlay">
         <div class="modal-box">
-            <div class="card-title">Manage Today's Goals <button class="btn-icon-only" onclick="closeModal('manageGoalsModal')">✕</button></div>
+            <div class="card-title">
+                <div class="card-title-group"><i class="fas fa-tasks"></i> Manage Today's Goals</div>
+                <button class="btn-icon-only" onclick="closeModal('manageGoalsModal')">✕</button>
+            </div>
             <div style="display: flex; gap: 10px; margin-bottom: 1.5rem;">
                 <input type="text" id="newGoalInput" placeholder="Add a new task...">
                 <button class="btn btn-primary" onclick="addGoal()">Add</button>
@@ -370,7 +393,10 @@
     <!-- Add Playlist Modal -->
     <div id="addPlaylistModal" class="modal-overlay">
         <div class="modal-box">
-            <div class="card-title">Add New Course <button class="btn-icon-only" onclick="closeModal('addPlaylistModal')">✕</button></div>
+            <div class="card-title">
+                <div class="card-title-group"><i class="fas fa-plus"></i> Add New Course</div>
+                <button class="btn-icon-only" onclick="closeModal('addPlaylistModal')">✕</button>
+            </div>
             <form id="addCourseForm" onsubmit="savePlaylist(event)">
                 <div class="input-group">
                     <label>Course Name</label>
@@ -401,7 +427,10 @@
     <!-- Edit Playlist Modal -->
     <div id="editPlaylistModal" class="modal-overlay">
         <div class="modal-box">
-            <div class="card-title">Edit Course <button class="btn-icon-only" onclick="closeModal('editPlaylistModal')">✕</button></div>
+            <div class="card-title">
+                <div class="card-title-group"><i class="fas fa-edit"></i> Edit Course</div>
+                <button class="btn-icon-only" onclick="closeModal('editPlaylistModal')">✕</button>
+            </div>
             <input type="hidden" id="editPlId">
             <div class="input-group">
                 <label>Course Name</label>
@@ -422,21 +451,13 @@
         </div>
     </div>
 
-    <!-- Focus Overlay -->
+    <!-- Focus Overlay (MUSIC REMOVED) -->
     <div id="focus-overlay" class="modal-overlay" style="background: #0f172a; z-index: 2000;">
         <div style="text-align: center;">
             <div style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1rem;">Focusing on</div>
             <h1 id="overlayTask" style="font-size: 2.5rem; margin-bottom: 3rem; font-family: var(--font-heading);">Deep Work</h1>
             <div id="overlayTimer" style="font-size: 6rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--primary); margin-bottom: 3rem;">25:00</div>
             <button class="btn btn-danger" onclick="stopFullScreenFocus()" style="padding: 1rem 3rem; font-size: 1.2rem; border-radius: 50px;">Stop Session</button>
-            
-            <!-- Soundscapes -->
-            <div style="margin-top: 3rem; display: flex; gap: 15px; justify-content: center;">
-                <button class="btn-icon-only sound-card" onclick="toggleSound('rain', this)" style="width: 50px; height: 50px; font-size: 1.2rem;"><i class="fas fa-cloud-rain"></i></button>
-                <button class="btn-icon-only sound-card" onclick="toggleSound('forest', this)" style="width: 50px; height: 50px; font-size: 1.2rem;"><i class="fas fa-tree"></i></button>
-                <button class="btn-icon-only sound-card" onclick="toggleSound('lofi', this)" style="width: 50px; height: 50px; font-size: 1.2rem;"><i class="fas fa-music"></i></button>
-                <button class="btn-icon-only sound-card" onclick="toggleSound('white', this)" style="width: 50px; height: 50px; font-size: 1.2rem;"><i class="fas fa-wind"></i></button>
-            </div>
         </div>
     </div>
 
@@ -565,21 +586,28 @@
 
                         <div class="card">
                             <div class="card-title">
-                                <span><i class="fas fa-tasks"></i> Today's Priority</span>
+                                <div class="card-title-group">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>Today's Priority</span>
+                                </div>
                                 <button class="btn-icon-only" onclick="openModal('manageGoalsModal')"><i class="fas fa-pencil-alt"></i></button>
                             </div>
                             <div id="dashboardGoalsList"></div>
                             <div id="emptyGoalsMsg" style="text-align:center; color:var(--text-muted); padding:1rem; font-size:0.9rem; display:none;">No tasks set. Tap the pencil to add.</div>
                         </div>
                         <div class="card">
-                            <div class="card-title"><i class="fas fa-chart-bar"></i> 7-Day Consistency</div>
+                            <div class="card-title">
+                                <div class="card-title-group"><i class="fas fa-chart-bar"></i> 7-Day Consistency</div>
+                            </div>
                             <div class="graph-container" id="consistencyGraph"></div>
                         </div>
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                         <div class="card">
-                            <div class="card-title"><i class="fas fa-chart-line"></i> Progress</div>
+                            <div class="card-title">
+                                <div class="card-title-group"><i class="fas fa-chart-line"></i> Progress</div>
+                            </div>
                             <div style="display: flex; justify-content: space-around; text-align: center; padding: 10px 0;">
                                 <div style="cursor: pointer;" onclick="switchTab('courses')">
                                     <div style="font-size: 2rem; font-weight: 700; color: var(--accent);" id="topicPct">0%</div>
@@ -592,7 +620,9 @@
                             </div>
                         </div>
                         <div class="card" onclick="switchTab('achievements')" style="cursor:pointer; background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.1)); border-color: rgba(251, 191, 36, 0.3);">
-                            <div class="card-title" style="color: var(--accent);"><i class="fas fa-crown"></i> Recent Victory</div>
+                            <div class="card-title" style="color: var(--accent);">
+                                <div class="card-title-group"><i class="fas fa-crown"></i> Recent Victory</div>
+                            </div>
                             <div id="recentBadgeContent">Loading...</div>
                         </div>
                     </div>
@@ -607,7 +637,7 @@
                             <div class="install-sub">Add to home screen for better experience</div>
                         </div>
                     </div>
-                    <i class="fas fa-chevron-right"></i>
+                    <button onclick="dismissInstallBanner(event)" style="background:none; border:none; color:white; opacity:0.8; font-size:1.2rem;">&times;</button>
                 </div>
             </div>
 
@@ -618,6 +648,13 @@
                         <h2 style="font-family: var(--font-heading);">Learning Playlists</h2>
                         <button class="btn btn-primary" onclick="openModal('addPlaylistModal')"><i class="fas fa-plus"></i> Add Course</button>
                     </div>
+                    
+                    <!-- NEW SEARCH BAR -->
+                    <div class="search-wrapper" style="margin-bottom: 1rem; position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                        <input type="text" id="courseSearch" placeholder="Search courses..." oninput="renderPlaylists()" style="padding-left: 40px; background: var(--bg-body); border: 1px solid var(--border); border-radius: 20px;">
+                    </div>
+
                     <div class="course-filter-container">
                         <button class="course-tab active" onclick="filterCourses('all', this)">All</button>
                         <button class="course-tab" onclick="filterCourses('active', this)">In Progress</button>
@@ -643,7 +680,9 @@
                         <button class="btn btn-primary" style="width:100%" onclick="startFullScreenFocus()">Start Focus</button>
                     </div>
                     <div class="card">
-                        <div class="card-title">Recent Sessions</div>
+                        <div class="card-title">
+                            <div class="card-title-group">Recent Sessions</div>
+                        </div>
                         <div id="focusHistoryList" style="max-height: 300px; overflow-y: auto;"></div>
                     </div>
                 </div>
@@ -653,7 +692,7 @@
             <div id="achievements-view" class="view-section" style="display: none;">
                 <div class="card">
                     <div class="card-title">
-                        <span>Badges & Milestones</span>
+                        <div class="card-title-group">Badges & Milestones</div>
                         <span id="badgeCount" style="color:var(--accent)">0 / 17</span>
                     </div>
                     <div class="ach-filters">
@@ -709,8 +748,7 @@
                     
                     <div class="card">
                         <div class="card-title">
-                            <span>Activity Log</span>
-                            <span id="selectedDateDisplay" style="font-size:0.9rem; color:var(--primary)">Today</span>
+                            <div class="card-title-group">Activity Log <span id="selectedDateDisplay" style="font-size:0.9rem; color:var(--primary)">Today</span></div>
                         </div>
                         <div id="activityLogContainer" style="height:300px; overflow-y:auto;">
                             <div style="text-align:center; padding:2rem; color:var(--text-muted);">Click a date on the calendar to view details.</div>
@@ -719,7 +757,9 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-title">Account Settings</div>
+                    <div class="card-title">
+                        <div class="card-title-group">Account Settings</div>
+                    </div>
                     <div class="settings-grid">
                         <button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import Data</button>
@@ -814,8 +854,7 @@
                 console.error("Auth Error:", err);
                 let msg = "Something went wrong.";
                 if(err.code === 'auth/email-already-in-use') msg = "Email already in use.";
-                else if(err.code === 'auth/wrong-password') msg = "Incorrect password.";
-                else if(err.code === 'auth/user-not-found') msg = "User not found.";
+                else if(err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found') msg = "Wrong email or password.";
                 else if(err.code === 'auth/weak-password') msg = "Password too weak (min 6 chars).";
                 else if(err.code === 'auth/invalid-email') msg = "Invalid email address.";
                 else if(err.code === 'auth/network-request-failed') msg = "Network error. Check connection.";
@@ -845,7 +884,7 @@
                     return;
                 }
                 document.getElementById('auth-overlay').classList.remove('active');
-                window.showToast("Welcome back!", "success");
+                // REMOVED: window.showToast("Welcome back!", "success");
                 updateUserUI(user);
                 loadDataFromCloud(user.uid);
             } else {
@@ -914,7 +953,6 @@
         let calDate = new Date();
         let focusInterval = null;
         let currentTab = 'dashboard';
-        let activeAudio = null;
         let openPlaylistId = null; 
 
         /* --- INSTALL APP LOGIC (PWA) --- */
@@ -931,9 +969,7 @@
 
         // 3. Logic for Android/PC Install
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent Chrome 67 and earlier from automatically showing the prompt
             e.preventDefault();
-            // Stash the event so it can be triggered later.
             deferredPrompt = e;
             // SHOW THE BANNER (Mobile Dashboard Footer)
             if(window.innerWidth <= 768) {
@@ -943,56 +979,40 @@
 
         // 4. Handle Install Click
         window.installApp = async () => {
+            // Try Native Prompt first
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 deferredPrompt = null;
-                // Hide banner if installed
                 if(outcome === 'accepted') {
                     installBanner.style.display = 'none';
+                }
+            } else {
+                // Fallback: Show manual guide based on device
+                if(isIos()) {
+                    document.getElementById('ios-install-guide').style.display = 'block';
+                } else {
+                    // For Android Chrome without native prompt support in this context
+                    document.getElementById('android-manual-guide').style.display = 'block';
                 }
             }
         }
         
-        // Hide banner if app is already installed (standard check)
+        window.dismissInstallBanner = (e) => {
+            if(e) e.stopPropagation();
+            installBanner.style.display = 'none';
+        }
+        
         window.addEventListener('appinstalled', () => {
             installBanner.style.display = 'none';
             console.log('App installed');
         });
 
-        // 5. Logic for iOS Instructions
+        // 5. Logic for iOS Instructions (Auto show if not installed)
         if (isIos() && !isInStandaloneMode()) {
             setTimeout(() => {
                 document.getElementById('ios-install-guide').style.display = 'block';
             }, 2000);
-        }
-
-        // Audio Files (Using reliable CDN links)
-        const sounds = {
-            rain: new Audio('https://cdn.pixabay.com/download/audio/2021/09/06/audio_3778189e0f.mp3'),
-            forest: new Audio('https://cdn.pixabay.com/download/audio/2021/08/09/audio_04d0458377.mp3'),
-            lofi: new Audio('https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3'),
-            white: new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_bb6aa02379.mp3')
-        };
-        // Loop all sounds
-        Object.values(sounds).forEach(s => s.loop = true);
-
-        window.toggleSound = function(type, el) {
-            // Stop current if different
-            if(activeAudio && activeAudio !== sounds[type]) {
-                activeAudio.pause();
-                document.querySelectorAll('.sound-card').forEach(c => c.classList.remove('active'));
-            }
-
-            if(sounds[type].paused) {
-                sounds[type].play();
-                activeAudio = sounds[type];
-                el.classList.add('active');
-            } else {
-                sounds[type].pause();
-                activeAudio = null;
-                el.classList.remove('active');
-            }
         }
 
         window.togglePasswordVisibility = function() {
@@ -1008,9 +1028,10 @@
             if(!window.appData.xp) window.appData.xp = 0;
             if(!window.appData.level) window.appData.level = 1;
             
-            const welcomeOverlay = document.getElementById('welcome-overlay');
-            if(window.appData.isNewUser && welcomeOverlay) {
-                welcomeOverlay.classList.add('active');
+            // Only show guide if new user AND explicitly requested (not just on load)
+            // We handle the "Get Started" logic manually now.
+            if(window.appData.isNewUser) {
+                 document.getElementById('welcome-overlay').classList.add('active');
             }
             
             updateGreeting();
@@ -1368,6 +1389,13 @@
             div.innerHTML = '';
             let totalV=0, doneV=0;
             let filteredList = window.appData.playlists;
+            
+            // SEARCH FILTER
+            const searchTerm = document.getElementById('courseSearch')?.value.toLowerCase() || '';
+            if(searchTerm) {
+                filteredList = filteredList.filter(p => p.name.toLowerCase().includes(searchTerm));
+            }
+
             if(currentCourseFilter === 'active') filteredList = filteredList.filter(p => { const d=p.videos.filter(v=>v.done).length; return d>0 && d<p.videos.length; });
             if(currentCourseFilter === 'completed') filteredList = filteredList.filter(p => { const d=p.videos.filter(v=>v.done).length; return d===p.videos.length && p.videos.length>0; });
             
