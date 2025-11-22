@@ -22,13 +22,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Embedded App Icon (SVG Base64) - Used for Favicon and iOS Home Screen -->
-    <!-- Note: iOS handles the apple-touch-icon link best for home screen icons -->
+    <!-- Embedded App Icon (SVG Base64) -->
     <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='background:%236366f1'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Cpath d='M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z' fill='white'/%3E%3C/svg%3E">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Cpath d='M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z' fill='white'/%3E%3C/svg%3E">
 
-    <!-- Embedded Web App Manifest (Optimized JSON) -->
-    <!-- We encode the JSON to ensure special characters don't break the data URI -->
     <link rel="manifest" href='data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Achieve-mate%22%2C%22short_name%22%3A%22Achieve%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%230f172a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%20style%3D%27background%3A%25236366f1%27%253E%253Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%27100%27%20fill%3D%27%25236366f1%27%2F%253E%253Cpath%20d%3D%27M416%20192L256%20128L96%20192l32%2012.8V320H96v32h64V217.6L256%20256l96-38.4V352h32V204.8L416%20192zM256%20352c-44.2%200-80%2026.9-80%2060v36h160v-36c0-33.1-35.8-60-80-60z%27%20fill%3D%27white%27%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D'>
 
     <style>
@@ -61,7 +58,7 @@
         html, body {
             width: 100%;
             max-width: 100%;
-            overflow-x: hidden; /* PREVENTS SIDE ZOOM */
+            overflow-x: hidden;
             overscroll-behavior-y: none;
         }
 
@@ -99,8 +96,8 @@
             padding: 2rem; 
             max-width: 1600px; 
             padding-bottom: 120px; 
-            width: 100%; /* Ensure it takes full width */
-            overflow-x: hidden; /* Double protection against zoom */
+            width: 100%; 
+            overflow-x: hidden; 
         }
 
         /* Mobile Nav */
@@ -122,7 +119,7 @@
         .header-login-btn { background: var(--primary); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); transition: transform 0.2s; white-space: nowrap; }
         .header-login-btn:hover { transform: translateY(-2px); background: var(--primary-hover); }
 
-        /* INSTALL APP BANNER (STICKY BOTTOM) */
+        /* INSTALL APP BANNER */
         .install-banner { display: none; position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 400px; background: linear-gradient(135deg, var(--primary), #818cf8); color: white; padding: 1rem; border-radius: var(--radius-lg); align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; animation: slideUp 0.5s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 90; }
         .install-text { font-size: 0.95rem; font-weight: 600; }
         .install-sub { font-size: 0.8rem; opacity: 0.9; }
@@ -139,16 +136,7 @@
         .user-badge-name { display: none; } 
 
         /* Components */
-        .card { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border); 
-            border-radius: var(--radius-lg); 
-            padding: 1.5rem; 
-            margin-bottom: 1.5rem; 
-            max-width: 100%; 
-            box-sizing: border-box;
-        }
-        
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; max-width: 100%; box-sizing: border-box; }
         .card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
         .card-title-group { display: flex; align-items: center; gap: 10px; }
         
@@ -191,6 +179,33 @@
         .auth-bottom-link { margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 1rem; }
         .auth-bottom-link a { color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; }
 
+        /* VERIFICATION MODAL STYLES */
+        .verify-modal-content { text-align: center; padding: 1rem; }
+        .verify-icon { 
+            width: 60px; height: 60px; background: var(--bg-card-hover); 
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 1.5rem auto; position: relative;
+        }
+        .verify-icon i { font-size: 1.8rem; color: var(--text-main); }
+        .verify-badge { 
+            position: absolute; top: -5px; right: -5px; 
+            background: var(--danger); color: white; font-size: 0.7rem; 
+            width: 20px; height: 20px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: bold; border: 2px solid var(--bg-card);
+        }
+        .spam-warning { 
+            background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); 
+            color: var(--accent); padding: 0.5rem 1rem; border-radius: 30px; 
+            display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; 
+            margin: 1rem 0 2rem 0; font-weight: 500;
+        }
+        .verify-footer { 
+            margin-top: 1.5rem; border-top: 1px solid var(--border); 
+            padding-top: 1rem; font-size: 0.8rem; color: var(--text-muted); 
+        }
+        .verify-footer a { color: var(--primary); text-decoration: none; cursor: pointer; }
+
         /* Toast Notifications */
         #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; width: 90%; max-width: 400px; pointer-events: none; }
         .toast { background: var(--bg-card); color: var(--text-main); padding: 12px 20px; border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border); display: flex; align-items: center; gap: 12px; animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto; }
@@ -216,11 +231,9 @@
         .floating-xp { position: fixed; color: var(--accent); font-weight: bold; font-size: 1.2rem; pointer-events: none; z-index: 9999; animation: floatUpFade 1.5s forwards; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         @keyframes floatUpFade { 0% { opacity:1; transform:translateY(0) scale(1); } 100% { opacity:0; transform:translateY(-50px) scale(1.2); } }
 
-        /* Settings Grid - Improved for Mobile */
         .settings-grid { display: flex; flex-wrap: wrap; gap: 10px; }
         .settings-grid .btn { flex: 1 1 auto; min-width: 120px; } 
 
-        /* Grids & Layouts */
         .grid-dashboard { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 1.5rem; }
         .grid-profile { display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -310,20 +323,15 @@
             .page-header { flex-direction: row; }
             .greeting h1 { font-size: 1.2rem; }
             
-            /* FIX: PREVENT SETTINGS BUTTONS FROM BREAKING LAYOUT */
             .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
             .settings-grid .btn { 
                 width: 100%; margin: 0; padding: 0.8rem 0.5rem; font-size: 0.8rem; 
                 flex-direction: column; gap: 5px; text-align: center; 
-                white-space: normal; /* Allow text wrapping on buttons */
+                white-space: normal; 
                 line-height: 1.2;
             }
             .settings-grid .btn i { font-size: 1.2rem; margin-bottom: 2px; }
-
-            /* FIX: CARD PADDING ON MOBILE */
             .card { padding: 1.25rem; }
-            
-            /* FIX: LEVEL CONTAINER */
             .level-container { padding: 1.25rem; }
         }
     </style>
@@ -370,7 +378,6 @@
                 <h2 style="color: var(--primary); font-family: var(--font-heading); font-size: 1.8rem;">Welcome to Achieve-mate</h2>
                 <p style="color: var(--text-muted);">Your personal productivity companion</p>
             </div>
-            
             <div class="guide-step">
                 <div class="guide-icon"><i class="fas fa-chart-pie"></i></div>
                 <div>
@@ -378,7 +385,6 @@
                     <p style="color:var(--text-muted); font-size:0.9rem;">View your daily progress, consistency streaks, and quick stats.</p>
                 </div>
             </div>
-            
             <div class="guide-step">
                 <div class="guide-icon"><i class="fas fa-play-circle"></i></div>
                 <div>
@@ -386,7 +392,6 @@
                     <p style="color:var(--text-muted); font-size:0.9rem;">Create learning playlists, track video progress, and manage your studies.</p>
                 </div>
             </div>
-            
             <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="closeWelcomeGuide()">Get Started</button>
         </div>
     </div>
@@ -477,6 +482,32 @@
         </div>
     </div>
 
+    <!-- EMAIL VERIFICATION POPUP -->
+    <div id="verification-modal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 420px; padding: 2rem;">
+            <div class="verify-modal-content">
+                <div class="verify-icon">
+                    <i class="fas fa-envelope"></i>
+                    <div class="verify-badge">1</div>
+                </div>
+                <h2 style="font-family: var(--font-heading); margin-bottom: 0.5rem; color: white;">Check your email</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">
+                    We've sent a verification link to your email address. Please verify your account to log in.
+                </p>
+                
+                <div class="spam-warning">
+                    <i class="fas fa-exclamation-circle"></i> Check your spam folder
+                </div>
+
+                <button class="btn btn-primary" onclick="window.closeVerificationModal()" style="width: 100%;">Back to Login</button>
+
+                <div class="verify-footer">
+                    If you did not receive an email then please <a href="#" onclick="window.handleAuth(null)">try again</a> or <a href="mailto:support@achievemate.com">contact us</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Auth Overlay -->
     <div id="auth-overlay" class="modal-overlay">
         <div class="modal-box auth-container">
@@ -487,8 +518,8 @@
             
             <div class="auth-tabs" id="authTabsContainer">
                 <div class="tab-slider"></div>
-                <div class="auth-tab active" id="tab-login" onclick="toggleAuthMode('login')">Login</div>
-                <div class="auth-tab" id="tab-signup" onclick="toggleAuthMode('signup')">Create Account</div>
+                <div class="auth-tab" id="tab-login" onclick="toggleAuthMode('login')">Login</div>
+                <div class="auth-tab active" id="tab-signup" onclick="toggleAuthMode('signup')">Create Account</div>
             </div>
             
             <form id="auth-form" onsubmit="handleAuth(event)" novalidate>
@@ -563,8 +594,9 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <button id="headerLoginBtn" class="header-login-btn" onclick="document.getElementById('auth-overlay').classList.add('active')">
-                        <i class="fas fa-sign-in-alt"></i> Login
+                    <!-- CHANGED: Opens in Signup Mode by Default -->
+                    <button id="headerLoginBtn" class="header-login-btn" onclick="window.openAuthModal('signup')">
+                        <i class="fas fa-sign-in-alt"></i> Login / Sign Up
                     </button>
 
                     <div id="headerUserBadge" class="user-badge-header" onclick="switchTab('profile')">
@@ -665,7 +697,6 @@
                         <button class="btn btn-primary btn-sm" onclick="openModal('addPlaylistModal')"><i class="fas fa-plus"></i> Add Course</button>
                     </div>
                     
-                    <!-- NEW SEARCH BAR -->
                     <div class="search-wrapper" style="margin-bottom: 1rem; position: relative;">
                         <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
                         <input type="text" id="courseSearch" placeholder="Search courses..." oninput="renderPlaylists()" style="padding-left: 40px; background: var(--bg-body); border: 1px solid var(--border); border-radius: 20px;">
@@ -721,7 +752,7 @@
                 </div>
             </div>
 
-            <!-- PROFILE (FIXED LAYOUT) -->
+            <!-- PROFILE -->
             <div id="profile-view" class="view-section" style="display: none;">
                 <div class="card" style="display:flex; align-items:center; gap:1.5rem; background: linear-gradient(to right, var(--bg-card), rgba(99,102,241,0.1));">
                     <div style="width:70px; height:70px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:700; flex-shrink:0;" id="profilePic">U</div>
@@ -852,11 +883,20 @@
                 if (isSignup) {
                     const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
                     await sendEmailVerification(userCredential.user);
-                    await signOut(auth);
-                    window.showToast("Account created! Please verify email.", "success");
-                    window.toggleAuthMode('login');
+                    await signOut(auth); // Ensure they aren't logged in automatically
+                    
+                    // CLOSE AUTH MODAL FIRST
+                    document.getElementById('auth-overlay').classList.remove('active');
+
+                    // SHOW VERIFICATION MODAL (New Logic)
+                    document.getElementById('verification-modal').classList.add('active');
+                    
+                    // Store credentials temporarily for autofill
+                    window.tempAuthData = { email, pass };
+
                 } else {
                     await signInWithEmailAndPassword(auth, email, pass);
+                    // onAuthStateChanged will handle the rest
                 }
             } catch (err) {
                 console.error("Auth Error:", err);
@@ -874,6 +914,22 @@
                 btn.style.opacity = "1";
             }
         };
+        
+        window.closeVerificationModal = function() {
+            document.getElementById('verification-modal').classList.remove('active');
+            
+            // Re-open Auth Modal in Login Mode
+            window.openAuthModal('login');
+
+            // Auto-fill credentials if available
+            if (window.tempAuthData) {
+                setTimeout(() => {
+                    document.getElementById('auth-email').value = window.tempAuthData.email;
+                    document.getElementById('auth-password').value = window.tempAuthData.pass;
+                    window.tempAuthData = null; // Clear temp data
+                }, 100);
+            }
+        };
 
         window.handleResetPassword = async () => {
             const email = document.getElementById('auth-email').value;
@@ -886,11 +942,13 @@
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 if (!user.emailVerified) {
+                    // If they manage to login without verification, kick them out
                     window.showToast("Please verify your email first.", "error");
                     signOut(auth);
                     return;
                 }
                 document.getElementById('auth-overlay').classList.remove('active');
+                document.getElementById('verification-modal').classList.remove('active'); // Ensure verification modal is gone
                 updateUserUI(user);
                 loadDataFromCloud(user.uid);
             } else {
@@ -1013,6 +1071,9 @@
             updateGreeting();
             refreshUI();
             updateActiveTabUI('dashboard');
+            
+            // Default Auth to Signup
+            window.toggleAuthMode('signup');
         }
         
         window.closeWelcomeGuide = function() {
@@ -1124,6 +1185,11 @@
             const mobNav = document.getElementById('mob-' + id);
             if(pcNav) pcNav.classList.add('active');
             if(mobNav) mobNav.classList.add('active');
+        }
+
+        window.openAuthModal = function(mode = 'signup') {
+            document.getElementById('auth-overlay').classList.add('active');
+            window.toggleAuthMode(mode);
         }
 
         window.toggleAuthMode = function(mode) {
