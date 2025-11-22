@@ -5,9 +5,15 @@
     <!-- PWA & Mobile Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#0f172a">
+    
+    <!-- iOS Web App Capable -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Achieve-mate">
+    
+    <!-- Android/Chrome Web App Capable -->
     <meta name="mobile-web-app-capable" content="yes">
+    
     <title>Achieve-mate</title>
 
     <!-- Font Awesome & Google Fonts -->
@@ -16,12 +22,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Embedded App Icon (SVG Base64) -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='background:%236366f1'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Cpath d='M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z' fill='white'/%3E%3C/svg%3E">
-    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Cpath d='M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z' fill='white'/%3E%3C/svg%3E">
+    <!-- Embedded App Icon (SVG Base64) - Used for Favicon and iOS Home Screen -->
+    <!-- Note: iOS handles the apple-touch-icon link best for home screen icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='background:%236366f1'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Cpath d='M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z' fill='white'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236366f1'/%3E%3Cpath d='M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z' fill='white'/%3E%3C/svg%3E">
 
-    <!-- Embedded Web App Manifest -->
-    <link rel="manifest" href='data:application/manifest+json,{"name":"Achieve-mate","short_name":"Achieve","start_url":".","display":"standalone","background_color":"#0f172a","theme_color":"#0f172a","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27 style=%27background:%236366f1%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27100%27 fill=%27%236366f1%27/%3E%3Cpath d=%27M416 192L256 128L96 192l32 12.8V320H96v32h64V217.6L256 256l96-38.4V352h32V204.8L416 192zM256 352c-44.2 0-80 26.9-80 60v36h160v-36c0-33.1-35.8-60-80-60z%27 fill=%27white%27/%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+    <!-- Embedded Web App Manifest (Optimized JSON) -->
+    <!-- We encode the JSON to ensure special characters don't break the data URI -->
+    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Achieve-mate%22%2C%22short_name%22%3A%22Achieve%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%230f172a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%20style%3D%27background%3A%25236366f1%27%253E%253Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%27100%27%20fill%3D%27%25236366f1%27%2F%253E%253Cpath%20d%3D%27M416%20192L256%20128L96%20192l32%2012.8V320H96v32h64V217.6L256%20256l96-38.4V352h32V204.8L416%20192zM256%20352c-44.2%200-80%2026.9-80%2060v36h160v-36c0-33.1-35.8-60-80-60z%27%20fill%3D%27white%27%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D'>
 
     <style>
         /* --- CORE STYLES --- */
@@ -50,16 +58,27 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; scrollbar-width: thin; scrollbar-color: var(--border) var(--bg-body); }
         
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden; /* PREVENTS SIDE ZOOM */
+            overscroll-behavior-y: none;
+        }
+
         body { 
             background-color: var(--bg-body); 
             color: var(--text-main); 
             font-family: var(--font-main); 
             line-height: 1.6; 
-            overflow-x: hidden;
-            overscroll-behavior-y: none; 
         }
 
-        .app-wrapper { display: flex; min-height: 100vh; min-height: 100dvh; }
+        .app-wrapper { 
+            display: flex; 
+            min-height: 100vh; 
+            min-height: 100dvh; 
+            width: 100%;
+            overflow-x: hidden;
+        }
 
         /* Sidebar */
         .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1.5rem; position: fixed; height: 100vh; height: 100dvh; z-index: 50; transition: transform 0.3s ease; }
@@ -74,7 +93,15 @@
         .creator-link:hover { color: var(--primary); }
 
         /* Main Content */
-        .main-content { flex: 1; margin-left: 260px; padding: 2rem; max-width: 1600px; padding-bottom: 120px; }
+        .main-content { 
+            flex: 1; 
+            margin-left: 260px; 
+            padding: 2rem; 
+            max-width: 1600px; 
+            padding-bottom: 120px; 
+            width: 100%; /* Ensure it takes full width */
+            overflow-x: hidden; /* Double protection against zoom */
+        }
 
         /* Mobile Nav */
         .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card); border-top: 1px solid var(--border); padding: 0 1rem; justify-content: space-around; z-index: 100; padding-bottom: env(safe-area-inset-bottom); height: 70px; align-items: center; }
@@ -85,80 +112,70 @@
         .mobile-nav-item.active::after { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 20px; height: 4px; background: var(--primary); border-radius: 0 0 4px 4px; box-shadow: 0 0 10px var(--primary); }
 
         /* Header */
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 15px; }
         .header-right { display: flex; align-items: center; gap: 15px; }
         .greeting h1 { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 600; line-height: 1.2; }
         
         .streak-badge { display: flex; align-items: center; gap: 0.75rem; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2); padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer; transition: transform 0.2s; white-space: nowrap; height: fit-content; }
         .streak-count { font-weight: 700; color: var(--accent); font-size: 1.1rem; }
         
-        .header-login-btn { background: var(--primary); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); transition: transform 0.2s; }
+        .header-login-btn { background: var(--primary); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); transition: transform 0.2s; white-space: nowrap; }
         .header-login-btn:hover { transform: translateY(-2px); background: var(--primary-hover); }
 
         /* INSTALL APP BANNER (STICKY BOTTOM) */
         .install-banner { display: none; position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 400px; background: linear-gradient(135deg, var(--primary), #818cf8); color: white; padding: 1rem; border-radius: var(--radius-lg); align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; animation: slideUp 0.5s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 90; }
         .install-text { font-size: 0.95rem; font-weight: 600; }
         .install-sub { font-size: 0.8rem; opacity: 0.9; }
-        .install-icon-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .install-icon-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
 
         /* INSTALL GUIDES */
         .ios-install-guide, .android-manual-guide { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 1px solid var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90%; max-width: 350px; z-index: 200; display: none; animation: slideUp 0.3s ease; }
         .ios-install-guide::after, .android-manual-guide::after { content: ''; position: absolute; bottom: -10px; left: 50%; margin-left: -10px; border-width: 10px; border-style: solid; border-color: var(--bg-card) transparent transparent transparent; }
         @keyframes slideUp { from { transform: translate(-50%, 20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
 
-        /* NEW LOGGED IN BADGE (Minimal) */
+        /* User Badge */
         .user-badge-header { display:none; align-items:center; gap:10px; cursor:pointer; }
-        .user-badge-avatar { width: 36px; height: 36px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; border: 2px solid var(--bg-card); box-shadow: 0 0 0 1px var(--border); }
-        .user-badge-name { display: none; } /* Hidden as requested */
+        .user-badge-avatar { width: 36px; height: 36px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; border: 2px solid var(--bg-card); box-shadow: 0 0 0 1px var(--border); flex-shrink: 0; }
+        .user-badge-name { display: none; } 
 
         /* Components */
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius-lg); 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+            max-width: 100%; 
+            box-sizing: border-box;
+        }
         
-        /* FIXED TITLE ALIGNMENT */
         .card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; color: var(--text-main); }
-        /* Group icon and text together so they stay on the left */
         .card-title-group { display: flex; align-items: center; gap: 10px; }
         
-        .btn { border: none; outline: none; cursor: pointer; font-family: var(--font-main); font-weight: 500; border-radius: var(--radius-md); padding: 0.75rem 1.5rem; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.95rem; }
+        .btn { border: none; outline: none; cursor: pointer; font-family: var(--font-main); font-weight: 500; border-radius: var(--radius-md); padding: 0.75rem 1.5rem; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.95rem; white-space: nowrap; }
         .btn-primary { background: var(--primary); color: white; }
         .btn-secondary { background: var(--bg-card-hover); color: var(--text-main); border: 1px solid var(--border); }
         .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
         .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
-        .btn-icon-only { padding: 0.5rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); background: transparent; }
+        .btn-icon-only { padding: 0.5rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); background: transparent; flex-shrink: 0; }
         .btn-icon-only:hover { background: var(--bg-card-hover); color: var(--text-main); }
         .btn-link-external { color: var(--accent); border: 1px solid rgba(251, 191, 36, 0.2); background: rgba(251, 191, 36, 0.05); }
         .btn-link-external:hover { background: rgba(251, 191, 36, 0.1); color: #fff; border-color: var(--accent); }
 
-        /* ZOOM FIX: 16px font size prevents iOS zoom */
         input, select, textarea { width: 100%; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: var(--radius-md); font-family: var(--font-main); font-size: 16px; transition: all 0.2s; }
         input:focus, textarea:focus { outline: none; border-color: var(--primary); background: var(--bg-card-hover); }
-
-        /* Hide number input arrows */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
 
-        /* --- IMPROVED AUTH STYLES (MOBILE FIX) --- */
+        /* Auth Styles */
         .auth-container { width: 100%; max-width: 400px; text-align: center; padding: 2.5rem !important; border: 1px solid var(--border); box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); }
-        
-        /* Specific Fix for Mobile Auth Box */
         @media (max-width: 480px) {
-            .auth-container {
-                padding: 1.5rem !important;
-                width: 95%;
-                border-radius: 20px;
-                margin-top: 4rem;
-            }
-            .modal-box h2 { font-size: 1.5rem; margin-top: 0.5rem; }
-            .input-group { margin-bottom: 1rem; }
-            .auth-bottom-link { margin-top: 1rem; padding-top: 0.8rem; }
+            .auth-container { padding: 1.5rem !important; width: 95%; border-radius: 20px; margin-top: 4rem; }
         }
 
         .auth-tabs { display: flex; margin-bottom: 2rem; background: var(--bg-body); padding: 4px; border-radius: 50px; border: 1px solid var(--border); position: relative; overflow: hidden; }
         .auth-tab { flex: 1; padding: 10px; border-radius: 40px; cursor: pointer; font-weight: 600; color: var(--text-muted); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2; position: relative; }
         .auth-tab.active { color: white; }
-        
-        /* Sliding background for tabs */
         .tab-slider { position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: calc(100% - 8px); background: var(--primary); border-radius: 40px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1; }
         .auth-tabs.signup-active .tab-slider { transform: translateX(100%); }
 
@@ -167,17 +184,12 @@
         .input-group input { padding-left: 40px; }
         .input-icon { position: absolute; left: 12px; top: 38px; color: var(--text-muted); transition: color 0.2s; }
         .input-group input:focus + .input-icon { color: var(--primary); }
-
         .password-toggle { position: absolute; right: 12px; top: 38px; cursor: pointer; color: var(--text-muted); z-index: 10; }
         .password-toggle:hover { color: var(--primary); }
-
         .auth-btn-submit { width: 100%; padding: 1rem; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; font-weight: 600; border: none; cursor: pointer; font-size: 1rem; margin-top: 0.5rem; transition: transform 0.2s; }
         .auth-btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4); }
-
-        /* Toggle Links at Bottom */
         .auth-bottom-link { margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 1rem; }
         .auth-bottom-link a { color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; }
-        .auth-bottom-link a:hover { text-decoration: underline; }
 
         /* Toast Notifications */
         #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; width: 90%; max-width: 400px; pointer-events: none; }
@@ -191,9 +203,7 @@
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 
         /* XP LEVEL SYSTEM & VISUALS */
-        .level-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
-        
-        /* New Circular Level Progress (Profile) */
+        .level-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-sizing: border-box; max-width: 100%; }
         .level-circle-container { display: flex; justify-content: center; align-items: center; margin-bottom: 1rem; }
         .level-circle { position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; }
         .level-circle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
@@ -203,28 +213,24 @@
         .level-circle-content { position: absolute; text-align: center; }
         .level-number-large { font-size: 2.2rem; font-weight: 700; color: white; line-height: 1; }
         .level-label-small { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Floating XP Animation */
-        @keyframes floatUpFade { 0% { opacity:1; transform:translateY(0) scale(1); } 100% { opacity:0; transform:translateY(-50px) scale(1.2); } }
         .floating-xp { position: fixed; color: var(--accent); font-weight: bold; font-size: 1.2rem; pointer-events: none; z-index: 9999; animation: floatUpFade 1.5s forwards; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        @keyframes floatUpFade { 0% { opacity:1; transform:translateY(0) scale(1); } 100% { opacity:0; transform:translateY(-50px) scale(1.2); } }
 
-        /* Settings Buttons Grid */
+        /* Settings Grid - Improved for Mobile */
         .settings-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-        .settings-grid .btn { flex: 1 1 auto; }
+        .settings-grid .btn { flex: 1 1 auto; min-width: 120px; } 
 
-        /* Grids */
+        /* Grids & Layouts */
         .grid-dashboard { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 1.5rem; }
         .grid-profile { display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
-        /* Priority List */
         .priority-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-body); border: 1px solid var(--border); border-radius: var(--radius-md); transition: all 0.2s; cursor: pointer; margin-bottom: 0.75rem; }
         .priority-item:hover { border-color: var(--primary); transform: translateX(4px); }
         .priority-item.checked .priority-text { text-decoration: line-through; color: var(--text-muted); }
-        .priority-checkbox { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--text-muted); display: flex; align-items: center; justify-content: center; color: transparent; }
+        .priority-checkbox { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--text-muted); display: flex; align-items: center; justify-content: center; color: transparent; flex-shrink: 0; }
         .priority-item.checked .priority-checkbox { background: var(--success); border-color: var(--success); color: white; }
 
-        /* Graph */
         .graph-container { display: flex; justify-content: space-between; align-items: flex-end; height: 180px; padding: 20px 10px 5px 10px; background: linear-gradient(to bottom, rgba(30,41,59,0.3), rgba(15,23,42,0.3)); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
         .graph-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
         .graph-bar { width: 10px; background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%); border-radius: 20px; transition: height 0.8s; min-height: 4px; }
@@ -238,7 +244,6 @@
         .cal-day.today { color: var(--accent); font-weight: bold; border-color: var(--accent); }
         .cal-day.has-data .cal-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--success); position: absolute; bottom: 4px; }
 
-        /* Activity Log */
         .activity-group { background: var(--bg-card-hover); border-radius: 8px; margin-bottom: 10px; border-left: 3px solid var(--text-muted); overflow: hidden; }
         .activity-group.type-study { border-color: var(--primary); }
         .activity-group.type-goal { border-color: var(--success); }
@@ -248,8 +253,8 @@
         
         /* Courses */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-        .course-filter-container { display: flex; gap: 10px; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-        .course-tab { background: none; border: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.2s; }
+        .course-filter-container { display: flex; gap: 10px; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; overflow-x: auto; }
+        .course-tab { background: none; border: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.2s; white-space: nowrap; }
         .course-tab.active { background: var(--bg-card-hover); color: var(--text-main); }
         
         .course-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; position: relative; }
@@ -265,7 +270,6 @@
         .progress-text { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-top: 5px; }
         .video-accordion { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: var(--bg-card); }
         .video-accordion.open { max-height: 400px; overflow-y: auto; }
-        
         .course-actions-container { position: absolute; bottom: 15px; right: 15px; z-index: 5; display: flex; gap: 8px; }
         .course-edit-btn { background: var(--bg-card-hover); color: var(--text-muted); border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
         .course-edit-btn:hover { color: var(--text-main); border-color: var(--text-muted); transform: translateY(-2px); }
@@ -274,14 +278,14 @@
         .ach-filters { display: flex; gap: 10px; margin-bottom: 1.5rem; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
         .ach-filter-btn { padding: 0.4rem 1rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-muted); cursor: pointer; font-size: 0.85rem; }
         .ach-filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
-        .ach-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; gap: 1rem; align-items: center; opacity: 0.5; filter: grayscale(1); transition: all 0.3s; position: relative; }
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; } /* Reduced min-width for better mobile fit */
+        .ach-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; gap: 1rem; align-items: center; opacity: 0.5; filter: grayscale(1); transition: all 0.3s; position: relative; flex-direction: column; text-align: center; }
         .ach-card.earned { opacity: 1; filter: grayscale(0); border-color: var(--accent); background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.05)); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .ach-icon { font-size: 1.8rem; color: var(--text-muted); min-width: 50px; text-align: center; }
+        .ach-icon { font-size: 1.8rem; color: var(--text-muted); margin-bottom: 5px; }
         .ach-card.earned .ach-icon { color: var(--accent); text-shadow: 0 0 10px rgba(251,191,36,0.4); }
-        .ach-info h4 { font-size: 0.95rem; margin-bottom: 2px; }
-        .ach-info p { font-size: 0.75rem; color: var(--text-muted); }
-        .ach-progress { height: 4px; background: rgba(255,255,255,0.1); margin-top: 8px; border-radius: 2px; overflow: hidden; }
+        .ach-info h4 { font-size: 0.9rem; margin-bottom: 2px; }
+        .ach-info p { font-size: 0.7rem; color: var(--text-muted); }
+        .ach-progress { height: 4px; background: rgba(255,255,255,0.1); margin-top: 8px; border-radius: 2px; overflow: hidden; width: 100%; }
         .ach-fill { height: 100%; background: var(--primary); width: 0%; }
 
         /* Modals */
@@ -297,18 +301,30 @@
         @keyframes confetti { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
         .confetti { position: fixed; top: 0; width: 8px; height: 8px; z-index: 2000; pointer-events: none; }
 
+        /* --- RESPONSIVE FIXES --- */
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
-            .main-content { margin-left: 0; padding: 1.25rem; padding-bottom: 100px; }
+            .main-content { margin-left: 0; padding: 1rem; padding-bottom: 100px; } /* Reduced padding */
             .mobile-nav { display: flex; }
             .grid-dashboard, .grid-profile, .grid-2, .courses-grid { grid-template-columns: 1fr; }
             .page-header { flex-direction: row; }
             .greeting h1 { font-size: 1.2rem; }
             
-            /* Fix Account Buttons for Mobile */
-            .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-            .settings-grid .btn { width: 100%; margin: 0; padding: 0.8rem 0.5rem; font-size: 0.85rem; flex-direction: column; gap: 5px; text-align: center; }
+            /* FIX: PREVENT SETTINGS BUTTONS FROM BREAKING LAYOUT */
+            .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+            .settings-grid .btn { 
+                width: 100%; margin: 0; padding: 0.8rem 0.5rem; font-size: 0.8rem; 
+                flex-direction: column; gap: 5px; text-align: center; 
+                white-space: normal; /* Allow text wrapping on buttons */
+                line-height: 1.2;
+            }
             .settings-grid .btn i { font-size: 1.2rem; margin-bottom: 2px; }
+
+            /* FIX: CARD PADDING ON MOBILE */
+            .card { padding: 1.25rem; }
+            
+            /* FIX: LEVEL CONTAINER */
+            .level-container { padding: 1.25rem; }
         }
     </style>
 </head>
@@ -451,11 +467,11 @@
         </div>
     </div>
 
-    <!-- Focus Overlay (MUSIC REMOVED) -->
+    <!-- Focus Overlay -->
     <div id="focus-overlay" class="modal-overlay" style="background: #0f172a; z-index: 2000;">
         <div style="text-align: center;">
             <div style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1rem;">Focusing on</div>
-            <h1 id="overlayTask" style="font-size: 2.5rem; margin-bottom: 3rem; font-family: var(--font-heading);">Deep Work</h1>
+            <h1 id="overlayTask" style="font-size: 2.5rem; margin-bottom: 3rem; font-family: var(--font-heading); word-break: break-word; padding: 0 1rem;">Deep Work</h1>
             <div id="overlayTimer" style="font-size: 6rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--primary); margin-bottom: 3rem;">25:00</div>
             <button class="btn btn-danger" onclick="stopFullScreenFocus()" style="padding: 1rem 3rem; font-size: 1.2rem; border-radius: 50px;">Stop Session</button>
         </div>
@@ -567,7 +583,7 @@
             <div id="dashboard-view" class="view-section">
                 <div class="grid-dashboard">
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <!-- FIXED: DASHBOARD LEVEL CARD COLOR -->
+                        <!-- DASHBOARD LEVEL CARD -->
                         <div class="card" style="background: var(--bg-card); border: 1px solid var(--primary); color: white;">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
@@ -645,8 +661,8 @@
             <div id="courses-view" class="view-section" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h2 style="font-family: var(--font-heading);">Learning Playlists</h2>
-                        <button class="btn btn-primary" onclick="openModal('addPlaylistModal')"><i class="fas fa-plus"></i> Add Course</button>
+                        <h2 style="font-family: var(--font-heading); font-size: 1.25rem;">Learning Playlists</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('addPlaylistModal')"><i class="fas fa-plus"></i> Add Course</button>
                     </div>
                     
                     <!-- NEW SEARCH BAR -->
@@ -664,7 +680,7 @@
                 </div>
             </div>
 
-            <!-- FOCUS (UPGRADED) -->
+            <!-- FOCUS -->
             <div id="focus-view" class="view-section" style="display: none;">
                 <div class="grid-2">
                     <div class="card">
@@ -705,19 +721,19 @@
                 </div>
             </div>
 
-            <!-- PROFILE (UPGRADED) -->
+            <!-- PROFILE (FIXED LAYOUT) -->
             <div id="profile-view" class="view-section" style="display: none;">
                 <div class="card" style="display:flex; align-items:center; gap:1.5rem; background: linear-gradient(to right, var(--bg-card), rgba(99,102,241,0.1));">
-                    <div style="width:70px; height:70px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:700;" id="profilePic">U</div>
-                    <div>
-                        <h2 id="profileName" style="line-height:1.2">Guest User</h2>
-                        <p id="profileEmail" style="color:var(--text-muted); font-size:0.9rem;">Not logged in</p>
+                    <div style="width:70px; height:70px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:700; flex-shrink:0;" id="profilePic">U</div>
+                    <div style="overflow: hidden;">
+                        <h2 id="profileName" style="line-height:1.2; font-size:1.2rem; word-wrap: break-word;">Guest User</h2>
+                        <p id="profileEmail" style="color:var(--text-muted); font-size:0.9rem; word-wrap: break-word;">Not logged in</p>
                         <p id="verificationStatus" style="color:var(--accent); font-size:0.8rem; display:none;">Email not verified</p>
                     </div>
                 </div>
 
-                <!-- NEW LEVEL CIRCULAR VISUAL -->
-                <div class="level-container" style="text-align:center; padding: 2rem;">
+                <!-- LEVEL CIRCLE -->
+                <div class="level-container" style="text-align:center;">
                     <div class="level-circle-container">
                         <div class="level-circle">
                             <svg viewBox="0 0 100 100">
@@ -761,12 +777,12 @@
                         <div class="card-title-group">Account Settings</div>
                     </div>
                     <div class="settings-grid">
-                        <button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
-                        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import Data</button>
+                        <button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> Export</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('welcome-overlay').classList.add('active')"><i class="fas fa-question-circle"></i> Guide</button>
-                        <button class="btn btn-secondary" onclick="if(confirm('Clear all local data?')) { localStorage.clear(); location.reload(); }"><i class="fas fa-trash"></i> Reset App</button>
-                        <button class="btn btn-secondary" onclick="window.location.href='mailto:support@achievemate.com'"><i class="fas fa-bug"></i> Report Bug</button>
-                        <button class="btn btn-secondary" onclick="window.open('https://www.linkedin.com/in/deepak-kumar-jha-390694281/', '_blank')"><i class="fab fa-linkedin"></i> Developer</button>
+                        <button class="btn btn-secondary" onclick="if(confirm('Clear all local data?')) { localStorage.clear(); location.reload(); }"><i class="fas fa-trash"></i> Reset</button>
+                        <button class="btn btn-secondary" onclick="window.location.href='mailto:support@achievemate.com'"><i class="fas fa-bug"></i> Report</button>
+                        <button class="btn btn-secondary" onclick="window.open('https://www.linkedin.com/in/deepak-kumar-jha-390694281/', '_blank')"><i class="fab fa-linkedin"></i> Dev</button>
                         <button id="installAppBtnMobile" class="btn btn-primary" style="display:none; background: linear-gradient(45deg, var(--primary), #818cf8);" onclick="installApp()"><i class="fas fa-download"></i> Install App</button>
                         <button class="btn btn-danger" id="logoutBtn" style="display:none;" onclick="window.logoutUser()">Logout</button>
                     </div>
@@ -796,8 +812,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // PERSISTENCE: SIMPLIFIED FOR MOBILE
-        // Try browser persistence but don't block the app loading if it fails
+        // PERSISTENCE
         setPersistence(auth, browserLocalPersistence).catch((error) => {
             console.warn("Persistence error:", error);
         });
@@ -812,23 +827,18 @@
             setTimeout(() => { toast.style.animation = 'fadeOut 0.3s forwards'; setTimeout(() => toast.remove(), 300); }, 4000);
         }
 
-        // --- FIXED LOGIN LOGIC FOR MOBILE ---
         window.handleAuth = async (e) => {
             if(e) e.preventDefault();
-            
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-password').value;
             const isSignup = document.getElementById('tab-signup').classList.contains('active');
             const btn = document.getElementById('auth-btn');
-            
             const originalText = isSignup ? "Create Account" : "Login";
             
-            // 1. UI FEEDBACK
             btn.textContent = "Processing...";
             btn.disabled = true;
             btn.style.opacity = "0.7";
 
-            // 2. SAFETY TIMEOUT (15 seconds)
             const safetyTimeout = setTimeout(() => {
                 if(btn.disabled) {
                     btn.textContent = originalText;
@@ -846,9 +856,7 @@
                     window.showToast("Account created! Please verify email.", "success");
                     window.toggleAuthMode('login');
                 } else {
-                    // Standard login
                     await signInWithEmailAndPassword(auth, email, pass);
-                    // Success handled by onAuthStateChanged
                 }
             } catch (err) {
                 console.error("Auth Error:", err);
@@ -858,7 +866,6 @@
                 else if(err.code === 'auth/weak-password') msg = "Password too weak (min 6 chars).";
                 else if(err.code === 'auth/invalid-email') msg = "Invalid email address.";
                 else if(err.code === 'auth/network-request-failed') msg = "Network error. Check connection.";
-                else if(err.code === 'auth/too-many-requests') msg = "Too many attempts. Try later.";
                 window.showToast(msg, "error");
             } finally {
                 clearTimeout(safetyTimeout);
@@ -884,7 +891,6 @@
                     return;
                 }
                 document.getElementById('auth-overlay').classList.remove('active');
-                // REMOVED: window.showToast("Welcome back!", "success");
                 updateUserUI(user);
                 loadDataFromCloud(user.uid);
             } else {
@@ -928,7 +934,6 @@
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     window.appData = docSnap.data();
-                    // Ensure new fields exist
                     if(!window.appData.xp) window.appData.xp = 0;
                     if(!window.appData.level) window.appData.level = 1;
                     if(window.refreshUI) window.refreshUI();
@@ -958,43 +963,26 @@
         /* --- INSTALL APP LOGIC (PWA) --- */
         let deferredPrompt;
         const installBanner = document.getElementById('installAppBanner');
-
-        // 1. Detect if running on iOS
-        const isIos = () => {
-            const userAgent = window.navigator.userAgent.toLowerCase();
-            return /iphone|ipad|ipod/.test(userAgent);
-        }
-        // 2. Detect if already in standalone mode (installed)
+        const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
         const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-        // 3. Logic for Android/PC Install
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // SHOW THE BANNER (Mobile Dashboard Footer)
             if(window.innerWidth <= 768) {
                 installBanner.style.display = 'flex';
             }
         });
 
-        // 4. Handle Install Click
         window.installApp = async () => {
-            // Try Native Prompt first
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 deferredPrompt = null;
-                if(outcome === 'accepted') {
-                    installBanner.style.display = 'none';
-                }
+                if(outcome === 'accepted') installBanner.style.display = 'none';
             } else {
-                // Fallback: Show manual guide based on device
-                if(isIos()) {
-                    document.getElementById('ios-install-guide').style.display = 'block';
-                } else {
-                    // For Android Chrome without native prompt support in this context
-                    document.getElementById('android-manual-guide').style.display = 'block';
-                }
+                if(isIos()) document.getElementById('ios-install-guide').style.display = 'block';
+                else document.getElementById('android-manual-guide').style.display = 'block';
             }
         }
         
@@ -1003,16 +991,8 @@
             installBanner.style.display = 'none';
         }
         
-        window.addEventListener('appinstalled', () => {
-            installBanner.style.display = 'none';
-            console.log('App installed');
-        });
-
-        // 5. Logic for iOS Instructions (Auto show if not installed)
         if (isIos() && !isInStandaloneMode()) {
-            setTimeout(() => {
-                document.getElementById('ios-install-guide').style.display = 'block';
-            }, 2000);
+            setTimeout(() => document.getElementById('ios-install-guide').style.display = 'block', 2000);
         }
 
         window.togglePasswordVisibility = function() {
@@ -1028,11 +1008,7 @@
             if(!window.appData.xp) window.appData.xp = 0;
             if(!window.appData.level) window.appData.level = 1;
             
-            // Only show guide if new user AND explicitly requested (not just on load)
-            // We handle the "Get Started" logic manually now.
-            if(window.appData.isNewUser) {
-                 document.getElementById('welcome-overlay').classList.add('active');
-            }
+            if(window.appData.isNewUser) document.getElementById('welcome-overlay').classList.add('active');
             
             updateGreeting();
             refreshUI();
@@ -1062,12 +1038,10 @@
             if(window.saveCloudData) window.saveCloudData();
         }
 
-        // XP LOGIC & ANIMATION (FIXED)
         function addXP(amount) {
             window.appData.xp += amount;
-            if (window.appData.xp < 0) window.appData.xp = 0; // Prevent negative XP
+            if (window.appData.xp < 0) window.appData.xp = 0;
             
-            // Only show floating animation if XP is POSITIVE
             if (amount > 0) {
                 const float = document.createElement('div');
                 float.className = 'floating-xp';
@@ -1078,7 +1052,6 @@
                 document.body.appendChild(float);
                 setTimeout(() => float.remove(), 1500);
 
-                // Level Up Logic (Only check on gain)
                 const newLevel = Math.floor(window.appData.xp / 500) + 1;
                 if(newLevel > window.appData.level) {
                     window.appData.level = newLevel;
@@ -1086,11 +1059,8 @@
                     triggerConfetti();
                 }
             } else {
-                // If XP drops significantly, adjust level down silently
                 const currentLevel = Math.floor(window.appData.xp / 500) + 1;
-                if(currentLevel < window.appData.level) {
-                    window.appData.level = currentLevel;
-                }
+                if(currentLevel < window.appData.level) window.appData.level = currentLevel;
             }
             updateXP();
             window.saveData();
@@ -1104,7 +1074,6 @@
             const progress = ((xp - currentLevelStart) / 500) * 100;
             const clampedProgress = Math.max(0, Math.min(100, progress));
 
-            // Update Visuals (Profile Circle)
             const titleEl = document.getElementById('levelTitle');
             if(titleEl) titleEl.textContent = level;
             
@@ -1114,17 +1083,13 @@
             const nextEl = document.getElementById('xpToNext');
             if(nextEl) nextEl.textContent = `${nextLevelXP - xp} XP to Level ${level + 1}`;
 
-            // Profile Circle Stroke Animation
             const circleFg = document.getElementById('levelCircleFg');
             if(circleFg) {
-                // 314 is roughly 2*PI*r (where r=50)
-                // Dashoffset = Circumference - (Circumference * percentage / 100)
-                const offset = 283 - (283 * clampedProgress / 100); // r=45 => circ approx 283
+                const offset = 283 - (283 * clampedProgress / 100); 
                 circleFg.style.strokeDasharray = '283';
                 circleFg.style.strokeDashoffset = offset;
             }
 
-            // Dashboard Mini Bar
             const dashLevelEl = document.getElementById('dashboardLevelDisplay');
             if(dashLevelEl) dashLevelEl.textContent = level;
             const dashXpEl = document.getElementById('dashboardXPDisplay');
@@ -1161,7 +1126,6 @@
             if(mobNav) mobNav.classList.add('active');
         }
 
-        // --- TAB SWITCHING LOGIC FOR AUTH ---
         window.toggleAuthMode = function(mode) {
             document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
             document.getElementById('tab-' + mode).classList.add('active');
@@ -1202,19 +1166,15 @@
             const g = window.appData.dailyGoals.find(x => x.id === id);
             if(g) {
                 g.done = !g.done;
-                const xpAmount = 20; // FIXED XP FOR GOALS
-
+                const xpAmount = 20;
                 if(g.done) { 
                     triggerConfetti(); 
                     updateStreak();
                     addXP(xpAmount); 
                     logActivity('Goal', g.text, xpAmount);
                 } else {
-                    // DEDUCT XP if unchecked
                     addXP(-xpAmount);
-                    // Don't log unchecking to keep log clean
                 }
-                
                 window.saveData();
                 window.refreshUI(); 
             }
@@ -1298,7 +1258,6 @@
         }
         window.closeModal = function(id) { document.getElementById(id).classList.remove('active'); }
 
-        // FIXED: SCROLL JUMP ISSUE
         window.toggleVideo = function(plId, vId, event) {
             const pl = window.appData.playlists.find(p=>p.id===plId);
             const v = pl.videos.find(x=>x.id===vId);
@@ -1316,14 +1275,12 @@
             
             window.saveData();
             
-            // DOM UPDATE ONLY - PREVENTS SCROLL JUMP
             const btn = event ? event.currentTarget : null;
             if(btn) {
                 if(v.done) btn.classList.add('checked'); else btn.classList.remove('checked');
                 const checkIcon = btn.querySelector('.priority-checkbox');
                 if(checkIcon) checkIcon.innerHTML = v.done ? '<i class="fas fa-check"></i>' : '';
                 
-                // Update progress bar locally
                 const card = btn.closest('.course-card');
                 if(card) {
                     const doneCount = pl.videos.filter(v=>v.done).length;
@@ -1377,7 +1334,6 @@
             renderPlaylists();
         }
 
-        // Accordion Toggling Logic
         window.toggleAccordion = function(id) {
             openPlaylistId = openPlaylistId === id ? null : id;
             renderPlaylists();
@@ -1390,7 +1346,6 @@
             let totalV=0, doneV=0;
             let filteredList = window.appData.playlists;
             
-            // SEARCH FILTER
             const searchTerm = document.getElementById('courseSearch')?.value.toLowerCase() || '';
             if(searchTerm) {
                 filteredList = filteredList.filter(p => p.name.toLowerCase().includes(searchTerm));
@@ -1410,7 +1365,6 @@
                 const total = pl.videos.length;
                 const pct = total ? Math.round((done/total)*100) : 0;
                 const linkBtn = pl.link ? `<a href="${pl.link}" target="_blank" class="course-edit-btn btn-link-external" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>` : '';
-                
                 const isOpen = pl.id === openPlaylistId ? 'open' : '';
 
                 div.innerHTML += `
@@ -1555,15 +1509,10 @@
             });
 
             let html = '';
-            // Display Goals with XP (FIXED: Removed XP pill visual)
             if(goals.length) html += `<div class="activity-group type-goal"><div class="group-header">Goals (${goals.length})</div><div class="group-items show">${goals.map(g=>`<div>${g.title}</div>`).join('')}</div></div>`;
-            
-            // Display Studies with XP (FIXED: Removed XP pill visual)
             for (const [course, items] of Object.entries(studyGroups)) {
                 html += `<div class="activity-group type-study"><div class="group-header">${course} (${items.length})</div><div class="group-items show">${items.map(t=>`<div>${t.title}</div>`).join('')}</div></div>`;
             }
-            
-            // Display Focus with XP (FIXED: Removed XP pill visual)
             if(focus.length) html += `<div class="activity-group"><div class="group-header">Focus (${focus.length})</div><div class="group-items show">${focus.map(f=>`<div>${f.title}</div>`).join('')}</div></div>`;
             
             div.innerHTML = html;
@@ -1596,7 +1545,6 @@
                     triggerConfetti();
                     window.appData.totalFocusTime = (window.appData.totalFocusTime||0) + mins;
                     
-                    // FIXED XP FOR FOCUS (5 XP per minute)
                     const xpAmount = mins * 5;
                     addXP(xpAmount); 
                     
